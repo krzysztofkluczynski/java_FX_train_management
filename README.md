@@ -14,6 +14,7 @@ Zespół 13:
   > - edycję danych pasażera
   > - anulowanie przejazdów
   > - umożliwienie przesiadek
+  
   Aplikacja umożliwi użytkownikom również zalogowanie się do systemu oraz zobaczenie dokładnych szczegółów przejazdów.
 
 3. Dane pasażerów oraz informacje o przejazdach będą przechowywane w bazie danych.
