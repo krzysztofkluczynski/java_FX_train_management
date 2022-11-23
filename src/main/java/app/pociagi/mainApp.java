@@ -11,11 +11,11 @@ import java.io.IOException;
 
 public class mainApp extends Application {
 
-    private Stage stg;
+//    private Stage stg;
 
     @Override
     public void start(Stage stage) throws IOException {
-        stg = stage;
+//        stg = stage;
         Parent root = FXMLLoader.load(getClass().getResource("main_menu.fxml"));
 
         stage.setTitle("Hello!");
@@ -24,10 +24,10 @@ public class mainApp extends Application {
         stage.show();
     }
 
-    public void changeScene(String fxml) throws IOException {
-        Parent pane = FXMLLoader.load(getClass().getResource(fxml));
-        stg.getScene().setRoot(pane);
-    }
+//    public void changeScene(String fxml) throws IOException {
+//        Parent pane = FXMLLoader.load(getClass().getResource(fxml));
+//        stg.getScene().setRoot(pane);
+//    }
 
     public static void main(String[] args) {
         launch();
