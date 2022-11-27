@@ -7,9 +7,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 //import javafx.scene.control.Label;
 
 public class menuController {
@@ -20,6 +24,7 @@ public class menuController {
 
     @FXML
     private Button logMenuButton;
+    public AutoCompleteTextField fromText;
 
     @FXML
     public void userWantToLogIn(ActionEvent event) throws IOException {
@@ -29,9 +34,16 @@ public class menuController {
         stage.setScene(scene);
         stage.show();
     }
-
+    @FXML
     public void onHelloButtonClick(ActionEvent event) {
         System.out.println("wyszukiwarka polaczen");
     }
-
+    public void onKeyTyped(KeyEvent event) {
+        DatabaseHandler handler = DatabaseHandler.getInstance();
+        String sql = "SELECT * FROM STATIONS";
+        ResultSet rs = handler.executeQuery(sql);
+        ArrayList<String> arr = handler.returnDataArray(rs, 2);
+        AutoCompleteTextField field = (AutoCompleteTextField) event.getSource();
+        field.getEntries().addAll(arr);
+    }
 }
