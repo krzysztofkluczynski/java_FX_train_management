@@ -62,7 +62,7 @@
                   <Font name="Leelawadee Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="goBackButton" layoutX="22.0" layoutY="312.0" mnemonicParsing="false" onAction="#goBackButtonPushed" prefHeight="25.0" prefWidth="63.0" style="-fx-background-color: ECDE0C;" text="Go back" />
+            <Button fx:id="goBackButton" layoutX="22.0" layoutY="312.0" mnemonicParsing="false" onAction="#goBackButtonPushed" prefHeight="25.0" prefWidth="63.0" text="Go back" />
             <Label fx:id="errorLoginLabel" layoutX="122.0" layoutY="20.0" prefHeight="39.0" prefWidth="224.0" />
          </children>
       </AnchorPane>

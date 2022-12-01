@@ -67,19 +67,21 @@ public class LoginController {
           }
 
           public void goBackButtonPushed(ActionEvent event) throws IOException {
-              Parent root = FXMLLoader.load(getClass().getResource("main_menu.fxml"));
-              stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-              scene = new Scene(root);
-              stage.setScene(scene);
-              stage.show();
+                SceneChanger.changeScene(event, "main_menu.fxml");
+//              Parent root = FXMLLoader.load(getClass().getResource("main_menu.fxml"));
+//              stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+//              scene = new Scene(root);
+//              stage.setScene(scene);
+//              stage.show();
           }
 
           public void registerButtonPushed(ActionEvent event) throws IOException {
-              Parent root = FXMLLoader.load(getClass().getResource("registration_menu.fxml"));
-              stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-              scene = new Scene(root);
-              stage.setScene(scene);
-              stage.show();
+              SceneChanger.changeScene(event, "registration_menu.fxml");
+//              Parent root = FXMLLoader.load(getClass().getResource("registration_menu.fxml"));
+//              stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+//              scene = new Scene(root);
+//              stage.setScene(scene);
+//              stage.show();
           }
 
 }
