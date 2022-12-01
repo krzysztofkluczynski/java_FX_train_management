@@ -11,10 +11,9 @@ import java.sql.ResultSet;
 
 public class mainApp extends Application {
 
-//    private Stage stg;
+
     @Override
     public void start(Stage stage) throws IOException {
-//        stg = stage;
         Parent root = FXMLLoader.load(getClass().getResource("main_menu.fxml"));
         stage.setTitle("Hello!");
         stage.setResizable(false); //jesli zaczniemy rozciagac okno to bedzie brzydkie, do poprawy
@@ -22,12 +21,8 @@ public class mainApp extends Application {
         stage.show();
     }
 
-//    public void changeScene(String fxml) throws IOException {
-//        Parent pane = FXMLLoader.load(getClass().getResource(fxml));
-//        stg.getScene().setRoot(pane);
-//    }
-
     public static void main(String[] args) {
+        boolean if_user_logged = false;
         DatabaseHandler handler = DatabaseHandler.getInstance();
         String sql = "SELECT * FROM STATIONS";
         ResultSet rs = handler.executeQuery(sql);
