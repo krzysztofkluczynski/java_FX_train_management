@@ -14,6 +14,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class LoginController {
 
@@ -40,15 +42,26 @@ public class LoginController {
 
           public void checkLogin() throws IOException {
               mainApp m = new mainApp();
-              if(username.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
+              String typed_login = username.getText().toString();
+              String typed_password = password.getText().toString();
+              DatabaseHandler handle = DatabaseHandler.getInstance();
+              String sql_query = String.format("SELECT PASSWORD FROM USERS WHERE LOGIN = '%s'", typed_login);
+              ResultSet rs = handle.executeQuery(sql_query);
+              ArrayList<String> arr = handle.returnDataArray(rs, 1);
+              if(typed_login.isEmpty() || typed_password.isEmpty()) {
+                  wrongLogin.setTextFill(Color.RED);
+                  wrongLogin.setText("You need to enter password and login!");
+              }
+              else if(arr.isEmpty()) {
+                  wrongLogin.setTextFill(Color.RED);
+                  wrongLogin.setText("There is no such user");
+              }
+              else if(typed_password.equals(arr.get(0))) {
                   wrongLogin.setTextFill(Color.GREEN);
                   wrongLogin.setText("Sucess!");
-
-              } else if(username.getText().toString().isEmpty() || password.getText().toString().isEmpty()) {
-                  wrongLogin.setText("You need to enter login and password!");
-
               } else {
-                  wrongLogin.setText("wrong username or password!");
+                  wrongLogin.setTextFill(Color.RED);
+                  wrongLogin.setText("wrong password!");
               }
 
           }

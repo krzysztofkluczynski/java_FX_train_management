@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class DatabaseHandler {
     private static DatabaseHandler handler = null;
     private static final String dbURL = "jdbc:oracle:thin:@//ora4.ii.pw.edu.pl:1521/pdb1.ii.pw.edu.pl";
-    private static final String username = "rbudnik";
-    private static final String password = "rbudnik";
+    private static final String username = "z13";
+    private static final String password = "5ar7y9";
     public static Connection con = null;
     public static Statement stmt = null;
 

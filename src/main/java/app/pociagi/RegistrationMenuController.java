@@ -13,6 +13,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class RegistrationMenuController {
     private Stage stage;
@@ -29,9 +32,20 @@ public class RegistrationMenuController {
         @FXML
         private Label errorLoginLabel;
 
-        public void createAccountButtonPushed(ActionEvent e) throws IOException {
+        public void createAccountButtonPushed(ActionEvent e) throws IOException, InterruptedException {
             boolean validate = checkData();
             if(validate) {
+                String login = loginField.getText().toString();
+                String password = passwordFirstField.getText().toString();
+                String name = nameField.getText().toString();
+                String surname = surnameField.getText().toString();
+                DatabaseHandler handler = DatabaseHandler.getInstance();
+                String sql = String.format("INSERT INTO USERS (LOGIN, PASSWORD, NAME, SURNAME) VALUES ('%s','%s','%s','%s')", login, password, name, surname);
+                handler.executeQuery(sql);
+                handler.executeQuery("commit");
+//                errorLoginLabel.setTextFill(Color.GREEN);
+//                errorLoginLabel.setText("you have succesfully created account");
+                TimeUnit.SECONDS.sleep(1);
                 Parent root = FXMLLoader.load(getClass().getResource("login_menu.fxml"));
                 stage = (Stage)((Node)e.getSource()).getScene().getWindow();
                 scene = new Scene(root);
@@ -53,8 +67,28 @@ public class RegistrationMenuController {
             stage.show();
         }
 
-        private boolean checkData() {
-            return false;
+        private boolean checkData() {       //tutaj mozna tez dostosowac co sie dzieje w okienku
+            if(loginField.getText().toString().isEmpty() || //jakies basic warunki
+                    nameField.getText().toString().isEmpty() ||
+                    surnameField.getText().toString().isEmpty() ||
+                    emailField.getText().toString().isEmpty() ||
+                    emailField.getText().toString().isEmpty() ||
+                    passwordFirstField.getText().toString().isEmpty() ||
+                    passwordSecondField.getText().toString().isEmpty()) {
+                return false;
+//            } else if(nameField.getText().toString().matches("[a-zA-Z]+") &&
+//                    surnameField.getText().toString().matches("[a-zA-Z]+")) {
+//                return false;
+//            } else if(loginField.getText().toString().matches(".*\\s.*") && //login i haslo bez bialych znakow, regex to sprawdza
+//                    passwordFirstField.getText().toString().matches(".*\\s.*") &&
+//                    passwordSecondField.getText().toString().matches(".*\\s.*") &&
+//                    emailField.getText().toString().matches(".*\\s.*")) {
+//                return false;
+            } else if(!passwordSecondField.getText().toString().equals(passwordSecondField.getText().toString())) {
+                    return false;
+            } else  {
+                return true;
+            }
         }
 
 }

@@ -38,7 +38,10 @@
             <TextField fx:id="username" layoutX="47.0" layoutY="175.0" prefHeight="25.0" prefWidth="191.0" promptText="login" />
             <PasswordField fx:id="password" layoutX="48.0" layoutY="252.0" prefHeight="25.0" prefWidth="194.0" promptText="password" />
             <Button fx:id="logInButton" layoutX="192.0" layoutY="307.0" mnemonicParsing="false" onAction="#UserLogIn" style="-fx-background-color: #FFFF00;" text="Log In" />
-            <Label fx:id="wrongLogin" layoutX="48.0" layoutY="103.0" prefHeight="49.0" prefWidth="155.0" textFill="RED" />
+            <Label fx:id="wrongLogin" layoutX="10.0" layoutY="103.0" prefHeight="49.0" prefWidth="387.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font></Label>
             <Button fx:id="goBackButton" layoutX="47.0" layoutY="307.0" mnemonicParsing="false" onAction="#goBackButtonPushed" text="Go back" />
             <Button fx:id="registerButton" layoutX="203.0" layoutY="38.0" mnemonicParsing="false" onAction="#registerButtonPushed" prefHeight="30.0" prefWidth="162.0" style="-fx-background-color: #FFFF00;" text="REGISTER" />
          </children>
