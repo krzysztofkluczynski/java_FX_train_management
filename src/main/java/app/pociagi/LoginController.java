@@ -19,9 +19,6 @@ import java.util.ArrayList;
 
 public class LoginController {
 
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
     public LoginController() {
     }
           @FXML
