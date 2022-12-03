@@ -53,6 +53,16 @@ public class DatabaseHandler {
         }
         return null;
     }
+
+    public void insertData(String sql) {
+        try {
+            stmt.executeUpdate(sql);
+        }
+        catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+        }
+    }
+
     public void printData(ResultSet rs) {
         try {
             while (rs.next()) {
