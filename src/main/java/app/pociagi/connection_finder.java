@@ -35,7 +35,12 @@ public class connection_finder {
         catch (SQLException e) {
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
         }
-
         return arr;
     }
+
+    public static void main(String[] args) {
+        ArrayList<ArrayList<Integer>> result = find("Kalisz", "Sieradz");
+
+    }
+
 }

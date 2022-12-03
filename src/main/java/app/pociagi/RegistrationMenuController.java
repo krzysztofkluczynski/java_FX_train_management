@@ -18,9 +18,6 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class RegistrationMenuController {
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
 
     public RegistrationMenuController() {}
         @FXML
@@ -43,8 +40,8 @@ public class RegistrationMenuController {
                 String sql = String.format("INSERT INTO USERS (LOGIN, PASSWORD, NAME, SURNAME) VALUES ('%s','%s','%s','%s')", login, password, name, surname);
                 handler.executeQuery(sql);
                 handler.executeQuery("commit");
-//                errorLoginLabel.setTextFill(Color.GREEN);
-//                errorLoginLabel.setText("you have succesfully created account");
+                errorLoginLabel.setTextFill(Color.GREEN);
+                errorLoginLabel.setText("you have succesfully created account");
                 TimeUnit.SECONDS.sleep(1);
                 SceneChanger.changeScene(e, "login_menu.fxml");
             } else {

@@ -17,13 +17,16 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 public class LoginController {
 
     public LoginController() {
     }
+        UserSingleton user = UserSingleton.getInstance();
           @FXML
           private Button logInButton, goBackButton;
 
@@ -36,8 +39,38 @@ public class LoginController {
           @FXML
           private PasswordField password;
 
-          public void UserLogIn(ActionEvent event) throws IOException {
+          public void UserLogIn(ActionEvent event) throws IOException, InterruptedException, SQLException {
               checkLogin();
+              TimeUnit.SECONDS.sleep(1);
+              DatabaseHandler handle = DatabaseHandler.getInstance();
+              String sql_query = String.format("SELECT USER_ID FROM USERS WHERE LOGIN = '%s'", username.getText().toString());
+              ResultSet rs = handle.executeQuery(sql_query);
+              ArrayList<String> arr = handle.returnDataArray(rs, 1);
+              String userID = arr.get(0);
+
+
+              sql_query = String.format("SELECT LOGIN FROM USERS WHERE LOGIN = '%s'", username.getText().toString());
+              rs = handle.executeQuery(sql_query);
+              arr = handle.returnDataArray(rs, 1);
+              String login = arr.get(0);
+
+              sql_query = String.format("SELECT PASSWORD FROM USERS WHERE LOGIN = '%s'", username.getText().toString());
+              rs = handle.executeQuery(sql_query);
+              arr = handle.returnDataArray(rs, 1);
+              String password = arr.get(0);
+
+              sql_query = String.format("SELECT NAME FROM USERS WHERE LOGIN = '%s'", username.getText().toString());
+              rs = handle.executeQuery(sql_query);
+              arr = handle.returnDataArray(rs, 1);
+              String name = arr.get(0);
+
+              sql_query = String.format("SELECT SURNAME FROM USERS WHERE LOGIN = '%s'", username.getText().toString());
+              rs = handle.executeQuery(sql_query);
+              arr = handle.returnDataArray(rs, 1);
+              String surname = arr.get(0);
+
+              user.setUser(new User(userID, login, password, name, surname));
+              SceneChanger.changeScene(event, "main_menuv2.fxml");
           }
 
           public void checkLogin() throws IOException {
@@ -72,11 +105,6 @@ public class LoginController {
 
           public void registerButtonPushed(ActionEvent event) throws IOException {
               SceneChanger.changeScene(event, "registration_menu.fxml");
-//              Parent root = FXMLLoader.load(getClass().getResource("registration_menu.fxml"));
-//              stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-//              scene = new Scene(root);
-//              stage.setScene(scene);
-//              stage.show();
           }
 
 

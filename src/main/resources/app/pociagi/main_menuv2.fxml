@@ -11,7 +11,7 @@
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: D3D3D3;">
          <children>
-            <Label layoutY="-4.0" prefHeight="103.0" prefWidth="193.0" text="HELLO!">
+            <Label fx:id="helloLabel" layoutY="-4.0" prefHeight="103.0" prefWidth="193.0" text="HELLO!">
                <font>
                   <Font name="System Bold Italic" size="25.0" />
                </font>
@@ -31,9 +31,9 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField layoutX="204.0" layoutY="68.0" prefHeight="25.0" prefWidth="225.0" promptText="from where?" />
-            <TextField layoutX="204.0" layoutY="129.0" prefHeight="25.0" prefWidth="225.0" promptText="where?" />
-            <Button fx:id="findConnectionButton" layoutX="197.0" layoutY="202.0" mnemonicParsing="false" onAction="#findConnectionButtonPushed" prefHeight="46.0" prefWidth="239.0" style="-fx-background-color: #0096FF;" text="find connection" textFill="WHITE" />
+            <TextField fx:id="fromWhereTextField" layoutX="204.0" layoutY="68.0" prefHeight="25.0" prefWidth="225.0" promptText="from where?" />
+            <TextField fx:id="ToWhereTextField" layoutX="204.0" layoutY="129.0" prefHeight="25.0" prefWidth="225.0" promptText="where?" />
+            <Button fx:id="findConnectionButton" layoutX="197.0" layoutY="202.0" mnemonicParsing="false" onAction="#findConnectionButtonPushed" prefHeight="46.0" prefWidth="239.0" style="-fx-background-color: #0096FF;" text="FIND CONNECTION" textFill="WHITE" />
          </children>
       </AnchorPane>
    </children>
