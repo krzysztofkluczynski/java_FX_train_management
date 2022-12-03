@@ -14,10 +14,10 @@ public class mainApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("main_menu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("main_menuv2.fxml"));
         stage.setTitle("Hello!");
         stage.setResizable(false); //jesli zaczniemy rozciagac okno to bedzie brzydkie, do poprawy
-        stage.setScene(new Scene(root, 320, 240));
+        stage.setScene(new Scene(root));
         stage.show();
     }
 

@@ -47,11 +47,6 @@ public class RegistrationMenuController {
 //                errorLoginLabel.setText("you have succesfully created account");
                 TimeUnit.SECONDS.sleep(1);
                 SceneChanger.changeScene(e, "login_menu.fxml");
-//                Parent root = FXMLLoader.load(getClass().getResource("login_menu.fxml"));
-//                stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-//                scene = new Scene(root);
-//                stage.setScene(scene);
-//                stage.show();
             } else {
                 errorLoginLabel.setTextFill(Color.RED);
                 errorLoginLabel.setText("Unable to create account");
@@ -62,11 +57,6 @@ public class RegistrationMenuController {
 
         public void goBackButtonPushed(ActionEvent e) throws IOException{
             SceneChanger.changeScene(e, "login_menu.fxml");
-//            Parent root = FXMLLoader.load(getClass().getResource("login_menu.fxml"));
-//            stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-//            scene = new Scene(root);
-//            stage.setScene(scene);
-//            stage.show();
         }
 
         private boolean checkData() {       //tutaj mozna tez dostosowac co sie dzieje w okienku

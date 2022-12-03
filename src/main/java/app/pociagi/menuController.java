@@ -20,24 +20,22 @@ public class menuController {
     private Stage stage;
     private Scene scene;
     private Parent root;
-
+    //
 
     @FXML
-    private Button logMenuButton;
+    private Button logInButton, findConnectionButton;
     public AutoCompleteTextField fromText;
 
+
     @FXML
-    public void userWantToLogIn(ActionEvent event) throws IOException {
+    public void logInButtonPushed(ActionEvent event) {
         SceneChanger.changeScene(event, "login_menu.fxml");
-//        Parent root = FXMLLoader.load(getClass().getResource("login_menu.fxml"));
-//        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-//        scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
     }
     @FXML
-    public void onHelloButtonClick(ActionEvent event) {
-        System.out.println("wyszukiwarka polaczen");
+    public void findConnectionButtonPushed(ActionEvent event)
+    {
+        SceneChanger.changeScene(event,"available_rides.fxml" );
+        //wywolujemy settery dla klasy ride?
     }
     public void onKeyTyped(KeyEvent event) {
         DatabaseHandler handler = DatabaseHandler.getInstance();
