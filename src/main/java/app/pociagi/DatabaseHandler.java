@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class DatabaseHandler {
     private static DatabaseHandler handler = null;
     private static final String dbURL = "jdbc:oracle:thin:@//ora4.ii.pw.edu.pl:1521/pdb1.ii.pw.edu.pl";
-    private static final String username = "rbudnik";
-    private static final String password = "rbudnik";
+    private static final String username = "z13";
+    private static final String password = "5ar7y9";
     public static Connection con = null;
     public static Statement stmt = null;
 
@@ -53,6 +53,16 @@ public class DatabaseHandler {
         }
         return null;
     }
+
+    public void insertData(String sql) {
+        try {
+            stmt.executeUpdate(sql);
+        }
+        catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+        }
+    }
+
     public void printData(ResultSet rs) {
         try {
             while (rs.next()) {
