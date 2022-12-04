@@ -31,7 +31,7 @@ public class LoginController {
           private Button logInButton, goBackButton;
 
           @FXML
-          private Label wrongLogin;
+          private Label wrongLogin, wrongLogin2;
 
           @FXML
           private TextField username;
@@ -40,40 +40,46 @@ public class LoginController {
           private PasswordField password;
 
           public void UserLogIn(ActionEvent event) throws IOException, InterruptedException, SQLException {
-              checkLogin();
-              TimeUnit.SECONDS.sleep(1);
-              DatabaseHandler handle = DatabaseHandler.getInstance();
-              String sql_query = String.format("SELECT USER_ID FROM USERS WHERE LOGIN = '%s'", username.getText().toString());
-              ResultSet rs = handle.executeQuery(sql_query);
-              ArrayList<String> arr = handle.returnDataArray(rs, 1);
-              String userID = arr.get(0);
+              // to lepiej by sie przydalo zrobic
+              if(checkLogin()) {
+                  TimeUnit.SECONDS.sleep(1);
+                  DatabaseHandler handle = DatabaseHandler.getInstance();
+                  String sql_query = String.format("SELECT USER_ID FROM USERS WHERE LOGIN = '%s'", username.getText().toString());
+                  ResultSet rs = handle.executeQuery(sql_query);
+                  ArrayList<String> arr = handle.returnDataArray(rs, 1);
+                  String userID = arr.get(0);
 
 
-              sql_query = String.format("SELECT LOGIN FROM USERS WHERE LOGIN = '%s'", username.getText().toString());
-              rs = handle.executeQuery(sql_query);
-              arr = handle.returnDataArray(rs, 1);
-              String login = arr.get(0);
+                  sql_query = String.format("SELECT LOGIN FROM USERS WHERE LOGIN = '%s'", username.getText().toString());
+                  rs = handle.executeQuery(sql_query);
+                  arr = handle.returnDataArray(rs, 1);
+                  String login = arr.get(0);
 
-              sql_query = String.format("SELECT PASSWORD FROM USERS WHERE LOGIN = '%s'", username.getText().toString());
-              rs = handle.executeQuery(sql_query);
-              arr = handle.returnDataArray(rs, 1);
-              String password = arr.get(0);
+                  sql_query = String.format("SELECT PASSWORD FROM USERS WHERE LOGIN = '%s'", username.getText().toString());
+                  rs = handle.executeQuery(sql_query);
+                  arr = handle.returnDataArray(rs, 1);
+                  String password = arr.get(0);
 
-              sql_query = String.format("SELECT NAME FROM USERS WHERE LOGIN = '%s'", username.getText().toString());
-              rs = handle.executeQuery(sql_query);
-              arr = handle.returnDataArray(rs, 1);
-              String name = arr.get(0);
+                  sql_query = String.format("SELECT NAME FROM USERS WHERE LOGIN = '%s'", username.getText().toString());
+                  rs = handle.executeQuery(sql_query);
+                  arr = handle.returnDataArray(rs, 1);
+                  String name = arr.get(0);
 
-              sql_query = String.format("SELECT SURNAME FROM USERS WHERE LOGIN = '%s'", username.getText().toString());
-              rs = handle.executeQuery(sql_query);
-              arr = handle.returnDataArray(rs, 1);
-              String surname = arr.get(0);
+                  sql_query = String.format("SELECT SURNAME FROM USERS WHERE LOGIN = '%s'", username.getText().toString());
+                  rs = handle.executeQuery(sql_query);
+                  arr = handle.returnDataArray(rs, 1);
+                  String surname = arr.get(0);
 
-              user.setUser(new User(userID, login, password, name, surname));
-              SceneChanger.changeScene(event, "main_menuv2.fxml");
+                  user.setUser(new User(userID, login, password, name, surname));
+                  SceneChanger.changeScene(event, "main_menuv2.fxml");
+              } else {
+                    wrongLogin2.setWrapText(true);
+                    wrongLogin2.setText("Try again!");
+              }
+
           }
 
-          public void checkLogin() throws IOException {
+          public boolean checkLogin() throws IOException {
               mainApp m = new mainApp();
               String typed_login = username.getText().toString();
               String typed_password = password.getText().toString();
@@ -83,18 +89,22 @@ public class LoginController {
               ArrayList<String> arr = handle.returnDataArray(rs, 1);
               if(typed_login.isEmpty() || typed_password.isEmpty()) {
                   wrongLogin.setTextFill(Color.RED);
-                  wrongLogin.setText("You need to enter password and login!");
+                  wrongLogin.setText("You need to enter password and login!, try aga");
+                  return false;
               }
               else if(arr.isEmpty()) {
                   wrongLogin.setTextFill(Color.RED);
                   wrongLogin.setText("There is no such user");
+                  return false;
               }
               else if(typed_password.equals(arr.get(0))) {
                   wrongLogin.setTextFill(Color.GREEN);
                   wrongLogin.setText("Sucess!");
+                  return true;
               } else {
                   wrongLogin.setTextFill(Color.RED);
                   wrongLogin.setText("wrong password!");
+                  return false;
               }
 
           }
