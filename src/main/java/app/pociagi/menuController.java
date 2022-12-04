@@ -27,10 +27,9 @@ public class menuController implements Initializable {
 
     @FXML
     private Button logInButton, findConnectionButton;
-    public AutoCompleteTextField fromText;
 
     @FXML
-    private TextField fromWhereTextField, ToWhereTextField;
+    public AutoCompleteTextField fromWhereTextField, toWhereTextField;
 
     @FXML
     private Label helloLabel;
@@ -50,21 +49,24 @@ public class menuController implements Initializable {
     @FXML
     public void findConnectionButtonPushed(ActionEvent event)
     {
-        ride.setRide(new Ride(fromWhereTextField.getText().toString(), ToWhereTextField.getText().toString()));
+        ride.setRide(new Ride(fromWhereTextField.getText().toString(), toWhereTextField.getText().toString()));
         SceneChanger.changeScene(event,"available_rides.fxml" );
 
     }
     public void onKeyTyped(KeyEvent event) {
-        DatabaseHandler handler = DatabaseHandler.getInstance();
-        String sql = "SELECT * FROM STATIONS";
-        ResultSet rs = handler.executeQuery(sql);
-        ArrayList<String> arr = handler.returnDataArray(rs, 2);
-        AutoCompleteTextField field = (AutoCompleteTextField) event.getSource();
-        field.getEntries().addAll(arr);
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        DatabaseHandler handler = DatabaseHandler.getInstance();
+        String sql = "SELECT * FROM STATIONS";
+        ResultSet rs = handler.executeQuery(sql);
+        ArrayList<String> arr = handler.returnDataArray(rs, 2);
+        System.out.println(arr);
+        AutoCompleteTextField field = new AutoCompleteTextField();
+        fromWhereTextField.getEntries().addAll(arr);
+        toWhereTextField.getEntries().addAll(arr);
         if(ValidateSingletons.checkUser() == false) {
             helloLabel.setText("Hello, unknown!");
             logInButton.setText("LOG IN");

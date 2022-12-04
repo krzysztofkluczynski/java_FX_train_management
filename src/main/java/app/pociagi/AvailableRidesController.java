@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class AvailableRidesController implements Initializable {
     RideSingleton ride = RideSingleton.getInstance();
+    ArrayList<ArrayList<Integer>> aval_conns;
 
     public AvailableRidesController() {}
 
@@ -33,7 +34,9 @@ public class AvailableRidesController implements Initializable {
     }
 
     public void buyTicketButtonPushed(ActionEvent e) {
-        SceneChanger.changeScene(e, "main_menuv2.fxml"); //chwilowo
+        Integer ind = avaibleRidesListView.getSelectionModel().getSelectedIndex();
+        System.out.println(aval_conns.get(ind));
+        SceneChanger.changeScene(e, "buy_ticket.fxml");
     }
 
     @Override
@@ -41,14 +44,15 @@ public class AvailableRidesController implements Initializable {
         errorLabel.setText("");
         String source = ride.getRide().getSource().toString();
         String destination = ride.getRide().getDestination().toString();
-        ArrayList<ArrayList<Integer>> arr = connection_finder.find(source, destination);
-        if (!arr.isEmpty()){
-            for (var int_list : arr) {
+        aval_conns = connection_finder.find(source, destination);
+        if (!aval_conns.isEmpty()){
+            for (var int_list : aval_conns) {
                 int hour_source = int_list.get(1);
-                int minutes_source = int_list.get(1);
-                int hour_distination = int_list.get(1);
-                int minutes_destination = int_list.get(1);
-                String str = String.format("%s, %o:%o --> %s, %o:%o", source, hour_source, minutes_source, destination, hour_distination, minutes_destination);
+                int minutes_source = int_list.get(2);
+                int hour_distination = int_list.get(3);
+                int minutes_destination = int_list.get(4);
+                String str = String.format("%s, %d:%d --> %s, %d:%d", source, hour_source, minutes_source, destination, hour_distination, minutes_destination);
+                System.out.println(str);
                 avaibleRidesListView.getItems().add(str);
             }
         } else  {

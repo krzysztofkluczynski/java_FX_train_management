@@ -40,7 +40,7 @@ public class connection_finder {
 
     public static void main(String[] args) {
         ArrayList<ArrayList<Integer>> result = find("Kalisz", "Sieradz");
-
+        System.out.println(result);
     }
 
 }
