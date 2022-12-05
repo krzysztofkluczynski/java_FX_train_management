@@ -26,46 +26,54 @@ public class BuyTicketController implements Initializable {
     @FXML
     private ListView<String> discountPicker;
 
+    private ObservableList<String> classNames;
+
     @FXML
-    private Label price;
+    private ListView<String> classPicker;
+
+    @FXML
+    private Label price, fromTime, toTime, fromLabel, toLabel;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         rideId = appData.pickedRide.get(0);
-        cost = calculateCost(appData.pickedRide.get(5), 0);
-        price.setText(String.format("%d,%02d zł", cost/100, cost%100));
+        fromTime.setText(String.format("%02d:%02d", appData.pickedRide.get(1),
+                appData.pickedRide.get(2)));
+        toTime.setText(String.format("%02d:%02d", appData.pickedRide.get(3),
+                appData.pickedRide.get(4)));
+        fromLabel.setText(appData.ride.getSource());
+        toLabel.setText(appData.ride.getDestination());
+        initPicker("discounts", discountPicker);
+        initPicker("classes", classPicker);
+        recalculateCost();
+    }
+    private void initPicker(String pickerName, ListView<String> picker) {
         ResultSet rs = handler.executeQuery(String.format(
-                "SELECT * FROM discounts"
+                "SELECT * FROM %s ORDER BY id", pickerName
         ));
-        ArrayList<String> names = handler.returnDataArray(rs, 2);
-        discountNames = FXCollections.observableArrayList(names);
-        discountPicker.setItems(discountNames);
-        discountPicker.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+        picker.setItems(FXCollections.observableArrayList(handler.returnDataArray(rs, 2)));
+        picker.getSelectionModel().selectFirst();
+        picker.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                discountPickChanged();
+                recalculateCost();
             }
         });
     }
-    public static Integer calculateCost(Integer time, Integer discount) {
-        Integer cost = time * 26 * (100 - discount ) / 100;
-        return cost;
-    }
 
-
-    public void discountPickChanged() {
-        System.out.println(                discountPicker.getItems().get(
-                discountPicker.getSelectionModel().getSelectedIndex()));
-        ResultSet rs = handler.executeQuery(String.format(
-                "SELECT value FROM discounts WHERE name = '%s'",
-                discountPicker.getItems().get(
-                        discountPicker.getSelectionModel().getSelectedIndex()
-                )));
-        cost = calculateCost(appData.pickedRide.get(5),
-                Integer.parseInt(handler.returnDataArray(rs, 1).get(0)));
+    public void recalculateCost() {
+        Integer time = appData.pickedRide.get(5);
+        Integer discount = getValue("discounts", discountPicker);
+        Integer classCoef = getValue("classes", classPicker);
+        Integer cost = time * 26 * (100 - discount ) / 100 * classCoef;
         price.setText(String.format("%d,%02d zł", cost/100, cost%100));
     }
 
-    public static void main (String[] args) {
-        System.out.println(calculateCost(145, 51));
+    private Integer getValue(String pickerName, ListView<String> picker) {
+        ResultSet rs = handler.executeQuery(String.format(
+                "SELECT * FROM %s WHERE name = '%s'", pickerName,
+                picker.getItems().get(
+                        picker.getSelectionModel().getSelectedIndex()
+                )));
+        return Integer.parseInt(handler.returnDataArray(rs, 3).get(0));
     }
 }
