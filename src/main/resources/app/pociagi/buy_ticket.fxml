@@ -42,8 +42,8 @@
                   <Font name="Yu Gothic Medium" size="16.0" />
                </font>
             </Label>
-            <Button layoutX="239.0" style="-fx-background-color: #0096FF;" textFill="WHITE" layoutY="148.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" text="Pick Seat" />
-            <Label layoutX="385.0" layoutY="148.0" prefHeight="26.0" prefWidth="118.0" text="Car: 12 Seat: 56">
+            <Button layoutX="239.0" onAction="#pickSeatPressed" style="-fx-background-color: #0096FF;" textFill="WHITE" layoutY="148.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="139.0" text="Pick Seat" />
+            <Label layoutX="385.0" fx:id="seatPicked" layoutY="148.0" prefHeight="26.0" prefWidth="118.0" text="Car: 12 Seat: 56">
                <font>
                   <Font size="14.0" />
                </font>

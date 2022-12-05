@@ -34,10 +34,9 @@ public class BuyTicketController implements Initializable {
     private ListView<String> classPicker;
 
     @FXML
-    private Label price, fromTime, toTime, fromLabel, toLabel;
+    private Label price, fromTime, toTime, fromLabel, toLabel, seatPicked;
     @FXML
     private Button goBack;
-    @Override
     public void initialize(URL url, ResourceBundle rb) {
         rideId = appData.pickedRide.get(0);
         fromTime.setText(String.format("%02d:%02d", appData.pickedRide.get(1),
@@ -46,6 +45,9 @@ public class BuyTicketController implements Initializable {
                 appData.pickedRide.get(4)));
         fromLabel.setText(appData.ride.getSource());
         toLabel.setText(appData.ride.getDestination());
+        seatPicked.setText(String.format("Car: %d, Seat: %d",
+                appData.buyTicketData.get("Car"),
+                appData.buyTicketData.get("Seat")));
         initPicker("discounts", discountPicker);
         initPicker("classes", classPicker);
         recalculateCost();
@@ -55,7 +57,11 @@ public class BuyTicketController implements Initializable {
                 "SELECT * FROM %s ORDER BY id", pickerName
         ));
         picker.setItems(FXCollections.observableArrayList(handler.returnDataArray(rs, 2)));
-        picker.getSelectionModel().selectFirst();
+        if (appData.buyTicketData.get(pickerName) == null) {
+            picker.getSelectionModel().select(0);
+        } else picker.getSelectionModel().select(appData.buyTicketData.get(pickerName));
+        System.out.println(appData.buyTicketData.get(pickerName));
+        System.out.println(picker.getSelectionModel().getSelectedIndex());
         picker.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
@@ -83,5 +89,11 @@ public class BuyTicketController implements Initializable {
 
     public void goBackPressed(ActionEvent e) {
         SceneChanger.changeScene(e, "available_rides.fxml");
+    }
+
+    public void pickSeatPressed(ActionEvent e) {
+        appData.buyTicketData.put("discounts", discountPicker.getSelectionModel().getSelectedIndex());
+        appData.buyTicketData.put("classes", classPicker.getSelectionModel().getSelectedIndex());
+        SceneChanger.changeScene(e, "pick_seat.fxml");
     }
 }
