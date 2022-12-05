@@ -21,8 +21,7 @@ import java.util.ResourceBundle;
 //import javafx.scene.control.Label;
 
 public class menuController implements Initializable {
-    RideSingleton ride = RideSingleton.getInstance();
-    UserSingleton user = UserSingleton.getInstance();
+    AppData appdata = AppData.getInstance();
 
 
     @FXML
@@ -39,7 +38,7 @@ public class menuController implements Initializable {
     @FXML
     public void logInButtonPushed(ActionEvent event) {
             if(ValidateSingletons.checkUser() == true) {
-                user.setUser(null);
+                appdata.user = null;
                 logInButton.setText("LOG IN");
                 SceneChanger.changeScene(event, "main_menuv2.fxml");
             } else {
@@ -49,7 +48,7 @@ public class menuController implements Initializable {
     @FXML
     public void findConnectionButtonPushed(ActionEvent event)
     {
-        ride.setRide(new Ride(fromWhereTextField.getText().toString(), toWhereTextField.getText().toString()));
+        appdata.ride = new Ride(fromWhereTextField.getText().toString(), toWhereTextField.getText().toString());
         SceneChanger.changeScene(event,"available_rides.fxml" );
 
     }
@@ -71,7 +70,7 @@ public class menuController implements Initializable {
             helloLabel.setText("Hello, unknown!");
             logInButton.setText("LOG IN");
         } else {
-            helloLabel.setText(String.format("Hello, %s", user.getUser().getName().toString()));
+            helloLabel.setText(String.format("Hello, %s", appdata.user.getName().toString()));
             logInButton.setText("LOG OUT");
         }
     }

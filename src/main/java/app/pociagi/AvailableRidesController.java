@@ -9,12 +9,13 @@ import javafx.scene.control.ListView;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
 public class AvailableRidesController implements Initializable {
-    RideSingleton ride = RideSingleton.getInstance();
+    AppData appData = AppData.getInstance();
     ArrayList<ArrayList<Integer>> aval_conns;
 
     public AvailableRidesController() {}
@@ -36,14 +37,15 @@ public class AvailableRidesController implements Initializable {
     public void buyTicketButtonPushed(ActionEvent e) {
         Integer ind = avaibleRidesListView.getSelectionModel().getSelectedIndex();
         System.out.println(aval_conns.get(ind));
+        appData.pickedRide = aval_conns.get(ind);
         SceneChanger.changeScene(e, "buy_ticket.fxml");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         errorLabel.setText("");
-        String source = ride.getRide().getSource().toString();
-        String destination = ride.getRide().getDestination().toString();
+        String source = appData.ride.getSource().toString();
+        String destination = appData.ride.getDestination().toString();
         aval_conns = connection_finder.find(source, destination);
         if (!aval_conns.isEmpty()){
             for (var int_list : aval_conns) {

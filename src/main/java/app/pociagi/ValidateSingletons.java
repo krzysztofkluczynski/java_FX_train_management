@@ -1,11 +1,10 @@
 package app.pociagi;
 
 public class ValidateSingletons {
-    static RideSingleton ride = RideSingleton.getInstance();
-    static UserSingleton user = UserSingleton.getInstance();
+    static AppData appdata = AppData.getInstance();
 
     public static boolean checkUser() {
-        if(user.getUser() == null) {
+        if(appdata.user == null) {
             return false;
         } else {
             return true;
@@ -13,7 +12,7 @@ public class ValidateSingletons {
     }
 
     public static boolean checkRide() {
-        if(ride.getRide() == null) {
+        if(appdata.ride == null) {
             return false;
         } else {
             return true;

@@ -26,7 +26,7 @@ public class LoginController {
 
     public LoginController() {
     }
-        UserSingleton user = UserSingleton.getInstance();
+        AppData appdata = AppData.getInstance();
           @FXML
           private Button logInButton, goBackButton;
 
@@ -70,7 +70,7 @@ public class LoginController {
                   arr = handle.returnDataArray(rs, 1);
                   String surname = arr.get(0);
 
-                  user.setUser(new User(userID, login, password, name, surname));
+                  appdata.user = new User(userID, login, password, name, surname);
                   SceneChanger.changeScene(event, "main_menuv2.fxml");
               } else {
                     wrongLogin2.setWrapText(true);
