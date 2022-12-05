@@ -5,9 +5,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
@@ -33,6 +35,8 @@ public class BuyTicketController implements Initializable {
 
     @FXML
     private Label price, fromTime, toTime, fromLabel, toLabel;
+    @FXML
+    private Button goBack;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         rideId = appData.pickedRide.get(0);
@@ -75,5 +79,9 @@ public class BuyTicketController implements Initializable {
                         picker.getSelectionModel().getSelectedIndex()
                 )));
         return Integer.parseInt(handler.returnDataArray(rs, 3).get(0));
+    }
+
+    public void goBackPressed(ActionEvent e) {
+        SceneChanger.changeScene(e, "available_rides.fxml");
     }
 }

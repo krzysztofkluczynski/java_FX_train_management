@@ -53,7 +53,7 @@ public class AvailableRidesController implements Initializable {
                 int minutes_source = int_list.get(2);
                 int hour_distination = int_list.get(3);
                 int minutes_destination = int_list.get(4);
-                String str = String.format("%s, %d:%d --> %s, %d:%d", source, hour_source, minutes_source, destination, hour_distination, minutes_destination);
+                String str = String.format("%s, %02d:%02d --> %s, %02d:%02d", source, hour_source, minutes_source, destination, hour_distination, minutes_destination);
                 System.out.println(str);
                 avaibleRidesListView.getItems().add(str);
             }
