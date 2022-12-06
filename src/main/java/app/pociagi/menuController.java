@@ -25,10 +25,10 @@ public class menuController implements Initializable {
 
 
     @FXML
-    private Button logInButton, findConnectionButton;
+    private Button logInButton, findConnectionButton, myAccountButton;
 
     @FXML
-    public AutoCompleteTextField fromWhereTextField, toWhereTextField;
+    public TextField fromWhereTextField, toWhereTextField;
 
     @FXML
     private Label helloLabel;
@@ -56,22 +56,28 @@ public class menuController implements Initializable {
 
     }
 
+    public void myAccountButtonPushed(ActionEvent e) {
+        SceneChanger.changeScene(e, "my_account_view.fxml");
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        DatabaseHandler handler = DatabaseHandler.getInstance();
-        String sql = "SELECT * FROM STATIONS";
-        ResultSet rs = handler.executeQuery(sql);
-        ArrayList<String> arr = handler.returnDataArray(rs, 2);
-        System.out.println(arr);
-        AutoCompleteTextField field = new AutoCompleteTextField();
-        fromWhereTextField.getEntries().addAll(arr);
-        toWhereTextField.getEntries().addAll(arr);
+//        DatabaseHandler handler = DatabaseHandler.getInstance();
+//        String sql = "SELECT * FROM STATIONS";
+//        ResultSet rs = handler.executeQuery(sql);
+//        ArrayList<String> arr = handler.returnDataArray(rs, 2);
+//        System.out.println(arr);
+//        AutoCompleteTextField field = new AutoCompleteTextField();
+//        fromWhereTextField.getEntries().addAll(arr);
+//        toWhereTextField.getEntries().addAll(arr);
         if(ValidateSingletons.checkUser() == false) {
             helloLabel.setText("Hello, unknown!");
             logInButton.setText("LOG IN");
+            myAccountButton.setVisible(false);
         } else {
             helloLabel.setText(String.format("Hello, %s", appdata.user.getName().toString()));
             logInButton.setText("LOG OUT");
+            myAccountButton.setVisible(true);
         }
     }
 }

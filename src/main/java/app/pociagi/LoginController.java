@@ -70,7 +70,12 @@ public class LoginController {
                   arr = handle.returnDataArray(rs, 1);
                   String surname = arr.get(0);
 
-                  appdata.user = new User(userID, login, password, name, surname);
+                  sql_query = String.format("SELECT EMAIL FROM USERS WHERE LOGIN = '%s'", username.getText().toString());
+                  rs = handle.executeQuery(sql_query);
+                  arr = handle.returnDataArray(rs, 1);
+                  String email = arr.get(0);
+
+                  appdata.user = new User(userID, login, password, name, surname, email);
                   SceneChanger.changeScene(event, "main_menuv2.fxml");
               } else {
                     wrongLogin2.setWrapText(true);

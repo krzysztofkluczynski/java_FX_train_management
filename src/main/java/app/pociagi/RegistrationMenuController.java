@@ -36,8 +36,9 @@ public class RegistrationMenuController {
                 String password = passwordFirstField.getText().toString();
                 String name = nameField.getText().toString();
                 String surname = surnameField.getText().toString();
+                String email = emailField.getText().toString();
                 DatabaseHandler handler = DatabaseHandler.getInstance();
-                String sql = String.format("INSERT INTO USERS (LOGIN, PASSWORD, NAME, SURNAME) VALUES ('%s','%s','%s','%s')", login, password, name, surname);
+                String sql = String.format("INSERT INTO USERS (LOGIN, PASSWORD, NAME, SURNAME, EMAIL) VALUES ('%s','%s','%s','%s', '%s')", login, password, name, surname, email);
                 handler.executeQuery(sql);
                 handler.executeQuery("commit");
                 errorLoginLabel.setTextFill(Color.GREEN);
