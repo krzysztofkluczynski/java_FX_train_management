@@ -1,5 +1,7 @@
 package app.pociagi;
 
+import javafx.util.Pair;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +12,7 @@ public class AppData {
     public Ride ride;
     public DatabaseHandler dbHandler;
     public Map<String, Integer> buyTicketData = new HashMap<String, Integer>();
-    public ArrayList<Integer> pickedRide;
+    public ArrayList<Integer> pickedConnection;
     private AppData() {}
 
     public static AppData getInstance() {

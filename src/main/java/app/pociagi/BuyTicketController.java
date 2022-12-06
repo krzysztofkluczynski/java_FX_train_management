@@ -16,6 +16,7 @@ import javafx.scene.control.ListView;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class BuyTicketController implements Initializable {
@@ -38,11 +39,11 @@ public class BuyTicketController implements Initializable {
     @FXML
     private Button goBack;
     public void initialize(URL url, ResourceBundle rb) {
-        rideId = appData.pickedRide.get(0);
-        fromTime.setText(String.format("%02d:%02d", appData.pickedRide.get(1),
-                appData.pickedRide.get(2)));
-        toTime.setText(String.format("%02d:%02d", appData.pickedRide.get(3),
-                appData.pickedRide.get(4)));
+        rideId = appData.pickedConnection.get(0);
+        fromTime.setText(String.format("%02d:%02d", appData.pickedConnection.get(1),
+                appData.pickedConnection.get(2)));
+        toTime.setText(String.format("%02d:%02d", appData.pickedConnection.get(3),
+                appData.pickedConnection.get(4)));
         fromLabel.setText(appData.ride.getSource());
         toLabel.setText(appData.ride.getDestination());
         seatPicked.setText(String.format("Car: %d, Seat: %d",
@@ -71,7 +72,7 @@ public class BuyTicketController implements Initializable {
     }
 
     public void recalculateCost() {
-        Integer time = appData.pickedRide.get(5);
+        Integer time = appData.pickedConnection.get(5);
         Integer discount = getValue("discounts", discountPicker);
         Integer classCoef = getValue("classes", classPicker);
         Integer cost = time * 26 * (100 - discount ) / 100 * classCoef;
@@ -88,9 +89,47 @@ public class BuyTicketController implements Initializable {
     }
 
     public void goBackPressed(ActionEvent e) {
+        appData.buyTicketData = new HashMap<String, Integer>();
         SceneChanger.changeScene(e, "available_rides.fxml");
     }
 
+    public Integer findRide(Integer connectionID) {
+        ResultSet rs = handler.executeQuery(String.format(
+                "SELECT ride_id FROM rides " +
+                        "where connection_id = %d and ride_date = '2022-12-06'", connectionID
+        ));
+        return Integer.parseInt(handler.returnDataArray(rs, 1).get(0));
+    }
+
+    public void buyTicketPressed(ActionEvent e) {
+        rideId = findRide(appData.pickedConnection.get(0));
+        // znajdz seat po id i ustaw isOccupied na YES
+        System.out.println(rideId);
+        if (appData.user == null)
+                tickets.buy_ticket(
+                        rideId,
+                getStationID(appData.ride.getSource()),
+                getStationID(appData.ride.getDestination()),
+                null,
+                        "Andrzej",
+                        "Nowak");
+        else    tickets.buy_ticket(
+                rideId,
+                getStationID(appData.ride.getSource()),
+                getStationID(appData.ride.getDestination()),
+                appData.user.getUserID(),
+                null,
+                null);
+        appData.buyTicketData = new HashMap<String, Integer>();
+        SceneChanger.changeScene(e,"main_menuv2.fxml");
+    }
+
+    public Integer getStationID(String name) {
+        ResultSet rs = handler.executeQuery(String.format(
+                "SELECT station_id FROM stations WHERE name = '%s'", name
+        ));
+        return Integer.parseInt(handler.returnDataArray(rs, 1).get(0));
+    }
     public void pickSeatPressed(ActionEvent e) {
         appData.buyTicketData.put("discounts", discountPicker.getSelectionModel().getSelectedIndex());
         appData.buyTicketData.put("classes", classPicker.getSelectionModel().getSelectedIndex());
