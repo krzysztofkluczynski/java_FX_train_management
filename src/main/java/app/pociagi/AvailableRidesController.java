@@ -37,7 +37,7 @@ public class AvailableRidesController implements Initializable {
     public void buyTicketButtonPushed(ActionEvent e) {
         Integer ind = avaibleRidesListView.getSelectionModel().getSelectedIndex();
         System.out.println(aval_conns.get(ind));
-        appData.pickedRide = aval_conns.get(ind);
+        appData.pickedConnection = aval_conns.get(ind);
         SceneChanger.changeScene(e, "buy_ticket.fxml");
     }
 

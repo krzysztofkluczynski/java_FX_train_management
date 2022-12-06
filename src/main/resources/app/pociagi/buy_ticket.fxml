@@ -53,7 +53,7 @@
             <Label alignment="CENTER" layoutX="70.0" layoutY="42.0" prefHeight="18.0" prefWidth="62.0" text="Class" />
             <Button fx:id="goBack" onAction="#goBackPressed" layoutX="264.0" layoutY="305.0" mnemonicParsing="false" text="Go Back" />
             <Label alignment="CENTER" layoutX="72.0" layoutY="125.0" prefHeight="18.0" prefWidth="62.0" text="Discount" />
-            <Button layoutX="391.0" layoutY="292.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="106.0" style="-fx-background-color: #0096FF;" textFill="WHITE" text="Confirm" />
+            <Button onAction="#buyTicketPressed" layoutX="391.0" layoutY="292.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="106.0" style="-fx-background-color: #0096FF;" textFill="WHITE" text="Confirm" />
          </children>
       </AnchorPane>
    </children>
