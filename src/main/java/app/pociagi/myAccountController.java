@@ -26,19 +26,17 @@ public class myAccountController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // to zostanie uzyte po przebudownie,
         nameLabel.setText("Name: " + appdata.user.getName());
         surnameLabel.setText("Surname: " + appdata.user.getSurname());
         loginLabel.setText("Login: " + appdata.user.getLogin());
         emailLabel.setText("Email: " + appdata.user.getEmail());
-        myRidesListView.getItems().add("Sample String1");
-        myRidesListView.getItems().add("Sample String2");
-        myRidesListView.getItems().add("Sample String3");
+
 //
-//        DatabaseHandler handle = DatabaseHandler.getInstance();
-//        String sql_query = String.format("SELECT  FROM USERS WHERE LOGIN = '%s'", username.getText().toString());
-//        ResultSet rs = handle.executeQuery(sql_query);
-//        ArrayList<String> arr = handle.returnDataArray(rs, 1);
-//        String userID = arr.get(0);
+        ArrayList<String> ride_list = tickets.ticket_list(Integer.parseInt(appdata.user.getUserID()));
+        for (var s : ride_list) {
+            myRidesListView.getItems().add(s);
+        }
 
     }
 }

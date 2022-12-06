@@ -8,7 +8,7 @@ public class tickets {
     public static ArrayList<String> ticket_list(int user_id) {
         DatabaseHandler handle = DatabaseHandler.getInstance();
         String sql_query = String.format("select t.ticket_id a, n.name b, TO_CHAR(s.departure_hour, 'HH24')" +
-                " c, TO_CHAR(s.departure_hour, 'MI') d, nn.station_id e, TO_CHAR(st.arrival_hour, 'HH24') " +
+                " c, TO_CHAR(s.departure_hour, 'MI') d, nn.name e, TO_CHAR(st.arrival_hour, 'HH24') " +
                 "f, TO_CHAR(st.arrival_hour, 'MI') g from tickets t join rides r on (r.ride_id = t.ride_id)" +
                 " join stations n on (n.station_id = t.id_departure_station) join stations nn on " +
                 "(nn.station_id = t.id_arrival_station) right join stops s on (s.connection_id = r." +
@@ -20,10 +20,10 @@ public class tickets {
         try {
             while (rs.next()) {
                 String row = new String();
-                row =rs.getString("a") + " ";
+                //row =rs.getString("a") + " ";//ticket_id nam nie potrzebne do wyswietlenia
                 row +=rs.getString("b") + " ";
                 row +=rs.getString("c") + ":";
-                row +=rs.getString("d") + " ";
+                row +=rs.getString("d") + " --> ";
                 row +=rs.getString("e") + " ";
                 row +=rs.getString("f") + ":";
                 row +=rs.getString("g");
