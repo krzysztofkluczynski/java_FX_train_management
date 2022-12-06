@@ -1,5 +1,6 @@
 package app.pociagi;
 
+import app.pociagi.utils.DatabaseHandler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

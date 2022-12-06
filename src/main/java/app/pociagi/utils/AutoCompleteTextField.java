@@ -1,4 +1,4 @@
-package app.pociagi;
+package app.pociagi.utils;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;

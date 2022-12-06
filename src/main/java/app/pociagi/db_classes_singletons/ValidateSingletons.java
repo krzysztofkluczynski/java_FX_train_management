@@ -1,4 +1,6 @@
-package app.pociagi;
+package app.pociagi.db_classes_singletons;
+
+import app.pociagi.utils.AppData;
 
 public class ValidateSingletons {
     static AppData appdata = AppData.getInstance();

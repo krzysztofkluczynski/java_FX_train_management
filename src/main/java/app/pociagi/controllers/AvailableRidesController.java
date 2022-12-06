@@ -1,5 +1,8 @@
-package app.pociagi;
+package app.pociagi.controllers;
 
+import app.pociagi.SceneChanger;
+import app.pociagi.utils.connection_finder;
+import app.pociagi.utils.AppData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -7,12 +10,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
-import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
 public class AvailableRidesController implements Initializable {
     AppData appData = AppData.getInstance();

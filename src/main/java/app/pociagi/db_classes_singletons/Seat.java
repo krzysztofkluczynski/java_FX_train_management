@@ -1,4 +1,4 @@
-package app.pociagi;
+package app.pociagi.db_classes_singletons;
 
 public class Seat {
     public Integer sit_number;

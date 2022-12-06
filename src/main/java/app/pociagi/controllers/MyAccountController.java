@@ -1,5 +1,8 @@
-package app.pociagi;
+package app.pociagi.controllers;
 
+import app.pociagi.SceneChanger;
+import app.pociagi.utils.tickets;
+import app.pociagi.utils.AppData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -7,11 +10,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 import java.net.URL;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class myAccountController implements Initializable {
+public class MyAccountController implements Initializable {
     AppData appdata = AppData.getInstance();
     @FXML
     private Label nameLabel, surnameLabel, emailLabel, loginLabel;

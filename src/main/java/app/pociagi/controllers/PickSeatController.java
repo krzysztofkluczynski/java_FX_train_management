@@ -1,12 +1,14 @@
-package app.pociagi;
+package app.pociagi.controllers;
 
+import app.pociagi.SceneChanger;
+import app.pociagi.db_classes_singletons.Seat;
+import app.pociagi.utils.AppData;
+import app.pociagi.utils.DatabaseHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.util.Pair;
 
 import java.net.URL;
 import java.sql.ResultSet;

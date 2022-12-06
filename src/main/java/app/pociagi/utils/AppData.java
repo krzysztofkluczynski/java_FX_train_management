@@ -1,6 +1,7 @@
-package app.pociagi;
+package app.pociagi.utils;
 
-import javafx.util.Pair;
+import app.pociagi.db_classes_singletons.Ride;
+import app.pociagi.db_classes_singletons.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
