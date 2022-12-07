@@ -35,7 +35,7 @@ public class MyAccountController implements Initializable {
         emailLabel.setText("Email: " + appdata.user.getEmail());
 
 //
-        ArrayList<String> ride_list = tickets.ticket_list(Integer.parseInt(appdata.user.getUserID()));
+        ArrayList<String> ride_list = tickets.ticket_list(appdata.user.getID());
         for (var s : ride_list) {
             myRidesListView.getItems().add(s);
         }

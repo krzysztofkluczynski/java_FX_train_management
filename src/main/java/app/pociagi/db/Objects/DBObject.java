@@ -1,18 +1,18 @@
-package app.pociagi.db_classes_singletons;
+package app.pociagi.db.Objects;
 
-import app.pociagi.utils.DatabaseHandler;
-import javafx.scene.chart.PieChart;
+import app.pociagi.db.Utils.DatabaseHandler;
 
 import java.util.HashMap;
-import java.util.Objects;
 
 public class DBObject {
-    private DatabaseHandler handler = DatabaseHandler.getInstance();
+    private final DatabaseHandler handler = DatabaseHandler.getInstance();
 
-    private static Integer object_id;
+    private final Integer object_id;
 
     public HashMap<String, Object> data;
     public String table;
+
+    public DBObject() {object_id = null;}
     public DBObject(Integer id) {
         object_id = id;
     }
@@ -31,7 +31,7 @@ public class DBObject {
         String values = "";
         for (String key : data.keySet()) {
             if (data.get(key) instanceof Integer) {
-                values = String.format("%s, %d", values, data.get(key));
+                values = String.format("%s, %d", values, (Integer)data.get(key));
             } else values = String.format("%s, '%s'", values, data.get(key));
         }
         values = values.substring(2);

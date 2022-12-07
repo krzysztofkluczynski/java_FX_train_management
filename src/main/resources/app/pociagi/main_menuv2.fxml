@@ -33,8 +33,8 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <AutoCompleteTextField fx:id="fromWhereTextField" layoutX="204.0" layoutY="68.0" onKeyPressed="#onKeyTyped" prefHeight="25.0" prefWidth="225.0" promptText="from where?" />
-            <AutoCompleteTextField fx:id="toWhereTextField" layoutX="204.0" layoutY="129.0" onKeyPressed="#onKeyTyped" prefHeight="25.0" prefWidth="225.0" promptText="where?" />
+            <AutoCompleteTextField fx:id="fromWhereTextField" layoutX="204.0" layoutY="68.0" prefHeight="25.0" prefWidth="225.0" promptText="from where?" />
+            <AutoCompleteTextField fx:id="toWhereTextField" layoutX="204.0" layoutY="129.0" prefHeight="25.0" prefWidth="225.0" promptText="where?" />
             <Button fx:id="findConnectionButton" layoutX="197.0" layoutY="202.0" mnemonicParsing="false" onAction="#findConnectionButtonPushed" prefHeight="46.0" prefWidth="239.0" style="-fx-background-color: #0096FF;" text="FIND CONNECTION" textFill="WHITE" />
          </children>
       </AnchorPane>

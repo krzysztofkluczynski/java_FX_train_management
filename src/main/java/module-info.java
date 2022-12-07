@@ -5,10 +5,12 @@ module app.pociagi {
 
     opens app.pociagi to javafx.fxml;
     exports app.pociagi;
-    exports app.pociagi.db_classes_singletons;
-    opens app.pociagi.db_classes_singletons to javafx.fxml;
+    exports app.pociagi.db.Objects;
+    opens app.pociagi.db.Objects to javafx.fxml;
     exports app.pociagi.utils;
     opens app.pociagi.utils to javafx.fxml;
     exports app.pociagi.controllers;
     opens app.pociagi.controllers to javafx.fxml;
+    exports app.pociagi.db.Utils;
+    opens app.pociagi.db.Utils to javafx.fxml;
 }

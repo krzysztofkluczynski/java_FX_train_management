@@ -1,10 +1,10 @@
 package app.pociagi.controllers;
 
 import app.pociagi.SceneChanger;
-import app.pociagi.db_classes_singletons.User;
+import app.pociagi.db.Objects.User;
 import app.pociagi.mainApp;
 import app.pociagi.utils.AppData;
-import app.pociagi.utils.DatabaseHandler;
+import app.pociagi.db.Utils.DatabaseHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -39,6 +39,7 @@ public class LoginController {
           public void UserLogIn(ActionEvent event) throws IOException, InterruptedException, SQLException {
               // to lepiej by sie przydalo zrobic
               if(checkLogin()) {
+
                   TimeUnit.SECONDS.sleep(1);
                   DatabaseHandler handle = DatabaseHandler.getInstance();
                   String sql_query = String.format("SELECT USER_ID FROM USERS WHERE LOGIN = '%s'", username.getText().toString());
@@ -72,7 +73,7 @@ public class LoginController {
                   arr = handle.returnDataArray(rs, 1);
                   String email = arr.get(0);
 
-                  appdata.user = new User(userID, login, password, name, surname, email);
+                  appdata.user = new User(Integer.parseInt(userID), login, password, name, surname, email);
                   SceneChanger.changeScene(event, "main_menuv2.fxml");
               } else {
                     wrongLogin2.setWrapText(true);

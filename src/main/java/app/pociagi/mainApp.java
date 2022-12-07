@@ -1,9 +1,11 @@
 package app.pociagi;
 
-import app.pociagi.db_classes_singletons.Connection;
-import app.pociagi.db_classes_singletons.DBObject;
-import app.pociagi.db_classes_singletons.Seat;
-import app.pociagi.utils.DatabaseHandler;
+import app.pociagi.db.Objects.Connection;
+import app.pociagi.db.Objects.Seat;
+import app.pociagi.db.Objects.Ticket;
+import app.pociagi.db.Objects.User;
+import app.pociagi.db.Utils.DatabaseHandler;
+import app.pociagi.db.Utils.FindUser;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,7 +14,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
 public class mainApp extends Application {
 
@@ -27,18 +28,12 @@ public class mainApp extends Application {
     }
 
     public static void main(String[] args) {
-        boolean if_user_logged = false;
-        Connection con = new Connection(2, "Warszawa", "Wrocław");
-        Seat seat = new Seat(9004, 12, 4, 5, 5);
-        ArrayList<DBObject> arr = new ArrayList<>();
-        arr.add(con);
-        arr.add(seat);
-        seat.pushToDB();
-//        DatabaseHandler handler = DatabaseHandler.getInstance();
-//        String sql = "SELECT * FROM STATIONS";
-//        ResultSet rs = handler.executeQuery(sql);
-//        handler.printData(rs);
-//        launch();
-//        handler.finish();
+        //User usr = FindUser.findByLogin("rafal");
+        DatabaseHandler handler = DatabaseHandler.getInstance();
+        String sql = "SELECT * FROM STATIONS";
+        ResultSet rs = handler.executeQuery(sql);
+        handler.printData(rs);
+        launch();
+        handler.finish();
     }
 }

@@ -1,6 +1,6 @@
 package app.pociagi.utils;
 
-import app.pociagi.utils.DatabaseHandler;
+import app.pociagi.db.Utils.DatabaseHandler;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

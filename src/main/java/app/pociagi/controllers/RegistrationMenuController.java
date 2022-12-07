@@ -1,7 +1,7 @@
 package app.pociagi.controllers;
 
 import app.pociagi.SceneChanger;
-import app.pociagi.utils.DatabaseHandler;
+import app.pociagi.db.Utils.DatabaseHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

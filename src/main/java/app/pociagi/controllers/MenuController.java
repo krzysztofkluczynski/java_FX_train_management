@@ -1,18 +1,16 @@
 package app.pociagi.controllers;
 
-import app.pociagi.db_classes_singletons.Ride;
 import app.pociagi.SceneChanger;
-import app.pociagi.db_classes_singletons.ValidateSingletons;
+import app.pociagi.db.Objects.Station;
+import app.pociagi.db.Utils.FindStation;
 import app.pociagi.utils.AppData;
 import app.pociagi.utils.AutoCompleteTextField;
-import app.pociagi.utils.DatabaseHandler;
+import app.pociagi.db.Utils.DatabaseHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -37,8 +35,7 @@ public class MenuController implements Initializable {
 
     @FXML
     public void logInButtonPushed(ActionEvent event) {
-            if(ValidateSingletons.checkUser()) {
-                appdata.user = null;
+            if(appdata.user == null) {
                 logInButton.setText("LOG IN");
                 SceneChanger.changeScene(event, "main_menuv2.fxml");
             } else {
@@ -48,11 +45,9 @@ public class MenuController implements Initializable {
     @FXML
     public void findConnectionButtonPushed(ActionEvent event)
     {
-        appdata.ride = new Ride(fromWhereTextField.getText().toString(), toWhereTextField.getText().toString());
+        appdata.from = FindStation.findByName(fromWhereTextField.getText());
+        appdata.destination = FindStation.findByName(toWhereTextField.getText());
         SceneChanger.changeScene(event,"available_rides.fxml" );
-
-    }
-    public void onKeyTyped(KeyEvent event) {
 
     }
 
@@ -70,12 +65,12 @@ public class MenuController implements Initializable {
         AutoCompleteTextField field = new AutoCompleteTextField();
         fromWhereTextField.getEntries().addAll(arr);
         toWhereTextField.getEntries().addAll(arr);
-        if(ValidateSingletons.checkUser() == false) {
+        if(appdata.user == null) {
             helloLabel.setText("Hello, unknown!");
             logInButton.setText("LOG IN");
             myAccountButton.setVisible(false);
         } else {
-            helloLabel.setText(String.format("Hello, %s", appdata.user.getName().toString()));
+            helloLabel.setText(String.format("Hello, %s", appdata.user.getName()));
             logInButton.setText("LOG OUT");
             myAccountButton.setVisible(true);
         }

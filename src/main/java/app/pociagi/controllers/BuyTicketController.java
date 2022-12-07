@@ -1,6 +1,6 @@
 package app.pociagi.controllers;
 
-import app.pociagi.utils.DatabaseHandler;
+import app.pociagi.db.Utils.DatabaseHandler;
 import app.pociagi.SceneChanger;
 import app.pociagi.utils.tickets;
 import app.pociagi.utils.AppData;
@@ -45,8 +45,8 @@ public class BuyTicketController implements Initializable {
                 appData.pickedConnection.get(2)));
         toTime.setText(String.format("%02d:%02d", appData.pickedConnection.get(3),
                 appData.pickedConnection.get(4)));
-        fromLabel.setText(appData.ride.getSource());
-        toLabel.setText(appData.ride.getDestination());
+        fromLabel.setText(appData.from.getName());
+        toLabel.setText(appData.destination.getName());
         seatPicked.setText(String.format("Car: %d, Seat: %d",
                 appData.buyTicketData.get("Car"),
                 appData.buyTicketData.get("Seat")));
@@ -76,7 +76,7 @@ public class BuyTicketController implements Initializable {
         Integer time = appData.pickedConnection.get(5);
         Integer discount = getValue("discounts", discountPicker);
         Integer classCoef = getValue("classes", classPicker);
-        Integer cost = time * 26 * (100 - discount ) / 100 * classCoef;
+        int cost = time * 26 * (100 - discount ) / 100 * classCoef;
         price.setText(String.format("%d,%02d zł", cost/100, cost%100));
     }
 
@@ -109,18 +109,18 @@ public class BuyTicketController implements Initializable {
         if (appData.user == null)
                 tickets.buy_ticket(
                         rideId,
-                getStationID(appData.ride.getSource()),
-                getStationID(appData.ride.getDestination()),
+                        appData.from.getID(),
+                        appData.destination.getID(),
                 null,
                         "Andrzej",
                         "Nowak");
         else    tickets.buy_ticket(
-                rideId,
-                getStationID(appData.ride.getSource()),
-                getStationID(appData.ride.getDestination()),
-                appData.user.getUserID(),
-                null,
-                null);
+                            rideId,
+                            appData.from.getID(),
+                            appData.destination.getID(),
+                            String.format("%d", appData.user.getID()),
+                        null,
+                        null);
         appData.buyTicketData = new HashMap<String, Integer>();
         SceneChanger.changeScene(e,"main_menuv2.fxml");
     }

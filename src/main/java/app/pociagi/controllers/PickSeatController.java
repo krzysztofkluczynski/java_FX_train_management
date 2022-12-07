@@ -1,9 +1,9 @@
 package app.pociagi.controllers;
 
 import app.pociagi.SceneChanger;
-import app.pociagi.db_classes_singletons.Seat;
+import app.pociagi.db.Objects.Seat;
 import app.pociagi.utils.AppData;
-import app.pociagi.utils.DatabaseHandler;
+import app.pociagi.db.Utils.DatabaseHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

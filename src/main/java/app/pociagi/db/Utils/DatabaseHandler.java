@@ -1,4 +1,4 @@
-package app.pociagi.utils;
+package app.pociagi.db.Utils;
 
 import java.sql.*;
 import java.util.ArrayList;
