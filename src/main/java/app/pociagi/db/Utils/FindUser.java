@@ -13,7 +13,6 @@ public class FindUser{
             String name = Finder.find("USERS", "NAME", "LOGIN", login);
             String surname = Finder.find("USERS", "SURNAME", "LOGIN", login);
             String email = Finder.find("USERS", "EMAIL", "LOGIN", login);
-
             return new User(user_id, login, password, name, surname, email);
         }
         catch (SQLException s) {

@@ -15,4 +15,14 @@ public class Finder {
         if (arr.size() == 1) return arr.get(0);
         else throw new SQLException("Returned too much data!");
     }
+    public static String find(String table, String column, String whereColumn, Integer whereValue) throws SQLException {
+        DatabaseHandler handler = DatabaseHandler.getInstance();
+        String sql = String.format("SELECT %s FROM %s WHERE %s = %d",
+                column, table, whereColumn, whereValue);
+        System.out.println(sql);
+        ResultSet rs = handler.executeQuery(sql);
+        ArrayList<String> arr = handler.returnDataArray(rs, 1);
+        if (arr.size() == 1) return arr.get(0);
+        else throw new SQLException("Returned too much data!");
+    }
 }
