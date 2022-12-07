@@ -11,11 +11,9 @@
     <AnchorPane prefHeight="400.0" prefWidth="620.0">
          <children>
             <Button fx:id="goBackButton" layoutX="185.0" layoutY="323.0" mnemonicParsing="false" onAction="#goBackPressed" text="Go Back" />
-            <ListView fx:id="carList" layoutX="60.0" layoutY="61.0" prefHeight="200.0" prefWidth="200.0" />
             <ListView fx:id="seatList" layoutX="306.0" layoutY="61.0" prefHeight="200.0" prefWidth="200.0" />
             <Button fx:id="confirmButton" onAction="#pickPlacePressed" layoutX="354.0" layoutY="323.0" mnemonicParsing="false" text="Confirm" />
             <Label layoutX="392.0" layoutY="33.0" text="Seat" />
-            <Label layoutX="146.0" layoutY="33.0" text="Car" />
          </children>
     </AnchorPane>
 </children>

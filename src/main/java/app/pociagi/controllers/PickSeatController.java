@@ -26,6 +26,7 @@ public class PickSeatController implements Initializable {
     public Button confirmButton;
     private ArrayList<Seat> availSeats;
     public void initialize(URL url, ResourceBundle rb) {
+
         availSeats = getAvailSeats(
                 findRide(appData.pickedConnection.get(0)));
         for (Seat seat : availSeats) {
