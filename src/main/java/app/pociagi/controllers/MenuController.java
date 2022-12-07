@@ -4,6 +4,8 @@ import app.pociagi.db_classes_singletons.Ride;
 import app.pociagi.SceneChanger;
 import app.pociagi.db_classes_singletons.ValidateSingletons;
 import app.pociagi.utils.AppData;
+import app.pociagi.utils.AutoCompleteTextField;
+import app.pociagi.utils.DatabaseHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +15,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 //import javafx.scene.control.Label;
 
@@ -24,7 +28,7 @@ public class MenuController implements Initializable {
     private Button logInButton, findConnectionButton, myAccountButton;
 
     @FXML
-    public TextField fromWhereTextField, toWhereTextField;
+    public AutoCompleteTextField fromWhereTextField, toWhereTextField;
 
     @FXML
     private Label helloLabel;
@@ -33,7 +37,7 @@ public class MenuController implements Initializable {
 
     @FXML
     public void logInButtonPushed(ActionEvent event) {
-            if(ValidateSingletons.checkUser() == true) {
+            if(ValidateSingletons.checkUser()) {
                 appdata.user = null;
                 logInButton.setText("LOG IN");
                 SceneChanger.changeScene(event, "main_menuv2.fxml");
@@ -58,14 +62,14 @@ public class MenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        DatabaseHandler handler = DatabaseHandler.getInstance();
-//        String sql = "SELECT * FROM STATIONS";
-//        ResultSet rs = handler.executeQuery(sql);
-//        ArrayList<String> arr = handler.returnDataArray(rs, 2);
-//        System.out.println(arr);
-//        AutoCompleteTextField field = new AutoCompleteTextField();
-//        fromWhereTextField.getEntries().addAll(arr);
-//        toWhereTextField.getEntries().addAll(arr);
+        DatabaseHandler handler = DatabaseHandler.getInstance();
+        String sql = "SELECT * FROM STATIONS";
+        ResultSet rs = handler.executeQuery(sql);
+        ArrayList<String> arr = handler.returnDataArray(rs, 2);
+        System.out.println(arr);
+        AutoCompleteTextField field = new AutoCompleteTextField();
+        fromWhereTextField.getEntries().addAll(arr);
+        toWhereTextField.getEntries().addAll(arr);
         if(ValidateSingletons.checkUser() == false) {
             helloLabel.setText("Hello, unknown!");
             logInButton.setText("LOG IN");

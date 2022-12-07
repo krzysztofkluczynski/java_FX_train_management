@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class SceneChanger {
+
     public static void changeScene(ActionEvent event, String fxml) {
         Parent root = null;
         try {
