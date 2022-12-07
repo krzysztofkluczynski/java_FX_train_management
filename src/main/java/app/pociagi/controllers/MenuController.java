@@ -35,8 +35,9 @@ public class MenuController implements Initializable {
 
     @FXML
     public void logInButtonPushed(ActionEvent event) {
-            if(appdata.user == null) {
+            if(appdata.user != null) {
                 logInButton.setText("LOG IN");
+                appdata.user = null;
                 SceneChanger.changeScene(event, "main_menuv2.fxml");
             } else {
                 SceneChanger.changeScene(event, "login_menu.fxml");

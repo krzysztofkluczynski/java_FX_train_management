@@ -28,7 +28,6 @@ public class mainApp extends Application {
     }
 
     public static void main(String[] args) {
-        //User usr = FindUser.findByLogin("rafal");
         DatabaseHandler handler = DatabaseHandler.getInstance();
         String sql = "SELECT * FROM STATIONS";
         ResultSet rs = handler.executeQuery(sql);
