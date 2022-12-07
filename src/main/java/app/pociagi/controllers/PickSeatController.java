@@ -31,8 +31,8 @@ public class PickSeatController implements Initializable {
         for (Seat seat : availSeats) {
             seatList.getItems().add(
                     String.format("Car: %d, Seat: %d",
-                            seat.car_number,
-                            seat.sit_number)
+                            seat.getCarNumber(),
+                            seat.getSeatNumber())
             );
         }
         if (appData.buyTicketData.get("Seat_list_index") == null) {
@@ -51,12 +51,12 @@ public class PickSeatController implements Initializable {
     public void pickPlacePressed(ActionEvent e) {
         appData.buyTicketData.put("Seat_list_index", seatList.getSelectionModel().getSelectedIndex());
         appData.buyTicketData.put("Seat_id",
-                availSeats.get(seatList.getSelectionModel().getSelectedIndex()).seat_id);
+                availSeats.get(seatList.getSelectionModel().getSelectedIndex()).getID());
 
         appData.buyTicketData.put("Seat",
-                availSeats.get(seatList.getSelectionModel().getSelectedIndex()).sit_number);
+                availSeats.get(seatList.getSelectionModel().getSelectedIndex()).getSeatNumber());
         appData.buyTicketData.put("Car",
-                availSeats.get(seatList.getSelectionModel().getSelectedIndex()).car_number);
+                availSeats.get(seatList.getSelectionModel().getSelectedIndex()).getCarNumber());
         SceneChanger.changeScene(e,"buy_ticket.fxml");
     }
 
@@ -71,26 +71,27 @@ public class PickSeatController implements Initializable {
         // RETURNS array of seats: ex. [(0, 1), (0, 2), ...]
         //                          where (0 <- car number, 1 <- seat number)
         ResultSet rs = handler.executeQuery(String.format(
-                "SELECT car_number FROM SITS WHERE RIDE_ID = %d",
+                "SELECT car_number FROM SEATS WHERE RIDE_ID = %d",
                 rideID
         ));
         ArrayList<Seat> availSeats = new ArrayList<Seat>();
         ArrayList<String> cars = handler.returnDataArray(rs, 1);
         rs = handler.executeQuery(String.format(
-                "SELECT sit_number FROM SITS WHERE RIDE_ID = %d",
+                "SELECT seat_number FROM SEATS WHERE RIDE_ID = %d",
                 rideID
         ));
         ArrayList<String> seats = handler.returnDataArray(rs, 1);
         rs = handler.executeQuery(String.format(
-                "SELECT sit_id FROM SITS WHERE RIDE_ID = %d",
+                "SELECT seat_id FROM SEATS WHERE RIDE_ID = %d",
                 rideID
         ));
         ArrayList<String> seats_ids = handler.returnDataArray(rs, 1);
         for (int i = 0; i < cars.size(); i++) {
             availSeats.add(new Seat(
+                    Integer.parseInt(seats_ids.get(i)),
+                    rideID,
                     Integer.parseInt(cars.get(i)),
-                    Integer.parseInt(seats.get(i)),
-                    Integer.parseInt(seats_ids.get(i))
+                    Integer.parseInt(seats.get(i))
                     ));
         }
         return availSeats;
