@@ -1,6 +1,11 @@
 package app.pociagi;
 
-import app.pociagi.db.Finders.All.FindRide;
+import app.pociagi.db.Finders.All.AllFindDiscount;
+import app.pociagi.db.Finders.All.AllFindRide;
+import app.pociagi.db.Finders.All.AllFindSeatClass;
+import app.pociagi.db.Objects.Discount;
+import app.pociagi.db.Objects.Ride;
+import app.pociagi.db.Objects.SeatClass;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,8 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 
 public class mainApp extends Application {
 
@@ -25,10 +29,18 @@ public class mainApp extends Application {
     }
 
     public static void main(String[] args) throws ParseException {
-        String rideDate = "2022-12-06";
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = formatter.parse(rideDate);
-        System.out.println(FindRide.findByConIdRideDate(1, date).getID());
+        ArrayList<Discount> list = AllFindDiscount.findByValue(0);
+        for (Discount discount : list) {
+            System.out.println(String.format("%s, %s, %s", discount.getID(), discount.getName(), discount.getValue()));
+        }
+        ArrayList<SeatClass> alist = AllFindSeatClass.findByCoef(1);
+        for (SeatClass seatClass : alist) {
+            System.out.println(String.format("%s, %s, %s", seatClass.getID(), seatClass.getName(), seatClass.getCoef()));
+        }
+        ArrayList<Ride> rides = AllFindRide.findByRideDate("2022-12-01");
+        for (Ride ride : rides) {
+            System.out.println(String.format("%s, %s, %s", ride.getID(), ride.getConnectionId(), ride.getRideDateString()));
+        }
 //        DatabaseHandler handler = DatabaseHandler.getInstance();
 //        String sql = "SELECT * FROM STATIONS";
 //        ResultSet rs = handler.executeQuery(sql);

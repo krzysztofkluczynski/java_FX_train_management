@@ -1,6 +1,5 @@
-package app.pociagi.db.Finders.All;
+package app.pociagi.db.Finders.Single;
 
-import app.pociagi.db.Objects.Discount;
 import app.pociagi.db.Objects.SeatClass;
 
 import java.sql.SQLException;
@@ -42,7 +41,7 @@ public class FindSeatClass {
      */
     public static SeatClass findByName(String name) {
         try {
-            Integer classId = Integer.parseInt(Finder.find("CLASSES", "COEF", "NAME", name));
+            Integer classId = Integer.parseInt(Finder.find("CLASSES", "ID", "NAME", name));
             Integer coef = Integer.parseInt(Finder.find("CLASSES", "COEF", "NAME", name));
             return new SeatClass(classId, name, coef);
         } catch (SQLException s) {

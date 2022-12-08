@@ -1,4 +1,4 @@
-package app.pociagi.db.Finders.All;
+package app.pociagi.db.Finders.Single;
 
 import app.pociagi.db.Objects.Seat;
 

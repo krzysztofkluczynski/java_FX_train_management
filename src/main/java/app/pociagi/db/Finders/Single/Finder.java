@@ -1,4 +1,4 @@
-package app.pociagi.db.Finders.All;
+package app.pociagi.db.Finders.Single;
 
 import app.pociagi.db.Utils.DatabaseHandler;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /** <h>Finder</h>
  * Finder is used by all object Finders
- * Finder allows to find objects using where stmt on unique values
+ * Finder allows to find SINGLE object that fulfills where stmt
  * @author rafal
  * @since 2022-12-08
  */

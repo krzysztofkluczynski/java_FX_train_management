@@ -1,7 +1,9 @@
 package app.pociagi.db.Utils;
 
+import javax.sql.RowSetMetaData;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * should be rewritten!
@@ -77,7 +79,7 @@ public class DatabaseHandler {
         }
     }
     public ArrayList<String> returnDataArray(ResultSet rs, int columnIndex) {
-        ArrayList<String> arr = new ArrayList<String>();
+        ArrayList<String> arr = new ArrayList<>();
         try {
             while (rs.next()) {
                 arr.add(rs.getString(columnIndex));
@@ -87,6 +89,25 @@ public class DatabaseHandler {
             System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
         }
         return arr;
+    }
+
+    public ArrayList<HashMap<String, String>> returnAllData(ResultSet rs) {
+        ArrayList<HashMap<String, String>> array = new ArrayList<>();
+        try {
+            ResultSetMetaData resultSetMetaData = rs.getMetaData();
+            Integer columnCount = resultSetMetaData.getColumnCount();
+            while (rs.next()) {
+                HashMap<String, String> data = new HashMap<>();
+                for (int i = 1; i <= columnCount; i++) {
+                    data.put(resultSetMetaData.getColumnName(i), rs.getString(i));
+                }
+                array.add(data);
+            }
+        }
+        catch (SQLException e) {
+            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+        }
+        return array;
     }
 
     public void finish() {

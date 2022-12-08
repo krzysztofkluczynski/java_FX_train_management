@@ -1,5 +1,7 @@
 package app.pociagi.db.Objects;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -54,8 +56,14 @@ public class Ride extends DBObject{
         super.pushToDB();
     }
 
-    public Date getRide_date() {
+    public Date getRideDate() {
         return ride_date;
+    }
+
+    public String getRideDateString() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = this.ride_date;
+        return dateFormat.format(date);
     }
 
     public Integer getConnectionId() {

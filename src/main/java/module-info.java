@@ -15,4 +15,6 @@ module app.pociagi {
     opens app.pociagi.db.Utils to javafx.fxml;
     exports app.pociagi.db.Finders.All;
     opens app.pociagi.db.Finders.All to javafx.fxml;
+    exports app.pociagi.db.Finders.Single;
+    opens app.pociagi.db.Finders.Single to javafx.fxml;
 }
