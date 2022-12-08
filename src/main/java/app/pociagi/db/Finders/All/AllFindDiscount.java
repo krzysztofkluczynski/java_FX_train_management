@@ -18,7 +18,7 @@ public class AllFindDiscount {
      * <h> find ALL by discount value </h>
      * Finds all objects in DISCOUNTS table by value of discount
      * @param value value of discount in (%)
-     * @return ArrayList of Seat objects or null if it cannot find the object
+     * @return ArrayList of Discount objects or null if it cannot find the object
      * @author rafal
      * @since 2022-12-08
      */

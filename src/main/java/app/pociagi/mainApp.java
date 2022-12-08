@@ -1,11 +1,8 @@
 package app.pociagi;
 
-import app.pociagi.db.Finders.All.AllFindDiscount;
-import app.pociagi.db.Finders.All.AllFindRide;
-import app.pociagi.db.Finders.All.AllFindSeatClass;
-import app.pociagi.db.Objects.Discount;
-import app.pociagi.db.Objects.Ride;
-import app.pociagi.db.Objects.SeatClass;
+import app.pociagi.db.Finders.All.*;
+import app.pociagi.db.Finders.Single.FindUser;
+import app.pociagi.db.Objects.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -40,6 +37,14 @@ public class mainApp extends Application {
         ArrayList<Ride> rides = AllFindRide.findByRideDate("2022-12-01");
         for (Ride ride : rides) {
             System.out.println(String.format("%s, %s, %s", ride.getID(), ride.getConnectionId(), ride.getRideDateString()));
+        }
+        ArrayList<ConnectionStop> stops = AllFindStop.findByConnectionID(1);
+        for (ConnectionStop stop : stops) {
+            System.out.println(String.format("%s, %s, %s, %s",stop.getConnectionId(), stop.getStationId(), stop.getArrivalHour(), stop.getDepartureHour()));
+        }
+        ArrayList<Ticket> tickets = AllFindTicket.findByUserID(FindUser.findByLogin("rafal").getID());
+        for (Ticket ticket : tickets) {
+            System.out.println(String.format("%s, %s, %s, %s, %s", ticket.getID(), ticket.getRideId(), ticket.getDepartureStationId(), ticket.getArrivalStationId(), ticket.getUserId()));
         }
 //        DatabaseHandler handler = DatabaseHandler.getInstance();
 //        String sql = "SELECT * FROM STATIONS";
