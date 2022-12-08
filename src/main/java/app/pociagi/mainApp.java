@@ -5,6 +5,7 @@ import app.pociagi.db.Objects.Seat;
 import app.pociagi.db.Objects.Ticket;
 import app.pociagi.db.Objects.User;
 import app.pociagi.db.Utils.DatabaseHandler;
+import app.pociagi.db.Utils.FindRide;
 import app.pociagi.db.Utils.FindStop;
 import app.pociagi.db.Utils.FindUser;
 import javafx.application.Application;
@@ -29,7 +30,7 @@ public class mainApp extends Application {
     }
 
     public static void main(String[] args) {
-        FindStop.findByConIdStationId(1, 10);
+        FindRide.findByID(12);
 //        DatabaseHandler handler = DatabaseHandler.getInstance();
 //        String sql = "SELECT * FROM STATIONS";
 //        ResultSet rs = handler.executeQuery(sql);
