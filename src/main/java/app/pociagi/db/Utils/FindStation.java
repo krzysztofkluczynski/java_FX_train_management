@@ -4,11 +4,40 @@ import app.pociagi.db.Objects.Station;
 
 import java.sql.SQLException;
 
+/** <h>FindStation</h>
+ * FindStation allows to find Station by unique values
+ * @author rafal
+ * @since 2022-12-08
+ */
 public class FindStation{
+
+    /** <h> find by station name </h>
+     * Finds object in STATIONS table by station name
+     * @return Seat object or null if it cannot find the object or if found more than 1
+     * @author rafal
+     * @since 2022-12-08
+     */
     public static Station findByName(String name) {
         try {
             return new Station(Integer.parseInt(Finder.find("STATIONS", "STATION_ID",
                     "NAME", name)), name);
+        }
+        catch (SQLException s) {
+            System.err.format("SQL State: %s\n%s", s.getSQLState(), s.getMessage());
+            return null;
+        }
+    }
+
+    /** <h> find by station ID </h>
+     * Finds object in STATIONS table by station id
+     * @return Seat object or null if it cannot find the object or if found more than 1
+     * @author rafal
+     * @since 2022-12-08
+     */
+    public static Station findByName(Integer stationId) {
+        try {
+            return new Station(stationId, Finder.find("STATIONS", "NAME",
+                    "STATION_ID", stationId));
         }
         catch (SQLException s) {
             System.err.format("SQL State: %s\n%s", s.getSQLState(), s.getMessage());

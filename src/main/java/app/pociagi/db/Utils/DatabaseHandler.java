@@ -3,6 +3,9 @@ package app.pociagi.db.Utils;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * should be rewritten!
+ */
 public class DatabaseHandler {
     private static DatabaseHandler handler = null;
     private static final String dbURL = "jdbc:oracle:thin:@//ora4.ii.pw.edu.pl:1521/pdb1.ii.pw.edu.pl";
