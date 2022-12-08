@@ -14,6 +14,7 @@ public class FindSeat {
 
     /** <h> find by seat ID</h>
      * Finds object in SEATS table by seat ID
+     * @param id id of seat
      * @return Seat object or null if it cannot find the object or if found more than 1
      * @author rafal
      * @since 2022-12-08
@@ -34,6 +35,7 @@ public class FindSeat {
 
     /** <h> find by ticket ID</h>
      * Finds object in SEATS table by ticket ID
+     * @param ticketId id of ticket we want to search seat assigned to
      * @return Seat object or null if it cannot find the object or if found more than 1
      * @author rafal
      * @since 2022-12-08

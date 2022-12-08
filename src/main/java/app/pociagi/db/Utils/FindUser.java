@@ -14,7 +14,8 @@ public class FindUser{
 
     /** <h> find by user login </h>
      * Finds object in USERS table by user login
-     * @return Seat object or null if it cannot find the object or if found more than 1
+     * @param login login of user
+     * @return User object or null if it cannot find the object or if found more than 1
      * @author rafal
      * @since 2022-12-08
      */
@@ -35,7 +36,8 @@ public class FindUser{
 
     /** <h> find by user ID </h>
      * Finds object in USERS table by user ID
-     * @return Seat object or null if it cannot find the object or if found more than 1
+     * @param userId id of user
+     * @return User object or null if it cannot find the object or if found more than 1
      * @author rafal
      * @since 2022-12-08
      */

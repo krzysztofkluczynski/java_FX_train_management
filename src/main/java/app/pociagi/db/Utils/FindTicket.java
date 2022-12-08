@@ -15,7 +15,8 @@ public class FindTicket{
 
     /** <h> find by ticket ID </h>
      * Finds object in TICKETS table by ticket id
-     * @return Seat object or null if it cannot find the object or if found more than 1
+     * @param ticketId id of ticket
+     * @return Ticket object or null if it cannot find the object or if found more than 1
      * @author rafal
      * @since 2022-12-08
      */
@@ -38,7 +39,8 @@ public class FindTicket{
 
     /** <h> find by user ID </h>
      * Finds object in TICKETS table by user ID
-     * @return Seat object or null if it cannot find the object or if found more than 1
+     * @param userId id of user assigned to ticket
+     * @return Ticket object or null if it cannot find the object or if found more than 1
      * @author rafal
      * @since 2022-12-08
      */

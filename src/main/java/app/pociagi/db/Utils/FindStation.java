@@ -13,7 +13,8 @@ public class FindStation{
 
     /** <h> find by station name </h>
      * Finds object in STATIONS table by station name
-     * @return Seat object or null if it cannot find the object or if found more than 1
+     * @param name station name that is displayed
+     * @return Station object or null if it cannot find the object or if found more than 1
      * @author rafal
      * @since 2022-12-08
      */
@@ -30,7 +31,8 @@ public class FindStation{
 
     /** <h> find by station ID </h>
      * Finds object in STATIONS table by station id
-     * @return Seat object or null if it cannot find the object or if found more than 1
+     * @param stationId id of station
+     * @return Station object or null if it cannot find the object or if found more than 1
      * @author rafal
      * @since 2022-12-08
      */

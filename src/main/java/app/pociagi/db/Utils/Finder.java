@@ -42,6 +42,18 @@ public class Finder {
         if (arr.size() == 1) return arr.get(0);
         else throw new SQLException("Returned too much data!");
     }
+    public static String findFrom2(String table, String column, String whereColumn1, String whereValue1,
+                                   String whereColumn2, Integer whereValue2) throws SQLException {
+        DatabaseHandler handler = DatabaseHandler.getInstance();
+        String sql = String.format("SELECT %s FROM %s WHERE %s = '%s' and %s = %d",
+                column, table, whereColumn1, whereValue1, whereColumn2, whereValue2);
+        System.out.println(sql);
+        ResultSet rs = handler.executeQuery(sql);
+        ArrayList<String> arr = handler.returnDataArray(rs, 1);
+        if (arr.size() == 1) return arr.get(0);
+        else throw new SQLException("Returned too much data!");
+    }
+
     public static String findFrom2(String table, String column, String whereColumn1, Integer whereValue1,
                                    String whereColumn2, Integer whereValue2) throws SQLException {
         DatabaseHandler handler = DatabaseHandler.getInstance();

@@ -1,9 +1,6 @@
 package app.pociagi;
 
-import app.pociagi.db.Objects.Connection;
-import app.pociagi.db.Objects.Seat;
-import app.pociagi.db.Objects.Ticket;
-import app.pociagi.db.Objects.User;
+import app.pociagi.db.Objects.*;
 import app.pociagi.db.Utils.DatabaseHandler;
 import app.pociagi.db.Utils.FindRide;
 import app.pociagi.db.Utils.FindStop;
@@ -16,6 +13,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class mainApp extends Application {
 
@@ -29,8 +29,11 @@ public class mainApp extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        FindRide.findByID(12);
+    public static void main(String[] args) throws ParseException {
+        String rideDate = "2022-12-06";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = formatter.parse(rideDate);
+        System.out.println(FindRide.findByConIdRideDate(1, date).getID());
 //        DatabaseHandler handler = DatabaseHandler.getInstance();
 //        String sql = "SELECT * FROM STATIONS";
 //        ResultSet rs = handler.executeQuery(sql);

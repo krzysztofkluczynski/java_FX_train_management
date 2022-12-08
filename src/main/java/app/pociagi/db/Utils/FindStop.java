@@ -15,7 +15,9 @@ public class FindStop {
     /**
      * <h> find by connection ID & station ID </h>
      * Finds object in STOPS table by station name
-     * @return Seat object or null if it cannot find the object or if found more than 1
+     * @param connectionId id of connection
+     * @param stationId id of station
+     * @return ConnectionStop object or null if it cannot find the object or if found more than 1
      * @author rafal
      * @since 2022-12-08
      */
