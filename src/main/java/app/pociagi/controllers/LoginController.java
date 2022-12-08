@@ -1,8 +1,7 @@
 package app.pociagi.controllers;
 
 import app.pociagi.SceneChanger;
-import app.pociagi.db.Objects.User;
-import app.pociagi.db.Utils.FindUser;
+import app.pociagi.db.Finders.All.FindUser;
 import app.pociagi.mainApp;
 import app.pociagi.utils.AppData;
 import app.pociagi.db.Utils.DatabaseHandler;

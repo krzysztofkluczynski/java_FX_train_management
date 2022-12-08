@@ -1,10 +1,8 @@
-package app.pociagi.db.Utils;
+package app.pociagi.db.Finders.All;
 
-import app.pociagi.db.Objects.ConnectionStop;
 import app.pociagi.db.Objects.Ride;
 
 import java.sql.SQLException;
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,7 +25,7 @@ public class FindRide {
      */
     public static Ride findByID(Integer rideId) {
         try {
-            Integer connectionId = Integer.getInteger(Finder.find("RIDES", "CONNECTION_ID", "RIDE_ID", rideId));
+            Integer connectionId = Integer.parseInt(Finder.find("RIDES", "CONNECTION_ID", "RIDE_ID", rideId));
             String rideDate = Finder.find("RIDES", "RIDE_DATE", "RIDE_ID", rideId).substring(0,10);
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             Date date = formatter.parse(rideDate);

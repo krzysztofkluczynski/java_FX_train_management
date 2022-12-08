@@ -1,4 +1,4 @@
-package app.pociagi.db.Utils;
+package app.pociagi.db.Finders.All;
 
 import app.pociagi.db.Objects.ConnectionStop;
 

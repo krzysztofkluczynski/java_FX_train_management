@@ -16,7 +16,7 @@ import java.util.HashMap;
  */
 public class Discount extends DBObject{
     private final String name;
-    private final String value;
+    private final Integer value;
 
     /**
      * <h2> Create Discount Object </h2>
@@ -28,7 +28,7 @@ public class Discount extends DBObject{
      * @author rafal
      * @since 2022-12-07
      */
-    public Discount(Integer id, String name, String value) {
+    public Discount(Integer id, String name, Integer value) {
         super(id);
         this.name = name;
         this.value = value;
@@ -38,7 +38,7 @@ public class Discount extends DBObject{
         return name;
     }
 
-    public String getValue() {
+    public Integer getValue() {
         return value;
     }
 

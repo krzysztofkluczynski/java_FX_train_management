@@ -1,7 +1,6 @@
-package app.pociagi.db.Utils;
+package app.pociagi.db.Finders.All;
 
 import app.pociagi.db.Objects.Seat;
-import app.pociagi.db.Objects.Station;
 
 import java.sql.SQLException;
 

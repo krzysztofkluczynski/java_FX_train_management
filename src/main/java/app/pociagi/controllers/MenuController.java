@@ -1,8 +1,7 @@
 package app.pociagi.controllers;
 
 import app.pociagi.SceneChanger;
-import app.pociagi.db.Objects.Station;
-import app.pociagi.db.Utils.FindStation;
+import app.pociagi.db.Finders.All.FindStation;
 import app.pociagi.utils.AppData;
 import app.pociagi.utils.AutoCompleteTextField;
 import app.pociagi.db.Utils.DatabaseHandler;
