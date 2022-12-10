@@ -40,11 +40,8 @@ public class BuyTicketController implements Initializable {
     @FXML
     private Button goBack;
     public void initialize(URL url, ResourceBundle rb) {
-        rideId = appData.pickedConnection.get(0);
-        fromTime.setText(String.format("%02d:%02d", appData.pickedConnection.get(1),
-                appData.pickedConnection.get(2)));
-        toTime.setText(String.format("%02d:%02d", appData.pickedConnection.get(3),
-                appData.pickedConnection.get(4)));
+        fromTime.setText(appData.pickedRoute.getStop(appData.from.getName()).getDepartureHour().toString());
+        toTime.setText(appData.pickedRoute.getStop(appData.destination.getName()).getArrivalHour().toString());
         fromLabel.setText(appData.from.getName());
         toLabel.setText(appData.destination.getName());
         seatPicked.setText(String.format("Car: %d, Seat: %d",

@@ -36,7 +36,7 @@ public class FindStation{
      * @author rafal
      * @since 2022-12-08
      */
-    public static Station findByName(Integer stationId) {
+    public static Station findById(Integer stationId) {
         try {
             return new Station(stationId, Finder.find("STATIONS", "NAME",
                     "STATION_ID", stationId));
