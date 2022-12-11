@@ -28,7 +28,7 @@ public class PickSeatController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         availSeats = getAvailSeats(
-                findRide(appData.pickedConnection.get(0)));
+                findRide(appData.pickedRoute.getConnection().getID()));
         for (Seat seat : availSeats) {
             seatList.getItems().add(
                     String.format("Car: %d, Seat: %d",

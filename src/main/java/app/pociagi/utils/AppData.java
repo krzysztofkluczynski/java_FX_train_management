@@ -12,16 +12,11 @@ import java.util.Map;
 public class AppData {
     private static final AppData INSTANCE = new AppData();
     public User user = null;
-    public String pickedSource = null;
-    public String pickedDestination = null;
     public Route pickedRoute;
 
     public Station from = null;
     public Station destination = null;
-
-    public DatabaseHandler dbHandler;
-    public Map<String, Integer> buyTicketData = new HashMap<String, Integer>();
-    public ArrayList<Integer> pickedConnection;
+    public Map<String, Integer> buyTicketData = new HashMap<>();
     private AppData() {}
 
     public static AppData getInstance() {

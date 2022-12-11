@@ -1,5 +1,6 @@
 package app.pociagi.controllers;
 
+import app.pociagi.db.Finders.Single.FindRide;
 import app.pociagi.db.Utils.DatabaseHandler;
 import app.pociagi.SceneChanger;
 import app.pociagi.utils.tickets;
@@ -70,7 +71,9 @@ public class BuyTicketController implements Initializable {
     }
 
     public void recalculateCost() {
-        Integer time = appData.pickedConnection.get(5);
+        Integer time = (int) (appData.pickedRoute.getStop(appData.destination.getName()).getArrivalHour().getTime() -
+                appData.pickedRoute.getStop(appData.from.getName()).getDepartureHour().getTime()) / 60000;
+        System.out.println(time);
         Integer discount = getValue("discounts", discountPicker);
         Integer classCoef = getValue("classes", classPicker);
         int cost = time * 26 * (100 - discount ) / 100 * classCoef;
@@ -100,7 +103,8 @@ public class BuyTicketController implements Initializable {
     }
 
     public void buyTicketPressed(ActionEvent e) {
-        rideId = findRide(appData.pickedConnection.get(0));
+        rideId = FindRide.findByConIdRideDate(appData.pickedRoute.getConnection().getID(),
+        "2022-12-06").getID();
         // znajdz seat po id i ustaw isOccupied na YES
         System.out.println(rideId);
         if (appData.user == null)
