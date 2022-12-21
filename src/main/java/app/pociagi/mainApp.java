@@ -29,11 +29,8 @@ public class mainApp extends Application {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = formatter.parse(rideDate);
         System.out.println(FindRide.findByConIdRideDate(1, date).getID());
-//        DatabaseHandler handler = DatabaseHandler.getInstance();
-//        String sql = "SELECT * FROM STATIONS";
-//        ResultSet rs = handler.executeQuery(sql);
-//        handler.printData(rs);
-//        launch();
-//        handler.finish();
+        launch();
+
+
     }
 }
