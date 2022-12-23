@@ -2,6 +2,8 @@ package app.pociagi.controllers;
 
 import app.pociagi.SceneChanger;
 import app.pociagi.db.Finders.All.AllFindDiscount;
+import app.pociagi.db.Finders.All.AllFindSeatClass;
+import app.pociagi.db.Finders.All.AllFindTicket;
 import app.pociagi.db.Objects.DBObject;
 import app.pociagi.db.Objects.Discount;
 import app.pociagi.utils.AppData;
@@ -36,6 +38,16 @@ public class AdminPanelController implements Initializable {
         prepareListData();
     }
     @FXML
+    private void classesButtonPushed(ActionEvent e) {
+        objectList = new ArrayList<DBObject>(AllFindSeatClass.getAll());
+        prepareListData();
+    }
+    @FXML
+    private void ticketsButtonPushed(ActionEvent e) {
+        objectList = new ArrayList<DBObject>(AllFindTicket.getAll());
+        prepareListData();
+    }
+    @FXML
     private void stopsButtonPushed(ActionEvent e) {}
     @FXML
     private void usersButtonPushed(ActionEvent e) {}
@@ -56,6 +68,7 @@ public class AdminPanelController implements Initializable {
         DBObject selectedObject = objectList.get(actionsListView.getSelectionModel().getSelectedIndex());
         selectedObject.deleteObject();
         objectList.remove(actionsListView.getSelectionModel().getSelectedIndex());
+        prepareListData();
     }
 
     @FXML

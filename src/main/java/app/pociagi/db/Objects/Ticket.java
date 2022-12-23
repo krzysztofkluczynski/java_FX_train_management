@@ -46,6 +46,8 @@ public class Ticket extends DBObject{
         this.departureStationId = departureStationId;
         this.arrivalStationId = arrivalStationId;
         this.userId = userId;
+        createData();
+        createStringData();
     }
 
     /**
@@ -72,6 +74,30 @@ public class Ticket extends DBObject{
         this.arrivalStationId = arrivalStationId;
         this.name = name;
         this.surname = surname;
+        createData();
+        createStringData();
+    }
+
+    private void createData() {
+        HashMap<String, Object> dict = new HashMap<>();
+        dict.put("TICKET_ID", this.getID());
+        dict.put("RIDE_ID", this.rideId);
+        dict.put("ID_DEPARTURE_STATION", this.departureStationId);
+        dict.put("ID_ARRIVAL_STATION", this.arrivalStationId);
+        if (userId!=null) dict.put("USER_ID", this.userId);
+        if (name!=null) dict.put("NAME", this.name);
+        if (surname!=null) dict.put("SURNAME", this.surname);
+        super.data = dict;
+        super.table = "TICKETS";
+    }
+
+    private void createStringData() {
+        HashMap<String, Object> dict = new HashMap<>();
+        dict.put("TICKET_ID", this.getID());
+        if (userId!=null) dict.put("USER_ID", this.userId);
+        if (name!=null) dict.put("NAME", this.name);
+        if (surname!=null) dict.put("SURNAME", this.surname);
+        super.stringData = dict;
     }
 
     /**
@@ -85,16 +111,6 @@ public class Ticket extends DBObject{
      */
     @Override
     public void pushToDB() {
-        HashMap<String, Object> dict = new HashMap<>();
-        dict.put("TICKET_ID", this.getID());
-        dict.put("RIDE_ID", this.rideId);
-        dict.put("ID_DEPARTURE_STATION", this.departureStationId);
-        dict.put("ID_ARRIVAL_STATION", this.arrivalStationId);
-        if (userId!=null) dict.put("USER_ID", this.userId);
-        if (name!=null) dict.put("NAME", this.name);
-        if (surname!=null) dict.put("SURNAME", this.surname);
-        super.data = dict;
-        super.table = "TICKETS";
         super.pushToDB();
     }
 
@@ -107,7 +123,10 @@ public class Ticket extends DBObject{
      * @since 2022-12-07
      */
     public void setName(String name) {
+
         this.name = name;
+        createData();
+        createStringData();
     }
 
     /**
@@ -119,7 +138,10 @@ public class Ticket extends DBObject{
      * @since 2022-12-07
      */
     public void setSurname(String surname) {
+
         this.surname = surname;
+        createData();
+        createStringData();
     }
 
     /**
@@ -132,6 +154,8 @@ public class Ticket extends DBObject{
      */
     public void setUserId(Integer userId) {
         this.userId = userId;
+        createData();
+        createStringData();
     }
 
     public Integer getArrivalStationId() {

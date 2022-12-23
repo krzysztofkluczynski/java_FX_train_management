@@ -1,6 +1,7 @@
 package app.pociagi.db.Finders.All;
 
 
+import app.pociagi.db.Objects.Discount;
 import app.pociagi.db.Objects.Ticket;
 
 import java.sql.SQLException;
@@ -90,6 +91,16 @@ public class AllFindTicket {
         }
     }
 
+    public static ArrayList<Ticket> getAll() {
+        try {
+            ArrayList<HashMap<String, String>> data = AllFinder.findAll("TICKETS");
+            return generateData(data);
+        } catch (SQLException s) {
+            System.err.format("SQL State: %s\n%s", s.getSQLState(), s.getMessage());
+            return null;
+        }
+    }
+
     private static ArrayList<Ticket> generateData(ArrayList<HashMap<String, String>> data) {
         ArrayList<Ticket> ticketList= new ArrayList<>();
         for (HashMap<String, String> conData : data) {
@@ -97,7 +108,13 @@ public class AllFindTicket {
             Integer rideId = Integer.parseInt(conData.get("RIDE_ID"));
             Integer depStatId = Integer.parseInt(conData.get("ID_DEPARTURE_STATION"));
             Integer arrStatId = Integer.parseInt(conData.get("ID_ARRIVAL_STATION"));
-            Integer userId = Integer.parseInt(conData.get("USER_ID"));
+            Integer userId;
+            try {
+                userId = Integer.parseInt(conData.get("USER_ID"));
+            }
+            catch (NumberFormatException e){
+                userId = null;
+            }
             String name = conData.get("NAME");
             String surname = conData.get("NAZWISKO");
             if (userId == null)

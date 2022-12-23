@@ -33,6 +33,16 @@ public class AllFindSeatClass {
         }
     }
 
+    public static ArrayList<SeatClass> getAll() {
+        try {
+            ArrayList<HashMap<String, String>> data = AllFinder.findAll("CLASSES");
+            return generateData(data);
+        } catch (SQLException s) {
+            System.err.format("SQL State: %s\n%s", s.getSQLState(), s.getMessage());
+            return null;
+        }
+    }
+
     private static ArrayList<SeatClass> generateData(ArrayList<HashMap<String, String>> data) {
         ArrayList<SeatClass> classesList= new ArrayList<>();
         for (HashMap<String, String> conData : data) {
