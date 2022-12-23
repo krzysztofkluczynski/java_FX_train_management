@@ -1,6 +1,6 @@
 package app.pociagi;
 
-import app.pociagi.db.Finders.All.FindRide;
+import app.pociagi.db.Finders.Single.FindRide;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -2,6 +2,7 @@ package app.pociagi.db.Finders.All;
 
 import app.pociagi.db.Utils.DatabaseHandler;
 
+import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,6 +15,15 @@ import java.util.HashMap;
  * @since 2022-12-08
  */
 public class AllFinder {
+    public static ArrayList<HashMap<String, String>> findAll(String table) throws SQLException {
+        DatabaseHandler handler = DatabaseHandler.getInstance();
+        String sql = String.format("SELECT * FROM %s", table);
+        System.out.println(sql);
+        ResultSet rs = handler.executeQuery(sql);
+        ArrayList<HashMap<String, String>> array = handler.returnAllData(rs);
+        if (array.size() == 0) throw new SQLException("No object found!");
+        else return array;
+    }
     //String
     public static ArrayList<HashMap<String, String>> find(String table, String whereColumn, String whereValue) throws SQLException {
         DatabaseHandler handler = DatabaseHandler.getInstance();

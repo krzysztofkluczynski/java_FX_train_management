@@ -32,6 +32,15 @@ public class AllFindDiscount {
         }
     }
 
+    public static ArrayList<Discount> getAll() {
+        try {
+            ArrayList<HashMap<String, String>> data = AllFinder.findAll("DISCOUNTS");
+            return generateData(data);
+        } catch (SQLException s) {
+            System.err.format("SQL State: %s\n%s", s.getSQLState(), s.getMessage());
+            return null;
+        }
+    }
     private static ArrayList<Discount> generateData(ArrayList<HashMap<String, String>> data) {
         ArrayList<Discount> discountList= new ArrayList<>();
         for (HashMap<String, String> conData : data) {

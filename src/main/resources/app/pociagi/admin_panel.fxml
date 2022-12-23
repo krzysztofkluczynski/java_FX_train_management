@@ -9,10 +9,13 @@
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="187.0" style="-fx-background-color: #7B7B7B;">
          <children>
-            <Button fx:id="stopsButton" layoutX="43.0" layoutY="147.0" mnemonicParsing="false" onAction="#stopsButtonPushed" prefHeight="39.0" prefWidth="101.0" style="-fx-background-color: #0096FF;" text="STOPS" textFill="WHITE" />
-            <Button fx:id="userButton" layoutX="43.0" layoutY="208.0" mnemonicParsing="false" onAction="#usersButtonPushed" prefHeight="39.0" prefWidth="101.0" style="-fx-background-color: #0096FF;" text="USERS" textFill="WHITE" />
-            <Button fx:id="ConnectionButton" layoutX="43.0" layoutY="88.0" mnemonicParsing="false" onAction="#connectionButtonPushed" prefHeight="39.0" prefWidth="101.0" style="-fx-background-color: #0096FF;" text="CONNECTIONS" textFill="WHITE" />
+            <Button fx:id="stopsButton" layoutX="43.0" layoutY="84.0" mnemonicParsing="false" onAction="#stopsButtonPushed" prefHeight="39.0" prefWidth="101.0" style="-fx-background-color: #0096FF;" text="STATIONS" textFill="WHITE" />
+            <Button fx:id="userButton" layoutX="43.0" layoutY="134.0" mnemonicParsing="false" onAction="#usersButtonPushed" prefHeight="39.0" prefWidth="101.0" style="-fx-background-color: #0096FF;" text="USERS" textFill="WHITE" />
+            <Button fx:id="ConnectionButton" layoutX="43.0" layoutY="33.0" mnemonicParsing="false" onAction="#connectionButtonPushed" prefHeight="39.0" prefWidth="101.0" style="-fx-background-color: #0096FF;" text="CONNECTIONS" textFill="WHITE" />
             <Button fx:id="goBackButton" layoutX="17.0" layoutY="361.0" mnemonicParsing="false" onAction="#goBackButtonPushed" text="GO BACK" />
+            <Button fx:id="userButton1" layoutX="43.0" layoutY="186.0" mnemonicParsing="false" onAction="#discountsButtonPushed" prefHeight="39.0" prefWidth="101.0" style="-fx-background-color: #0096FF;" text="DISCOUNTS" textFill="WHITE" />
+            <Button fx:id="userButton11" layoutX="43.0" layoutY="233.0" mnemonicParsing="false" onAction="#discountsButtonPushed" prefHeight="39.0" prefWidth="101.0" style="-fx-background-color: #0096FF;" text="CLASSES" textFill="WHITE" />
+            <Button fx:id="userButton111" layoutX="43.0" layoutY="281.0" mnemonicParsing="false" onAction="#discountsButtonPushed" prefHeight="39.0" prefWidth="101.0" style="-fx-background-color: #0096FF;" text="TICKETS" textFill="WHITE" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="400.0" prefWidth="443.0">
