@@ -1,5 +1,7 @@
 package app.pociagi.db.Objects;
 
+import app.pociagi.db.Finders.Single.FindStation;
+
 import java.util.HashMap;
 
 /**
@@ -32,6 +34,8 @@ public class Connection extends DBObject{
         super(id);
         this.departureStationId = departureStationId;
         this.arrivalStationId = arrivalStationId;
+        createData();
+        createStringData();
     }
 
     public Integer getDepartureStationId() {
@@ -58,5 +62,22 @@ public class Connection extends DBObject{
         super.data = dict;
         super.table = "CONNECTIONS";
         super.pushToDB();
+    }
+
+    private void createData() {
+        HashMap<String, Object> dict = new HashMap<>();
+        dict.put("CONNECTION_ID", super.getID());
+        dict.put("DEPARTURE_STATION", this.departureStationId);
+        dict.put("ARRIVAL_STATION", this.arrivalStationId);
+        super.data = dict;
+        super.table = "CONNECTIONS";
+    }
+
+    private void createStringData() {
+        HashMap<String, Object> dict = new HashMap<>();
+        dict.put("CONNECTION_ID", this.getID());
+        dict.put("DEPARTURE_STATION", FindStation.findById(this.getDepartureStationId()));
+        dict.put("ARRIVAL_STATION", FindStation.findById(this.getArrivalStationId()));
+        super.stringData = dict;
     }
 }

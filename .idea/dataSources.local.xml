@@ -7,8 +7,16 @@
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
       <user-name>kkluczyn</user-name>
-      <schema-mapping />
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema">
+            <name qname="@" />
+            <name qname="PUBLIC" />
+          </node>
+        </introspection-scope>
+      </schema-mapping>
       <introspection-level>3</introspection-level>
     </data-source>
     <data-source name="@localhost" uuid="fef8b5b6-6c44-450e-b6fc-ca3eb5df542b">

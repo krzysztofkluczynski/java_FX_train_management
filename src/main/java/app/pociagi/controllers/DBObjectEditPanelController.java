@@ -45,6 +45,11 @@ public class DBObjectEditPanelController implements Initializable {
     }
 
     @FXML
+    private void goBackButtonPushed(ActionEvent e) {
+        SceneChanger.changeScene(e, "admin_panel.fxml");
+    }
+
+    @FXML
     private void goBackPushed(ActionEvent e) {
         SceneChanger.changeScene(e, "admin_panel.fxml");
     }

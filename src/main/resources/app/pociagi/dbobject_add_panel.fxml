@@ -5,12 +5,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.pociagi.controllers.DBObjectAddPanelController">
    <children>
-      <ListView layoutX="29.0" fx:id="propertiesList" layoutY="77.0" prefHeight="200.0" prefWidth="200.0" />
-      <TextField layoutX="324.0" fx:id="propertyValue" onKeyTyped="#keyTyped" layoutY="126.0" text="data" />
+      <ListView fx:id="propertiesList" layoutX="29.0" layoutY="77.0" prefHeight="200.0" prefWidth="200.0" />
+      <TextField fx:id="propertyValue" layoutX="324.0" layoutY="126.0" onKeyTyped="#keyTyped" text="data" />
       <Button layoutX="441.0" layoutY="252.0" mnemonicParsing="false" onAction="#saveButtonPushed" text="save" />
       <Button layoutX="467.0" layoutY="333.0" mnemonicParsing="false" onAction="#addPushed" text="Add Object" />
+      <Button fx:id="goBackButton" layoutX="44.0" layoutY="333.0" mnemonicParsing="false" onAction="#goBackButtonPushed" text="GO BACK" />
    </children>
 </AnchorPane>

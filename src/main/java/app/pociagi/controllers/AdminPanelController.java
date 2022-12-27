@@ -28,7 +28,10 @@ public class AdminPanelController implements Initializable {
     private ArrayList<DBObject> objectList;
 
     @FXML
-    private void connectionButtonPushed(ActionEvent e) {}
+    private void connectionButtonPushed(ActionEvent e) {
+        objectList = new ArrayList<DBObject>(AllFindConnection.getAll());
+        prepareListData();
+    }
 
     @FXML
     private void discountsButtonPushed(ActionEvent e) {
@@ -49,6 +52,7 @@ public class AdminPanelController implements Initializable {
     private void stopsButtonPushed(ActionEvent e) {
         objectList = new ArrayList<DBObject>(AllFindStation.getAll());
         //objectList = new ArrayList<DBObject>(AllFindDiscount.getAll());
+        System.out.println(objectList);
         prepareListData();
     }
     @FXML

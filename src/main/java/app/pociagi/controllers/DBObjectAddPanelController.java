@@ -52,6 +52,11 @@ public class DBObjectAddPanelController implements Initializable {
     }
 
     @FXML
+    private void goBackButtonPushed(ActionEvent e) {
+        SceneChanger.changeScene(e, "admin_panel.fxml");
+    }
+
+    @FXML
     private void addPushed(ActionEvent e) {
         object.pushToDB();
         SceneChanger.changeScene(e, "admin_panel.fxml");

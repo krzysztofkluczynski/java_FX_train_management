@@ -3,6 +3,7 @@ package app.pociagi.db.Finders.All;
 
 import app.pociagi.db.Finders.Single.Finder;
 import app.pociagi.db.Objects.Connection;
+import app.pociagi.db.Objects.Discount;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -51,7 +52,16 @@ public class AllFindConnection {
             return null;
         }
     }
-
+    public static ArrayList<Connection> getAll() {
+        try {
+            ArrayList<HashMap<String, String>> data = AllFinder.findAll("CONNECTIONS");
+            return generateData(data);
+        } catch (SQLException s) {
+            System.err.format("SQL State: %s\n%s", s.getSQLState(), s.getMessage());
+            System.out.println("test");
+            return null;
+        }
+    }
     private static ArrayList<Connection> generateData(ArrayList<HashMap<String, String>> data) {
         ArrayList<Connection> connectionList = new ArrayList<>();
         for (HashMap<String, String> conData : data) {
@@ -63,4 +73,5 @@ public class AllFindConnection {
         }
         return connectionList;
     }
+
 }
