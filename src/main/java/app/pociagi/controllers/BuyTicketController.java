@@ -35,6 +35,8 @@ public class BuyTicketController implements Initializable {
     private Integer cost;
     private ObservableList<String> discountNames;
 
+    Boolean checkoutLocked = true;
+
     @FXML
     private Button checkoutButton;
     @FXML
@@ -152,7 +154,9 @@ public class BuyTicketController implements Initializable {
     }
 
     public void checkoutPressed(ActionEvent e) {
-
+        if (!checkoutLocked) {
+            System.out.println("proceeded to checkout");
+        }
     }
 
     public void confirmPressed(ActionEvent e) {
@@ -164,9 +168,11 @@ public class BuyTicketController implements Initializable {
             ticketList.getSelectionModel().selectNext();
         }
         checkoutButton.setStyle("-fx-background-color: #4bfd00; ");
+        checkoutLocked = false;
         for (Ticket ticket : appData.buyTicketData) {
             if (ticketData.getCarId() == null) {
                 checkoutButton.setStyle("-fx-background-color: #ff0000; ");
+                checkoutLocked = true;
             }
         }
     }
