@@ -1,6 +1,8 @@
 package app.pociagi.controllers;
 
 import app.pociagi.SceneChanger;
+import app.pociagi.db.Objects.Connection;
+import app.pociagi.db.Objects.Ticket;
 import app.pociagi.db.Utils.Route;
 import app.pociagi.db.Utils.RouteFinder;
 import app.pociagi.utils.connection_finder;
@@ -38,26 +40,41 @@ public class AvailableRidesController implements Initializable {
     }
 
     public void buyTicketButtonPushed(ActionEvent e) {
-        appData.pickedRoute = availRoutes.get(availableRidesListView.getSelectionModel().getSelectedIndex());
+        ArrayList<Connection> pckCons = new ArrayList<>();
+        Connection con1 = new Connection(1, 1, 2);
+        Connection con3 = new Connection(2, 10, 11);
+        Connection con2 = new Connection(4, 28, 43);
+        pckCons.add(con1);
+        pckCons.add(con2);
+        pckCons.add(con3);
+        appData.pickedConnections = pckCons;
+        appData.buyTicketData = new ArrayList<>();
+        for (Connection con : appData.pickedConnections) {
+            appData.buyTicketData.add(new Ticket(null, con.getID(),
+                    appData.pickedDate,
+                    con.getDepartureStationId(),
+                    con.getArrivalStationId(),
+                    null, 3, null, null, 0));
+        }
         SceneChanger.changeScene(e, "buy_ticket.fxml");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        errorLabel.setText("");
-        String source = appData.from.getName();
-        String destination = appData.destination.getName();
-        this.availRoutes = RouteFinder.FindBetween(source, destination);
-        for (Route route : availRoutes) {
-            Time departureTime = route.getStop(source).getDepartureHour();
-            Time arrivalTime = route.getStop(destination).getArrivalHour();
-            String str = String.format("%s, %s --> %s, %s",
-                    source,
-                    departureTime.toString(),
-                    destination,
-                    arrivalTime.toString());
-            System.out.println(str);
-            availableRidesListView.getItems().add(str);
-        }
+//        errorLabel.setText("");
+//        String source = appData.from.getName();
+//        String destination = appData.destination.getName();
+//        this.availRoutes = RouteFinder.FindBetween(source, destination);
+//        for (Route route : availRoutes) {
+//            Time departureTime = route.getStop(source).getDepartureHour();
+//            Time arrivalTime = route.getStop(destination).getArrivalHour();
+//            String str = String.format("%s, %s --> %s, %s",
+//                    source,
+//                    departureTime.toString(),
+//                    destination,
+//                    arrivalTime.toString());
+//            System.out.println(str);
+//            availableRidesListView.getItems().add(str);
+//        }
     }
 }

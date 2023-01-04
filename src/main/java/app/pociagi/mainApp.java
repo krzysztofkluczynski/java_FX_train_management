@@ -28,7 +28,7 @@ public class mainApp extends Application {
         String rideDate = "2022-12-06";
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = formatter.parse(rideDate);
-        System.out.println(FindRide.findByConIdRideDate(1, date).getID());
+        //System.out.println(FindRide.findByConIdRideDate(1, date).getID());
         launch();
 
 

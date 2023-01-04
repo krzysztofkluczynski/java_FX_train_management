@@ -6,6 +6,7 @@ import app.pociagi.db.Objects.Ticket;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 /** <h> AllFindTicket </h>
@@ -121,15 +122,22 @@ public class AllFindTicket {
                 ticketList.add(new Ticket(
                         ticketId,
                         rideId,
+                        new Date(),
                         depStatId,
                         arrStatId,
-                        name,
-                        surname));
+                        null,
+                        1,
+                        1,
+                    1, 0));
             else ticketList.add(new Ticket(ticketId,
                     rideId,
+                    new Date(),
                     depStatId,
                     arrStatId,
-                    userId));
+                    userId,
+                    1,
+                    1,
+                    1, 0));
         }
         return ticketList;
     }

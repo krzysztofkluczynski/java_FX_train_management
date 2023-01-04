@@ -26,7 +26,7 @@ public class MenuController implements Initializable {
     private Button logInButton, findConnectionButton, myAccountButton, adminPanelButton;
 
     @FXML
-    public TextField fromWhereTextField, toWhereTextField;
+    public AutoCompleteTextField fromWhereTextField, toWhereTextField;
 
     @FXML
     private Label helloLabel;
@@ -64,13 +64,13 @@ public class MenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         DatabaseHandler handler = DatabaseHandler.getInstance();
-//        String sql = "SELECT * FROM STATIONS";
-//        ResultSet rs = handler.executeQuery(sql);
-//        ArrayList<String> arr = handler.returnDataArray(rs, 2);
-//        System.out.println(arr);
-//        AutoCompleteTextField field = new AutoCompleteTextField();
-//        fromWhereTextField.getEntries().addAll(arr);
-//        toWhereTextField.getEntries().addAll(arr);
+        String sql = "SELECT * FROM STATIONS";
+        ResultSet rs = handler.executeQuery(sql);
+        ArrayList<String> arr = handler.returnDataArray(rs, 2);
+        System.out.println(arr);
+        AutoCompleteTextField field = new AutoCompleteTextField();
+        fromWhereTextField.getEntries().addAll(arr);
+        toWhereTextField.getEntries().addAll(arr);
         adminPanelButton.setVisible(false);
         if(appdata.user == null) {
             helloLabel.setText("Hello, unknown!");

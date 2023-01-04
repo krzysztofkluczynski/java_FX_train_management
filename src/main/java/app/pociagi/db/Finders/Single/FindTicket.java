@@ -26,8 +26,9 @@ public class FindTicket{
             Integer userId = Integer.parseInt(Finder.find("TICKETS", "USER_ID", "TICKET_ID", ticketId));
             String name = Finder.find("TICKETS", "NAME", "TICKET_ID", ticketId);
             String surname = Finder.find("TICKETS", "NAZWISKO", "TICKET_ID", ticketId);
-            if (userId == null) return new Ticket(ticketId, rideId, depStatId, arrStatId, name, surname);
-            else return new Ticket(ticketId, rideId, depStatId, arrStatId, userId);
+            //if (userId == null) return new Ticket(ticketId, rideId, depStatId, arrStatId, name, surname);
+            //else return new Ticket(ticketId, rideId, depStatId, arrStatId, userId);
+            return null;
         }
         catch (SQLException s) {
             System.err.format("SQL State: %s\n%s", s.getSQLState(), s.getMessage());
@@ -48,7 +49,8 @@ public class FindTicket{
             Integer rideId = Integer.parseInt(Finder.find("TICKETS", "RIDE_ID", "USER_ID", userId));
             Integer depStatId = Integer.parseInt(Finder.find("TICKETS", "ID_DEPARTURE_STATION", "USER_ID", userId));
             Integer arrStatId = Integer.parseInt(Finder.find("TICKETS", "ID_ARRIVAL_STATION", "USER_ID", userId));
-            return new Ticket(ticketId, rideId, depStatId, arrStatId, userId);
+            //return new Ticket(ticketId, rideId, depStatId, arrStatId, userId);
+            return null;
         }
         catch (SQLException s) {
             System.err.format("SQL State: %s\n%s", s.getSQLState(), s.getMessage());
