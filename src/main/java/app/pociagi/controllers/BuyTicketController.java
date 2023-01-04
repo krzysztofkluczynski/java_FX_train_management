@@ -101,7 +101,7 @@ public class BuyTicketController implements Initializable {
             }
         });
 
-        ticketList.getSelectionModel().selectFirst();
+        ticketList.getSelectionModel().select(appData.currentTicketIndex);
 
     }
     private void ticketChange() {
@@ -139,6 +139,7 @@ public class BuyTicketController implements Initializable {
             sum += ticket.getPrice();
         }
         sumPrice.setText(String.format("%d,%02d zł", sum/100, sum%100));
+        updateTicket();
     }
 
     public void goBackPressed(ActionEvent e) {
@@ -147,15 +148,16 @@ public class BuyTicketController implements Initializable {
     }
 
     public void pickSeatPressed(ActionEvent e) {
-        ticketData.setSeatId(1);
-        ticketData.setCarId(1);
-        seatPicked.setText(String.format("Car: %d, Seat: %d", ticketData.getCarId(), ticketData.getSeatId()));
-        updateTicket();
+        appData.currentTicketIndex = ticketList.getSelectionModel().getSelectedIndex();
+        SceneChanger.changeScene(e, "pick_seat.fxml");
     }
 
     public void checkoutPressed(ActionEvent e) {
         if (!checkoutLocked) {
             System.out.println("proceeded to checkout");
+            for (Ticket ticket : appData.buyTicketData) {
+                ticket.pushToDB();
+            }
         }
     }
 

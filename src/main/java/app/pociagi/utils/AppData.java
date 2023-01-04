@@ -13,11 +13,13 @@ public class AppData {
     private static final AppData INSTANCE = new AppData();
     public User user = null;
 
-    public Date pickedDate = null;
+    public Date pickedDate = new Date();
 
     public ArrayList<Connection> pickedConnections;
 
     public ArrayList<Ticket> buyTicketData;
+
+    public Integer currentTicketIndex = null;
 
     public DBObject selectedObject = null;
     public Route pickedRoute;

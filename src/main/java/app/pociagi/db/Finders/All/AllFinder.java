@@ -63,8 +63,7 @@ public class AllFinder {
         System.out.println(sql);
         ResultSet rs = handler.executeQuery(sql);
         ArrayList<HashMap<String, String>> array = handler.returnAllData(rs);
-        if (array.size() == 0) throw new SQLException("No object found!");
-        else return array;
+        return array;
     }
     // Integer, Integer
     public static ArrayList<HashMap<String, String>> findFrom2(String table, String whereColumn, Integer whereValue,

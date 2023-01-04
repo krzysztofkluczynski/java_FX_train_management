@@ -3,6 +3,7 @@ package app.pociagi.controllers;
 import app.pociagi.SceneChanger;
 import app.pociagi.db.Objects.Connection;
 import app.pociagi.db.Objects.Ticket;
+import app.pociagi.db.Objects.User;
 import app.pociagi.db.Utils.Route;
 import app.pociagi.db.Utils.RouteFinder;
 import app.pociagi.utils.connection_finder;
@@ -49,13 +50,21 @@ public class AvailableRidesController implements Initializable {
         pckCons.add(con3);
         appData.pickedConnections = pckCons;
         appData.buyTicketData = new ArrayList<>();
+        if (appData.user == null) {
+            appData.user = new User(null, null, null, null, null);
+        }
         for (Connection con : appData.pickedConnections) {
             appData.buyTicketData.add(new Ticket(null, con.getID(),
                     appData.pickedDate,
                     con.getDepartureStationId(),
                     con.getArrivalStationId(),
-                    null, 3, null, null, 0));
+                    appData.user.getID(),
+                    3,
+                    null,
+                    null,
+                    0));
         }
+        appData.currentTicketIndex = 0;
         SceneChanger.changeScene(e, "buy_ticket.fxml");
     }
 

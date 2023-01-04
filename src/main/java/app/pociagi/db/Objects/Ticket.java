@@ -34,12 +34,17 @@ public class Ticket extends DBObject{
 
 
     /**
-     * <h2> Ticket with userID</h2>
+     * <h2> Create Ticket </h2>
      * @param id ticket id (PK)
-     * @param rideId ride id (FK)
+     * @param connectionId connection id (FK)
+     * @param date date in Date format
      * @param departureStationId departure station id (FK)
      * @param arrivalStationId arrival station id (FK)
      * @param userId user id (FK)
+     * @param discountId discount id (FK)
+     * @param carId car number
+     * @param seatId seat number
+     * @param price price of ticket
      * <p>
      * @author rafal
      * @since 2022-12-07
@@ -52,7 +57,8 @@ public class Ticket extends DBObject{
                   Integer userId,
                   Integer discountId,
                   Integer carId,
-                  Integer seatId, Integer price) {
+                  Integer seatId,
+                  Integer price) {
         super(id);
         this.connectionId = connectionId;
         this.date = date;
@@ -102,9 +108,11 @@ public class Ticket extends DBObject{
         dict.put("ID_DEPARTURE_STATION", this.departureStationId);
         dict.put("ID_ARRIVAL_STATION", this.arrivalStationId);
         if (userId!=null) dict.put("USER_ID", this.userId);
+        dict.put("DISCOUNT_ID", this.discountId);
         dict.put("DATE", this.date);
         dict.put("CAR_ID", this.carId);
         dict.put("SEAT_ID", this.seatId);
+        dict.put("PRICE", this.price);
         super.data = dict;
         super.table = "TICKETS";
     }

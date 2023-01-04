@@ -24,8 +24,7 @@ public class FindTicket{
             Integer depStatId = Integer.parseInt(Finder.find("TICKETS", "ID_DEPARTURE_STATION", "TICKET_ID", ticketId));
             Integer arrStatId = Integer.parseInt(Finder.find("TICKETS", "ID_ARRIVAL_STATION", "TICKET_ID", ticketId));
             Integer userId = Integer.parseInt(Finder.find("TICKETS", "USER_ID", "TICKET_ID", ticketId));
-            String name = Finder.find("TICKETS", "NAME", "TICKET_ID", ticketId);
-            String surname = Finder.find("TICKETS", "NAZWISKO", "TICKET_ID", ticketId);
+
             //if (userId == null) return new Ticket(ticketId, rideId, depStatId, arrStatId, name, surname);
             //else return new Ticket(ticketId, rideId, depStatId, arrStatId, userId);
             return null;

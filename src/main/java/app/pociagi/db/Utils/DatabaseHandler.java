@@ -105,7 +105,10 @@ public class DatabaseHandler {
             }
         }
         catch (SQLException e) {
-            System.err.format("SQL State: %s\n%s", e.getSQLState(), e.getMessage());
+            return null;
+        }
+        catch (NullPointerException e) {
+            return null;
         }
         return array;
     }
