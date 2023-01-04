@@ -59,7 +59,15 @@ public class DBObject {
     public void pushToDB() {
         String columnNames = "", columnValues = "";
         for (String key : data.keySet()) {
+            System.out.println(key);
+            if (key == "DATE"){
+                columnNames = columnNames.concat("\"");
+                columnNames = columnNames.concat(key).concat("\", ");
+            } else
             columnNames = columnNames.concat(key).concat(", ");
+            if (data.get(key).equals("default")) {
+                columnValues = columnValues.concat(String.format("%s", data.get(key).toString())).concat(", ");
+            } else
             columnValues = columnValues.concat(String.format("'%s'", data.get(key).toString())).concat(", ");
         }
         columnNames = columnNames.substring(0, columnNames.length()-2);

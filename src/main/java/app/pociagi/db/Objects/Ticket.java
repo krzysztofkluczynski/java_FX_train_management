@@ -1,5 +1,7 @@
 package app.pociagi.db.Objects;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -109,7 +111,9 @@ public class Ticket extends DBObject{
         dict.put("ID_ARRIVAL_STATION", this.arrivalStationId);
         if (userId!=null) dict.put("USER_ID", this.userId);
         dict.put("DISCOUNT_ID", this.discountId);
-        dict.put("DATE", this.date);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = this.date;
+        dict.put("DATE", dateFormat.format(date));
         dict.put("CAR_ID", this.carId);
         dict.put("SEAT_ID", this.seatId);
         dict.put("PRICE", this.price);
@@ -137,6 +141,9 @@ public class Ticket extends DBObject{
      */
     @Override
     public void pushToDB() {
+        createData();
+        if (this.getID() == null)
+            super.data.put("TICKET_ID", "default");
         super.pushToDB();
     }
 

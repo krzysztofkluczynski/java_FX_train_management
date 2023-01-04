@@ -46,8 +46,8 @@ public class AvailableRidesController implements Initializable {
         Connection con3 = new Connection(2, 10, 11);
         Connection con2 = new Connection(4, 28, 43);
         pckCons.add(con1);
-        pckCons.add(con2);
-        pckCons.add(con3);
+        //pckCons.add(con2);
+        //pckCons.add(con3);
         appData.pickedConnections = pckCons;
         appData.buyTicketData = new ArrayList<>();
         if (appData.user == null) {
