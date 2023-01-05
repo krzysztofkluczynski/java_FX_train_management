@@ -32,7 +32,8 @@ public class AllFindStation {
         for (HashMap<String, String> conData : data) {
             stationsList.add(new Station(
                     Integer.parseInt(conData.get("STATION_ID")),
-                    conData.get("NAME")
+                    conData.get("NAME"),
+                    Integer.parseInt(conData.get("connection_station"))
             ));
         }
         return stationsList;

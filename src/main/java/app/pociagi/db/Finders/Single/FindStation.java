@@ -21,7 +21,8 @@ public class FindStation{
     public static Station findByName(String name) {
         try {
             return new Station(Integer.parseInt(Finder.find("STATIONS", "STATION_ID",
-                    "NAME", name)), name);
+                    "NAME", name)), name, Integer.parseInt(Finder.find("STATIONS", "connection_station",
+                    "NAME", name)));
         }
         catch (SQLException s) {
             System.err.format("SQL State: %s\n%s", s.getSQLState(), s.getMessage());
@@ -39,7 +40,8 @@ public class FindStation{
     public static Station findById(Integer stationId) {
         try {
             return new Station(stationId, Finder.find("STATIONS", "NAME",
-                    "STATION_ID", stationId));
+                    "STATION_ID", stationId), Integer.parseInt(Finder.find("STATIONS", "connection_station",
+                    "STATION_ID", stationId)));
         }
         catch (SQLException s) {
             System.err.format("SQL State: %s\n%s", s.getSQLState(), s.getMessage());
