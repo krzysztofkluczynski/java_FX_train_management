@@ -1,6 +1,10 @@
 package app.pociagi.controllers;
 
 import app.pociagi.SceneChanger;
+import app.pociagi.db.Finders.All.AllFindTicket;
+import app.pociagi.db.Finders.Single.FindStation;
+import app.pociagi.db.Finders.Single.FindStop;
+import app.pociagi.db.Objects.Ticket;
 import app.pociagi.utils.tickets;
 import app.pociagi.utils.AppData;
 import javafx.event.ActionEvent;
@@ -10,7 +14,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class MyAccountController implements Initializable {
@@ -35,9 +42,18 @@ public class MyAccountController implements Initializable {
         emailLabel.setText("Email: " + appdata.user.getEmail());
 
 //
-        ArrayList<String> ride_list = tickets.ticket_list(appdata.user.getID());
-        for (var s : ride_list) {
-            myRidesListView.getItems().add(s);
+        ArrayList<Ticket> ticket_list = AllFindTicket.findByUserID(appdata.user.getID());
+        for (var s : ticket_list) {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = s.getDate();
+            myRidesListView.getItems().add(String.format("%s %s %s --> %s %s  Car: %d, Seat: %d",
+                            dateFormat.format(date),
+                            FindStation.findById(s.getDepartureStationId()).getName(),
+                            FindStop.findByConIdStationId(s.getConnectionId(), s.getDepartureStationId()).getDepartureHour(),
+                            FindStation.findById(s.getArrivalStationId()).getName(),
+                            FindStop.findByConIdStationId(s.getConnectionId(), s.getArrivalStationId()).getArrivalHour(),
+                            s.getCarId(), s.getSeatId()
+                    ));
         }
 
     }

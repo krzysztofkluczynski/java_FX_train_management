@@ -122,7 +122,7 @@ public class AllFindTicket {
             Date date;
             try {
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                date = formatter.parse(conData.get("DATE"));
+                date = formatter.parse(conData.get("TICKET_DATE"));
             } catch (ParseException e) {
                 System.err.format("Parse error: %s\n", e.getMessage());
                 return null;
@@ -152,7 +152,7 @@ public class AllFindTicket {
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String dateStr = dateFormat.format(date);
             ArrayList<HashMap<String, String>> data = AllFinder.findFrom2("TICKETS",
-                    "DATE",
+                    "TICKET_DATE",
                     dateStr,
                     "CONNECTION_ID", connectionID);
             return generateData(data);

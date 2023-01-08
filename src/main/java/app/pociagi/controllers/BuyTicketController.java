@@ -156,10 +156,10 @@ public class BuyTicketController implements Initializable {
         if (!checkoutLocked) {
             System.out.println("proceeded to checkout");
             for (Ticket ticket : appData.buyTicketData) {
-                ticket.setUserId(999);
+                ticket.setUserId(appData.user.getID());
                 ticket.pushToDB();
-                SceneChanger.changeScene(e, "main_menuv2.fxml");
             }
+            SceneChanger.changeScene(e, "main_menuv2.fxml");
         }
     }
 

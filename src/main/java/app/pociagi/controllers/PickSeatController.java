@@ -40,6 +40,9 @@ public class PickSeatController implements Initializable {
         ArrayList<Ticket> ticketList = AllFindTicket.findByConIDdate(
                 ticketData.getConnectionId(), ticketData.getDate()
         );
+        for (Ticket t : ticketList) {
+            System.out.println(String.format("%d, %d", t.getCarId(), t.getSeatId()));
+        }
         for (Seat seat : allSeats) {
             Boolean isOccupied = false;
             for (Ticket ticket : ticketList) {

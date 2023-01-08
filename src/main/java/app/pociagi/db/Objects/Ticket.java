@@ -113,7 +113,7 @@ public class Ticket extends DBObject{
         dict.put("DISCOUNT_ID", this.discountId);
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = this.date;
-        dict.put("DATE", dateFormat.format(date));
+        dict.put("TICKET_DATE", dateFormat.format(date));
         dict.put("CAR_ID", this.carId);
         dict.put("SEAT_ID", this.seatId);
         dict.put("PRICE", this.price);

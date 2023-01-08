@@ -1,7 +1,10 @@
 package app.pociagi.controllers;
 
 import app.pociagi.SceneChanger;
+import app.pociagi.db.Finders.Single.FindStation;
+import app.pociagi.db.Finders.Single.FindStop;
 import app.pociagi.db.Objects.Connection;
+import app.pociagi.db.Objects.ConnectionStop;
 import app.pociagi.db.Objects.Ticket;
 import app.pociagi.db.Objects.User;
 import app.pociagi.db.Utils.Route;
@@ -30,6 +33,7 @@ public class AvailableRidesController implements Initializable {
     @FXML
     private ListView<String> availableRidesListView;
 
+    private ArrayList<ArrayList<Connection>> possibleCons;
     @FXML
     private Label infoLabel, errorLabel;
 
@@ -41,13 +45,8 @@ public class AvailableRidesController implements Initializable {
     }
 
     public void buyTicketButtonPushed(ActionEvent e) {
-        ArrayList<Connection> pckCons = new ArrayList<>();
-        Connection con1 = new Connection(1, 1, 2);
-        Connection con3 = new Connection(2, 10, 11);
-        Connection con2 = new Connection(4, 28, 43);
-        pckCons.add(con1);
-        //pckCons.add(con2);
-        //pckCons.add(con3);
+        ArrayList<Connection> pckCons = possibleCons.get(
+                availableRidesListView.getSelectionModel().getSelectedIndex());
         appData.pickedConnections = pckCons;
         appData.buyTicketData = new ArrayList<>();
         if (appData.user == null) {
@@ -71,20 +70,24 @@ public class AvailableRidesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         errorLabel.setText("");
-        String source = appData.from.getName();
-        String destination = appData.destination.getName();
-//        this.availRoutes = RouteFinder.FindBetween(source, destination);
-//komentuje ta linie bo mi rzuca blad -> routfinder musi zwracac liste 2wymiarowa a nie po prostu liste
-//        for (Route route : availRoutes) {
-//            Time departureTime = route.getStop(source).getDepartureHour();
-//            Time arrivalTime = route.getStop(destination).getArrivalHour();
-//            String str = String.format("%s, %s --> %s, %s",
-//                    source,
-//                    departureTime.toString(),
-//                    destination,
-//                    arrivalTime.toString());
-//            System.out.println(str);
-//            availableRidesListView.getItems().add(str);
-//        }
+        possibleCons = RouteFinder.FindBetween(appData.from.getName(), appData.destination.getName());
+        for (ArrayList<Connection> con : possibleCons) {
+            String str = "";
+            for (Connection fragment : con) {
+                str = str.concat(String.format("%s, %s --> %s, %s",
+                        FindStation.findById(fragment.getDepartureStationId()).getName(),
+                        FindStop.findByConIdStationId(
+                                fragment.getID(),
+                                fragment.getDepartureStationId()).getDepartureHour()
+                        ,
+                        FindStation.findById(fragment.getArrivalStationId()).getName(),
+                        FindStop.findByConIdStationId(
+                                fragment.getID(),
+                                fragment.getArrivalStationId()).getArrivalHour()));
+                str = str.concat("   ");
+            }
+            availableRidesListView.getItems().add(str);
+        }
+
     }
 }
