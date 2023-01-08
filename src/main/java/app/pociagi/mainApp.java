@@ -30,7 +30,5 @@ public class mainApp extends Application {
         Date date = formatter.parse(rideDate);
         System.out.println(FindRide.findByConIdRideDate(1, date).getID());
         launch();
-
-
     }
 }

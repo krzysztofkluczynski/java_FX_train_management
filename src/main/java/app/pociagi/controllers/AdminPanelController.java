@@ -2,6 +2,7 @@ package app.pociagi.controllers;
 
 import app.pociagi.SceneChanger;
 import app.pociagi.db.Finders.All.*;
+import app.pociagi.db.Objects.Connection;
 import app.pociagi.db.Objects.DBObject;
 import app.pociagi.db.Objects.Discount;
 import app.pociagi.utils.AppData;
@@ -52,16 +53,20 @@ public class AdminPanelController implements Initializable {
     private void stopsButtonPushed(ActionEvent e) {
         objectList = new ArrayList<DBObject>(AllFindStation.getAll());
         //objectList = new ArrayList<DBObject>(AllFindDiscount.getAll());
-        System.out.println(objectList);
         prepareListData();
     }
     @FXML
-    private void usersButtonPushed(ActionEvent e) {}
+    private void usersButtonPushed(ActionEvent e) {
+    }
     @FXML
     private void addButtonPushed(ActionEvent e) {
         DBObject selectedObject = objectList.get(actionsListView.getSelectionModel().getSelectedIndex());
         AppData.getInstance().selectedObject = selectedObject;
-        SceneChanger.changeScene(e, "dbobject_add_panel.fxml");
+        if  (selectedObject instanceof Connection) {
+            SceneChanger.changeScene(e, "add_new_connection_panel.fxml"); //TODO!!!!!!
+        } else {
+            SceneChanger.changeScene(e, "dbobject_add_panel.fxml");
+        }
     }
     @FXML
     private void editButtonPushed(ActionEvent e) {
