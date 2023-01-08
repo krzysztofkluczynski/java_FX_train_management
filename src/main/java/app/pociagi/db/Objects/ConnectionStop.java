@@ -80,6 +80,12 @@ public class ConnectionStop extends DBObject{
         dict.put("DEPARTURE_HOUR", dateFormat.format(date2));
         super.data = dict;
         super.table = "STOPS";
+        if(this.stationId == null) {
+            super.data.put("STATION_ID", "default");
+        }
+        if(this.connectionId == null) {
+            super.data.put("CONNECTION_ID", "default");
+        }
         super.pushToDB();
     }
 }
