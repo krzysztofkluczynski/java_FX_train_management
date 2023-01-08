@@ -59,7 +59,8 @@ public class Seat extends DBObject {
         this.rideId = rideId;
         this.carNumber = carNumber;
         this.seatNumber = seatNumber;
-        this.isOccupied = Boolean.TRUE;
+        if (this.ticketId == null) this.isOccupied = Boolean.FALSE;
+        else this.isOccupied = Boolean.TRUE;
     }
 
     /**

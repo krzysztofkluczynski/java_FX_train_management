@@ -16,7 +16,7 @@ import java.util.HashMap;
  */
 public class Discount extends DBObject{
     private final String name;
-    private final String value;
+    private final Integer value;
 
     /**
      * <h2> Create Discount Object </h2>
@@ -28,17 +28,34 @@ public class Discount extends DBObject{
      * @author rafal
      * @since 2022-12-07
      */
-    public Discount(Integer id, String name, String value) {
-        super(id);
+    public Discount(Integer id, String name, Integer value) {
+        super(id, "ID");
         this.name = name;
         this.value = value;
+        createData();
+        createStringData();
+    }
+
+    private void createData() {
+        HashMap<String, Object> dict = new HashMap<>();
+        dict.put("ID", super.getID());
+        dict.put("NAME", this.name);
+        dict.put("VALUE", this.value);
+        super.data = dict;
+        super.table = "DISCOUNTS";
+    }
+
+    private void createStringData() {
+        HashMap<String, Object> dict = new HashMap<>();
+        dict.put("ID", this.getID());
+        dict.put("NAME", this.name);
+        super.stringData = dict;
     }
 
     public String getName() {
         return name;
     }
-
-    public String getValue() {
+    public Integer getValue() {
         return value;
     }
 
@@ -51,12 +68,6 @@ public class Discount extends DBObject{
      */
     @Override
     public void pushToDB() {
-        HashMap<String, Object> dict = new HashMap<>();
-        dict.put("ID", this.getID());
-        dict.put("NAME", this.name);
-        dict.put("VALUE", this.value);
-        super.data = dict;
-        super.table = "DISCOUNTS";
         super.pushToDB();
     }
 }

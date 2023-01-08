@@ -30,11 +30,29 @@ public class Station extends DBObject{
     public Station(Integer id, String name) {
         super(id);
         this.name = name;
+        createData();
+        createStringData();
     }
 
+    private void createData() {
+        HashMap<String, Object> dict = new HashMap<>();
+        dict.put("STATION_ID", super.getID());
+        dict.put("NAME", this.name);
+        super.data = dict;
+        super.table = "STATIONS";
+    }
+
+    private void createStringData() {
+        HashMap<String, Object> dict = new HashMap<>();
+        dict.put("STATION_ID", this.getID());
+        dict.put("NAME", this.name);
+        super.stringData = dict;
+    }
     public String getName() {
         return name;
     }
+
+
 
     /**
      * <h2> Push object to Database (Table STATIONS)</h2>
@@ -44,12 +62,5 @@ public class Station extends DBObject{
      * @since 2022-12-07
      */
     @Override
-    public void pushToDB() {
-        HashMap<String, Object> dict = new HashMap<>();
-        dict.put("STATION_ID", this.getID());
-        dict.put("NAME", this.name);
-        super.data = dict;
-        super.table = "STATIONS";
-        super.pushToDB();
-    }
+    public void pushToDB() {super.pushToDB();}
 }

@@ -32,6 +32,24 @@ public class SeatClass extends DBObject{
         super(id);
         this.name = name;
         this.coef = coef;
+        createData();
+        createStringData();
+    }
+
+    private void createData() {
+        HashMap<String, Object> dict = new HashMap<>();
+        dict.put("ID", super.getID());
+        dict.put("NAME", this.name);
+        dict.put("COEF", this.coef);
+        super.data = dict;
+        super.table = "DISCOUNTS";
+    }
+
+    private void createStringData() {
+        HashMap<String, Object> dict = new HashMap<>();
+        dict.put("ID", this.getID());
+        dict.put("NAME", this.name);
+        super.stringData = dict;
     }
 
     public String getName() {
@@ -51,12 +69,6 @@ public class SeatClass extends DBObject{
      */
     @Override
     public void pushToDB() {
-        HashMap<String, Object> dict = new HashMap<>();
-        dict.put("ID", this.getID());
-        dict.put("NAME", this.name);
-        dict.put("COEF", this.coef);
-        super.data = dict;
-        super.table = "CLASSES";
         super.pushToDB();
     }
 }
