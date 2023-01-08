@@ -1,6 +1,9 @@
 package app.pociagi.db.Objects;
 
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -69,8 +72,12 @@ public class ConnectionStop extends DBObject{
         HashMap<String, Object> dict = new HashMap<>();
         dict.put("CONNECTION_ID", this.connectionId);
         dict.put("STATION_ID", this.stationId);
-        dict.put("ARRIVAL_HOUR", this.arrivalHour);
-        dict.put("DEPARTURE_HOUR", this.departureHour);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date date = this.arrivalHour;
+        dict.put("ARRIVAL_HOUR", dateFormat.format(date));
+        DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date date2 = this.departureHour;
+        dict.put("DEPARTURE_HOUR", dateFormat.format(date2));
         super.data = dict;
         super.table = "STOPS";
         super.pushToDB();
