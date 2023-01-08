@@ -18,5 +18,6 @@
       <Button fx:id="addStopButton" layoutX="141.0" layoutY="363.0" mnemonicParsing="false" onAction="#addStopButtonPushed" style="-fx-background-color: #0096FF;" text="+" textFill="WHITE" />
       <Label layoutX="14.0" layoutY="221.0" prefHeight="17.0" prefWidth="125.0" text="ADD STOP:" />
       <TextField fx:id="conIDfromStopsTextField" layoutX="14.0" layoutY="254.0" promptText="CONNECTION_ID" />
+      <Button fx:id="goBackButton" layoutX="14.0" layoutY="363.0" mnemonicParsing="false" onAction="#goBackButtonPushed" text="GO BACK" />
    </children>
 </AnchorPane>

@@ -61,6 +61,9 @@ public class Connection extends DBObject{
         dict.put("ARRIVAL_STATION", this.arrivalStationId);
         super.data = dict;
         super.table = "CONNECTIONS";
+        if(this.getID() == null) {
+            super.data.put("CONNECTION_ID", "default");
+        }
         super.pushToDB();
     }
 
