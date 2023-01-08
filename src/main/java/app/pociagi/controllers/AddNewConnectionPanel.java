@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
 
 public class AddNewConnectionPanel implements Initializable {
     @FXML
-    private Button addConectionButton, addStopButton;
+    private Button addConectionButton, addStopButton, goBackButton;
     @FXML
     private ListView allStationsListView;
 
@@ -39,6 +39,12 @@ public class AddNewConnectionPanel implements Initializable {
     conIDfromStopsTextField;
 
     public static ArrayList<Station> stationsList;
+
+
+    @FXML
+    private void goBackButtonPushed(ActionEvent e) {
+        SceneChanger.changeScene(e, "admin_panel.fxml");
+    }
 
     @FXML
     public void addConnectionButtonPushed(ActionEvent e) {
