@@ -76,6 +76,7 @@ public class AddNewConnectionPanel implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         stationsList = new ArrayList<Station>(AllFindStation.getAll());
+        System.out.println("tu");
         for (DBObject d : stationsList) {
             String a = d.toString();
             allStationsListView.getItems().add(a);

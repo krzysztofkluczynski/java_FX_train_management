@@ -67,7 +67,6 @@ public class MenuController implements Initializable {
         String sql = "SELECT * FROM STATIONS";
         ResultSet rs = handler.executeQuery(sql);
         ArrayList<String> arr = handler.returnDataArray(rs, 2);
-        System.out.println(arr);
         AutoCompleteTextField field = new AutoCompleteTextField();
         fromWhereTextField.getEntries().addAll(arr);
         toWhereTextField.getEntries().addAll(arr);
