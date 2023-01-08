@@ -17,8 +17,8 @@ import java.util.HashMap;
  * @since 2022-12-07
  */
 public class Connection extends DBObject{
-    private final Integer departureStationId;
-    private final Integer arrivalStationId;
+    private Integer departureStationId;
+    private Integer arrivalStationId;
 
     /**
      * <h2> Create Connection Object </h2>
@@ -45,6 +45,15 @@ public class Connection extends DBObject{
     public Integer getArrivalStationId() {
         return arrivalStationId;
     }
+
+    public void setDepartureStationID(int newID) {
+        this.departureStationId = newID;
+    }
+
+    public void setArrivalStationId(int newID) {
+        this.arrivalStationId = newID;
+    }
+
 
     /**
      * <h2> Push object to Database (Table CONNECTIONS)</h2>

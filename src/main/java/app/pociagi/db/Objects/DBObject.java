@@ -52,6 +52,10 @@ public class DBObject {
         return object_id;
     }
 
+    public void setID(int newID) {
+        this.object_id = newID;
+    }
+
 
     /**
      * Only used to pushing object that doesn't exist in db

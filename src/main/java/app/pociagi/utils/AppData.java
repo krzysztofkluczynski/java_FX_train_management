@@ -26,6 +26,9 @@ public class AppData {
 
     public Station from = null;
     public Station destination = null;
+
+    public Connection connection = null;
+    public ConnectionStop connectionStop = null;
     private AppData() {}
 
     public static AppData getInstance() {

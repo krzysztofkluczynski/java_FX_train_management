@@ -1,8 +1,11 @@
 package app.pociagi.db.Objects;
 
+import app.pociagi.db.Finders.Single.FindStation;
+
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -20,11 +23,11 @@ import java.util.HashMap;
  * @since 2022-12-07
  */
 public class ConnectionStop extends DBObject{
-    private final Integer connectionId;
-    private final Integer stationId;
+    private Integer connectionId;
+    private Integer stationId;
 
-    private final Time arrivalHour;
-    private final Time departureHour;
+    private Time arrivalHour;
+    private Time departureHour;
     /**
      * <h2> Create Connection Stop object </h2>
      * Creates a connection stop object
@@ -80,13 +83,38 @@ public class ConnectionStop extends DBObject{
         dict.put("DEPARTURE_HOUR", dateFormat.format(date2));
         super.data = dict;
         super.table = "STOPS";
-        if(this.stationId == null) {
-            super.data.put("STATION_ID", "default");
-        }
-        if(this.connectionId == null) {
-            super.data.put("CONNECTION_ID", "default");
-        }
+//        if(this.stationId == null) {
+//            super.data.put("STATION_ID", "default");
+//        }
+//        if(this.connectionId == null) {
+//            super.data.put("CONNECTION_ID", "default");
+//        }
         super.pushToDB();
     }
+
+    public void setConnectionID(int newID) {
+        this.connectionId = newID;
+    }
+
+    @Override
+    public String toString() {
+        String out = FindStation.findById(this.stationId).toString() + " " + this.arrivalHour.toString()+ " " + this.departureHour.toString();
+//        out.concat(FindStation.findById(this.stationId).toString().concat(" "));
+//        out.concat(this.arrivalHour.toString().concat(" "));
+//        out.concat(this.departureHour.toString());
+        return out;
+    }
+
+//    public static void main(String[] args) {
+//        LocalTime timeArrival = LocalTime.parse("12:12");
+//        LocalTime timeDeparture = LocalTime.parse("12:14");
+//        Time tArr = Time.valueOf(timeArrival);
+//        Time tDep = Time.valueOf(timeDeparture);
+//        ConnectionStop s= new ConnectionStop(13, 4, tArr, tDep);
+//        System.out.println(s);
+//
+//    }
 }
+
+
 
