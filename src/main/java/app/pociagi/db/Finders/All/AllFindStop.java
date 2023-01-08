@@ -55,9 +55,9 @@ public class AllFindStop {
         ArrayList<ConnectionStop> stopList= new ArrayList<>();
         for (HashMap<String, String> conData : data) {
             String arrivalHour = conData.get("ARRIVAL_HOUR").substring(11);
-            System.out.println(arrivalHour);
+            //System.out.println(arrivalHour);
             String departureHour = conData.get("DEPARTURE_HOUR").substring(11);
-            System.out.println(departureHour);
+            //System.out.println(departureHour);
             stopList.add(new ConnectionStop(
                     Integer.parseInt(conData.get("CONNECTION_ID")),
                     Integer.parseInt(conData.get("STATION_ID")),

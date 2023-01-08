@@ -1,6 +1,12 @@
 package app.pociagi.controllers;
 
 import app.pociagi.SceneChanger;
+import app.pociagi.db.Finders.Single.FindStation;
+import app.pociagi.db.Finders.Single.FindStop;
+import app.pociagi.db.Objects.Connection;
+import app.pociagi.db.Objects.ConnectionStop;
+import app.pociagi.db.Objects.Ticket;
+import app.pociagi.db.Objects.User;
 import app.pociagi.db.Utils.Route;
 import app.pociagi.db.Utils.RouteFinder;
 import app.pociagi.utils.connection_finder;
@@ -20,13 +26,14 @@ import java.util.ResourceBundle;
 public class AvailableRidesController implements Initializable {
     AppData appData = AppData.getInstance();
     ArrayList<ArrayList<Integer>> avail_cons;
-    ArrayList<Route> availRoutes;
+    ArrayList<ArrayList<Route>> availRoutes;
 
     public AvailableRidesController() {}
 
     @FXML
     private ListView<String> availableRidesListView;
 
+    private ArrayList<ArrayList<Connection>> possibleCons;
     @FXML
     private Label infoLabel, errorLabel;
 
@@ -38,26 +45,49 @@ public class AvailableRidesController implements Initializable {
     }
 
     public void buyTicketButtonPushed(ActionEvent e) {
-        appData.pickedRoute = availRoutes.get(availableRidesListView.getSelectionModel().getSelectedIndex());
+        ArrayList<Connection> pckCons = possibleCons.get(
+                availableRidesListView.getSelectionModel().getSelectedIndex());
+        appData.pickedConnections = pckCons;
+        appData.buyTicketData = new ArrayList<>();
+        if (appData.user == null) {
+            appData.user = new User(null, null, null, null, null);
+        }
+        for (Connection con : appData.pickedConnections) {
+            appData.buyTicketData.add(new Ticket(null, con.getID(),
+                    appData.pickedDate,
+                    con.getDepartureStationId(),
+                    con.getArrivalStationId(),
+                    appData.user.getID(),
+                    3,
+                    null,
+                    null,
+                    0));
+        }
+        appData.currentTicketIndex = 0;
         SceneChanger.changeScene(e, "buy_ticket.fxml");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         errorLabel.setText("");
-        String source = appData.from.getName();
-        String destination = appData.destination.getName();
-        this.availRoutes = RouteFinder.FindBetween(source, destination);
-        for (Route route : availRoutes) {
-            Time departureTime = route.getStop(source).getDepartureHour();
-            Time arrivalTime = route.getStop(destination).getArrivalHour();
-            String str = String.format("%s, %s --> %s, %s",
-                    source,
-                    departureTime.toString(),
-                    destination,
-                    arrivalTime.toString());
-            System.out.println(str);
+        possibleCons = RouteFinder.FindBetween(appData.from.getName(), appData.destination.getName());
+        for (ArrayList<Connection> con : possibleCons) {
+            String str = "";
+            for (Connection fragment : con) {
+                str = str.concat(String.format("%s, %s --> %s, %s",
+                        FindStation.findById(fragment.getDepartureStationId()).getName(),
+                        FindStop.findByConIdStationId(
+                                fragment.getID(),
+                                fragment.getDepartureStationId()).getDepartureHour()
+                        ,
+                        FindStation.findById(fragment.getArrivalStationId()).getName(),
+                        FindStop.findByConIdStationId(
+                                fragment.getID(),
+                                fragment.getArrivalStationId()).getArrivalHour()));
+                str = str.concat("   ");
+            }
             availableRidesListView.getItems().add(str);
         }
+
     }
 }

@@ -25,7 +25,7 @@ public class FindStop {
         try {
             String arrivalHour = Finder.findFrom2("STOPS", "ARRIVAL_HOUR",
                     "CONNECTION_ID", connectionId, "STATION_ID", stationId).substring(11);
-            String departureHour = Finder.findFrom2("STOPS", "ARRIVAL_HOUR",
+            String departureHour = Finder.findFrom2("STOPS", "DEPARTURE_HOUR",
                     "CONNECTION_ID", connectionId, "STATION_ID", stationId).substring(11);
             Time arrTime = new Time(Integer.parseInt(arrivalHour.substring(0,2)),
                     Integer.parseInt(arrivalHour.substring(3,5)), Integer.parseInt(arrivalHour.substring(6,8)));

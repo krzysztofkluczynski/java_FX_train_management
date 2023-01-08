@@ -41,7 +41,7 @@ public class FindDiscount {
     public static Discount findByName(String name) {
         try {
             Integer discountId = Integer.parseInt(Finder.find("DISCOUNTS", "ID", "NAME", name));
-            Integer value = Integer.parseInt(Finder.find("DISCOUNTS", "ID", "NAME", name));
+            Integer value = Integer.parseInt(Finder.find("DISCOUNTS", "VALUE", "NAME", name));
             return new Discount(discountId, name, value);
         } catch (SQLException s) {
             System.err.format("SQL State: %s\n%s", s.getSQLState(), s.getMessage());
