@@ -4,6 +4,7 @@ import app.pociagi.SceneChanger;
 import app.pociagi.db.Finders.All.*;
 import app.pociagi.db.Objects.Connection;
 import app.pociagi.db.Objects.DBObject;
+import app.pociagi.db.Objects.Connection;
 import app.pociagi.db.Objects.Discount;
 import app.pociagi.utils.AppData;
 import javafx.collections.FXCollections;
@@ -57,6 +58,9 @@ public class AdminPanelController implements Initializable {
     }
     @FXML
     private void usersButtonPushed(ActionEvent e) {
+        objectList = new ArrayList<DBObject>(AllFindUser.getAll());
+        System.out.println((objectList));
+        prepareListData();
     }
     @FXML
     private void addButtonPushed(ActionEvent e) {

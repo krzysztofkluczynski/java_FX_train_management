@@ -40,6 +40,8 @@ public class User extends DBObject {
         this.password = password;
         this.name = name;
         this.surname = surname;
+        createData();
+        createStringData();
     }
 
     /**
@@ -61,6 +63,29 @@ public class User extends DBObject {
         this.name = name;
         this.surname = surname;
         this.email = email;
+        createData();
+        createStringData();
+    }
+
+    private void createData() {
+        HashMap<String, Object> dict = new HashMap<>();
+        dict.put("USER_ID", super.getID());
+        dict.put("LOGIN", this.login);
+        dict.put("NAME", this.name);
+        dict.put("SURNAME", this.surname);
+        if (this.email!=null) dict.put("EMAIL", this.email);
+        super.data = dict;
+        super.table = "USERS";
+    }
+
+    private void createStringData() {
+        HashMap<String, Object> dict = new HashMap<>();
+        dict.put("USER_ID", super.getID());
+        dict.put("LOGIN", this.login);
+        dict.put("NAME", this.name);
+        dict.put("SURNAME", this.surname);
+        if (this.email!=null) dict.put("EMAIL", this.email);
+        super.stringData = dict;
     }
 
     /**
