@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 public class AvailableRidesController implements Initializable {
     AppData appData = AppData.getInstance();
     ArrayList<ArrayList<Integer>> avail_cons;
-    ArrayList<Route> availRoutes;
+    ArrayList<ArrayList<Route>> availRoutes;
 
     public AvailableRidesController() {}
 
@@ -70,10 +70,11 @@ public class AvailableRidesController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        errorLabel.setText("");
-//        String source = appData.from.getName();
-//        String destination = appData.destination.getName();
+        errorLabel.setText("");
+        String source = appData.from.getName();
+        String destination = appData.destination.getName();
 //        this.availRoutes = RouteFinder.FindBetween(source, destination);
+//komentuje ta linie bo mi rzuca blad -> routfinder musi zwracac liste 2wymiarowa a nie po prostu liste
 //        for (Route route : availRoutes) {
 //            Time departureTime = route.getStop(source).getDepartureHour();
 //            Time arrivalTime = route.getStop(destination).getArrivalHour();

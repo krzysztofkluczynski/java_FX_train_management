@@ -18,6 +18,8 @@ import java.util.HashMap;
 public class Station extends DBObject{
     private final String name;
 
+    private final Integer connectionStation;
+
     /**
      * <h2> Create Station Object </h2>
      * Creates a station object
@@ -27,9 +29,10 @@ public class Station extends DBObject{
      * @author rafal
      * @since 2022-12-07
      */
-    public Station(Integer id, String name) {
+    public Station(Integer id, String name, Integer connectionStation) {
         super(id);
         this.name = name;
+        this.connectionStation = connectionStation;
         createData();
         createStringData();
     }
@@ -38,6 +41,7 @@ public class Station extends DBObject{
         HashMap<String, Object> dict = new HashMap<>();
         dict.put("STATION_ID", super.getID());
         dict.put("NAME", this.name);
+        dict.put("connection_station", this.connectionStation);
         super.data = dict;
         super.table = "STATIONS";
     }
@@ -46,13 +50,16 @@ public class Station extends DBObject{
         HashMap<String, Object> dict = new HashMap<>();
         dict.put("STATION_ID", this.getID());
         dict.put("NAME", this.name);
+        dict.put("connection_station", this.connectionStation);
         super.stringData = dict;
     }
     public String getName() {
         return name;
     }
 
-
+    public int getConnectionStation() {
+        return connectionStation;
+    }
 
     /**
      * <h2> Push object to Database (Table STATIONS)</h2>
