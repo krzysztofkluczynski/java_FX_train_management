@@ -56,7 +56,11 @@ public class AdminPanelController implements Initializable {
         prepareListData();
     }
     @FXML
-    private void usersButtonPushed(ActionEvent e) {}
+    private void usersButtonPushed(ActionEvent e) {
+        objectList = new ArrayList<DBObject>(AllFindUser.getAll());
+        System.out.println((objectList));
+        prepareListData();
+    }
     @FXML
     private void addButtonPushed(ActionEvent e) {
         DBObject selectedObject = objectList.get(actionsListView.getSelectionModel().getSelectedIndex());
