@@ -41,7 +41,7 @@ public class Station extends DBObject{
         HashMap<String, Object> dict = new HashMap<>();
         dict.put("STATION_ID", super.getID());
         dict.put("NAME", this.name);
-        dict.put("connection_station", this.connectionStation);
+        dict.put("CONNECTION_STATION", this.connectionStation);
         super.data = dict;
         super.table = "STATIONS";
     }
@@ -50,7 +50,7 @@ public class Station extends DBObject{
         HashMap<String, Object> dict = new HashMap<>();
         dict.put("STATION_ID", this.getID());
         dict.put("NAME", this.name);
-        dict.put("connection_station", this.connectionStation);
+        dict.put("CONNECTION_STATION", this.connectionStation);
         super.stringData = dict;
     }
     public String getName() {

@@ -59,7 +59,7 @@ public class DBObject {
     public void pushToDB() {
         String columnNames = "", columnValues = "";
         for (String key : data.keySet()) {
-            System.out.println(key);
+            //System.out.println(key);
             if (key == "DATE"){
                 columnNames = columnNames.concat("\"");
                 columnNames = columnNames.concat(key).concat("\", ");
@@ -77,7 +77,7 @@ public class DBObject {
                 table,
                 columnNames,
                 columnValues);
-        System.out.println(query);
+        //System.out.println(query);
         handler.executeQuery(query);
     }
 

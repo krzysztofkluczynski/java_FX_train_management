@@ -103,7 +103,7 @@ public class Route {
 
     public ConnectionStop getStop(String name) {
         for (int i = 0; i < this.stationList.size(); i++) {
-            System.out.println(this.stationList.get(i).getName());
+            //System.out.println(this.stationList.get(i).getName());
             if (name.equals(this.stationList.get(i).getName())) {
                 return this.stopList.get(i);
             }

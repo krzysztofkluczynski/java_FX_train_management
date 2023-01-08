@@ -30,10 +30,11 @@ public class AllFindStation {
     private static ArrayList<Station> generateData(ArrayList<HashMap<String, String>> data) {
         ArrayList<Station> stationsList = new ArrayList<>();
         for (HashMap<String, String> conData : data) {
+            System.out.println(conData);
             stationsList.add(new Station(
                     Integer.parseInt(conData.get("STATION_ID")),
                     conData.get("NAME"),
-                    Integer.parseInt(conData.get("connection_station"))
+                    Integer.parseInt(conData.get("CONNECTION_STATION"))
             ));
         }
         return stationsList;

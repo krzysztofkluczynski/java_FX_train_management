@@ -17,7 +17,7 @@ public class Finder {
         DatabaseHandler handler = DatabaseHandler.getInstance();
         String sql = String.format("SELECT %s FROM %s WHERE %s = '%s'",
                 column, table, whereColumn, whereValue);
-        System.out.println(sql);
+        //System.out.println(sql);
         ResultSet rs = handler.executeQuery(sql);
         ArrayList<String> arr = handler.returnDataArray(rs, 1);
         if (arr.size() == 1) return arr.get(0);
@@ -27,7 +27,7 @@ public class Finder {
         DatabaseHandler handler = DatabaseHandler.getInstance();
         String sql = String.format("SELECT %s FROM %s WHERE %s = %d",
                 column, table, whereColumn, whereValue);
-        System.out.println(sql);
+        //System.out.println(sql);
         ResultSet rs = handler.executeQuery(sql);
         ArrayList<String> arr = handler.returnDataArray(rs, 1);
         if (arr.size() == 1) return arr.get(0);
@@ -38,7 +38,7 @@ public class Finder {
         DatabaseHandler handler = DatabaseHandler.getInstance();
         String sql = String.format("SELECT %s FROM %s WHERE %s = '%s' and %s = '%s'",
                 column, table, whereColumn1, whereValue1, whereColumn2, whereValue2);
-        System.out.println(sql);
+        //System.out.println(sql);
         ResultSet rs = handler.executeQuery(sql);
         ArrayList<String> arr = handler.returnDataArray(rs, 1);
         if (arr.size() == 1) return arr.get(0);
@@ -49,7 +49,7 @@ public class Finder {
         DatabaseHandler handler = DatabaseHandler.getInstance();
         String sql = String.format("SELECT %s FROM %s WHERE %s = '%s' and %s = %d",
                 column, table, whereColumn1, whereValue1, whereColumn2, whereValue2);
-        System.out.println(sql);
+        //System.out.println(sql);
         ResultSet rs = handler.executeQuery(sql);
         ArrayList<String> arr = handler.returnDataArray(rs, 1);
         if (arr.size() == 1) return arr.get(0);
@@ -61,7 +61,7 @@ public class Finder {
         DatabaseHandler handler = DatabaseHandler.getInstance();
         String sql = String.format("SELECT %s FROM %s WHERE %s = %d and %s = %d",
                 column, table, whereColumn1, whereValue1, whereColumn2, whereValue2);
-        System.out.println(sql);
+        //System.out.println(sql);
         ResultSet rs = handler.executeQuery(sql);
         ArrayList<String> arr = handler.returnDataArray(rs, 1);
         if (arr.size() == 1) return arr.get(0);
