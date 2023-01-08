@@ -1,6 +1,9 @@
 package app.pociagi.controllers;
 
 import app.pociagi.SceneChanger;
+import app.pociagi.db.Objects.Connection;
+import app.pociagi.db.Objects.Ticket;
+import app.pociagi.db.Objects.User;
 import app.pociagi.db.Utils.Route;
 import app.pociagi.db.Utils.RouteFinder;
 import app.pociagi.utils.connection_finder;
@@ -38,8 +41,30 @@ public class AvailableRidesController implements Initializable {
     }
 
     public void buyTicketButtonPushed(ActionEvent e) {
-        //komentuje ta linie bo mi rzuca blad -> routfinder musi zwracac liste 2wymiarowa a nie po prostu liste
-        //appData.pickedRoute = availRoutes.get(availableRidesListView.getSelectionModel().getSelectedIndex());
+        ArrayList<Connection> pckCons = new ArrayList<>();
+        Connection con1 = new Connection(1, 1, 2);
+        Connection con3 = new Connection(2, 10, 11);
+        Connection con2 = new Connection(4, 28, 43);
+        pckCons.add(con1);
+        //pckCons.add(con2);
+        //pckCons.add(con3);
+        appData.pickedConnections = pckCons;
+        appData.buyTicketData = new ArrayList<>();
+        if (appData.user == null) {
+            appData.user = new User(null, null, null, null, null);
+        }
+        for (Connection con : appData.pickedConnections) {
+            appData.buyTicketData.add(new Ticket(null, con.getID(),
+                    appData.pickedDate,
+                    con.getDepartureStationId(),
+                    con.getArrivalStationId(),
+                    appData.user.getID(),
+                    3,
+                    null,
+                    null,
+                    0));
+        }
+        appData.currentTicketIndex = 0;
         SceneChanger.changeScene(e, "buy_ticket.fxml");
     }
 

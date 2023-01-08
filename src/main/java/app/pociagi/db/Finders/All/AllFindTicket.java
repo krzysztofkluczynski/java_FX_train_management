@@ -5,7 +5,11 @@ import app.pociagi.db.Objects.Discount;
 import app.pociagi.db.Objects.Ticket;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 /** <h> AllFindTicket </h>
@@ -102,35 +106,59 @@ public class AllFindTicket {
     }
 
     private static ArrayList<Ticket> generateData(ArrayList<HashMap<String, String>> data) {
-        ArrayList<Ticket> ticketList= new ArrayList<>();
+        ArrayList<Ticket> ticketList = new ArrayList<>();
+        if (data == null) return ticketList;
         for (HashMap<String, String> conData : data) {
             Integer ticketId = Integer.parseInt(conData.get("TICKET_ID"));
-            Integer rideId = Integer.parseInt(conData.get("RIDE_ID"));
+            Integer conId = Integer.parseInt(conData.get("CONNECTION_ID"));
             Integer depStatId = Integer.parseInt(conData.get("ID_DEPARTURE_STATION"));
             Integer arrStatId = Integer.parseInt(conData.get("ID_ARRIVAL_STATION"));
             Integer userId;
             try {
                 userId = Integer.parseInt(conData.get("USER_ID"));
-            }
-            catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 userId = null;
             }
-            String name = conData.get("NAME");
-            String surname = conData.get("NAZWISKO");
-            if (userId == null)
-                ticketList.add(new Ticket(
-                        ticketId,
-                        rideId,
-                        depStatId,
-                        arrStatId,
-                        name,
-                        surname));
-            else ticketList.add(new Ticket(ticketId,
-                    rideId,
+            Date date;
+            try {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                date = formatter.parse(conData.get("DATE"));
+            } catch (ParseException e) {
+                System.err.format("Parse error: %s\n", e.getMessage());
+                return null;
+            }
+            Integer discountId = Integer.parseInt(conData.get("DISCOUNT_ID"));
+            Integer carId = Integer.parseInt(conData.get("CAR_ID"));
+            Integer seatId = Integer.parseInt(conData.get("SEAT_ID"));
+            Integer price = Integer.parseInt(conData.get("PRICE"));
+            ticketList.add(new Ticket(
+                    ticketId,
+                    conId,
+                    date,
                     depStatId,
                     arrStatId,
-                    userId));
+                    userId,
+                    discountId,
+                    carId,
+                    seatId, price));
         }
         return ticketList;
+    }
+
+    public static ArrayList<Ticket> findByConIDdate(Integer connectionID, Date date) {
+        // to do
+        ArrayList<Ticket> tickets = new ArrayList<>();
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String dateStr = dateFormat.format(date);
+            ArrayList<HashMap<String, String>> data = AllFinder.findFrom2("TICKETS",
+                    "DATE",
+                    dateStr,
+                    "CONNECTION_ID", connectionID);
+            return generateData(data);
+        } catch (SQLException s) {
+            System.err.format("SQL State: %s\n%s", s.getSQLState(), s.getMessage());
+            return null;
+        }
     }
 }
