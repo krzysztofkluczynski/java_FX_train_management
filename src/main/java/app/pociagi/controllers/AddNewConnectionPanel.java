@@ -74,7 +74,7 @@ public class AddNewConnectionPanel implements Initializable {
             AppData.getInstance().connection.pushToDB();
             reversedConnection.pushToDB();
 
-            ArrayList<int> stopsIdsReversed = new ArrayList<int>();
+            ArrayList<Integer> stopsIdsReversed = new ArrayList<>();
 
             for(ConnectionStop stop : stops) {
                 stopsIdsReversed.add(stop.getStationId());
