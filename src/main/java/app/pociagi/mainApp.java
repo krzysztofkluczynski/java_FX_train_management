@@ -27,9 +27,6 @@ public class mainApp extends Application {
     }
 
     public static void main(String[] args) throws ParseException {
-        String rideDate = "2022-12-06";
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = formatter.parse(rideDate);
         launch();
     }
 }

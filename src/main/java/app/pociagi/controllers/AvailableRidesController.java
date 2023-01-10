@@ -20,6 +20,8 @@ import javafx.scene.control.ListView;
 
 import java.net.URL;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -35,7 +37,7 @@ public class AvailableRidesController implements Initializable {
 
     private ArrayList<ArrayList<Connection>> possibleCons;
     @FXML
-    private Label infoLabel, errorLabel;
+    private Label infoLabel, errorLabel, date;
 
     @FXML
     private Button goBackButton;
@@ -69,6 +71,8 @@ public class AvailableRidesController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        date.setText(dateFormat.format(appData.pickedDate));
         errorLabel.setText("");
         possibleCons = RouteFinder.FindBetween(appData.from.getName(), appData.destination.getName());
         for (ArrayList<Connection> con : possibleCons) {

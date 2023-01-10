@@ -24,6 +24,8 @@ import javafx.scene.paint.Paint;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -57,13 +59,15 @@ public class BuyTicketController implements Initializable {
     private ConnectionStop depStop, arrStop;
     private Station departureStation, arrivalStation;
     @FXML
-    private Label price, fromTime, toTime, fromLabel, toLabel, seatPicked;
+    private Label price, fromTime, toTime, fromLabel, toLabel, seatPicked, date;
     @FXML
     private Button goBack;
 
     @FXML
     private Label errorLabel, sumPrice;
     public void initialize(URL url, ResourceBundle rb) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        date.setText(dateFormat.format(appData.pickedDate));
         Integer index = 1;
         for (Connection conData : AppData.getInstance().pickedConnections) {
             System.out.println(String.format("%d, %d, %d", conData.getID(), conData.getDepartureStationId(), conData.getArrivalStationId()));

@@ -9,12 +9,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.sql.ResultSet;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 //import javafx.scene.control.Label;
 
@@ -31,6 +36,9 @@ public class MenuController implements Initializable {
     @FXML
     private Label helloLabel;
 
+    @FXML
+    private DatePicker datePicker;
+
 
 
     @FXML
@@ -46,9 +54,18 @@ public class MenuController implements Initializable {
     @FXML
     public void findConnectionButtonPushed(ActionEvent event)
     {
-        appdata.from = FindStation.findByName(fromWhereTextField.getText());
-        appdata.destination = FindStation.findByName(toWhereTextField.getText());
-        SceneChanger.changeScene(event,"available_rides.fxml" );
+        LocalDate localDate = datePicker.getValue();
+        if (localDate.compareTo(LocalDate.now()) >= 0) {
+            Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+            appdata.pickedDate = Date.from(instant);
+            System.out.println(appdata.pickedDate);
+            appdata.from = FindStation.findByName(fromWhereTextField.getText());
+            appdata.destination = FindStation.findByName(toWhereTextField.getText());
+            SceneChanger.changeScene(event,"available_rides.fxml" );
+        }
+        else {
+            helloLabel.setText("cant buy ticket in the past");
+        }
 
     }
 
