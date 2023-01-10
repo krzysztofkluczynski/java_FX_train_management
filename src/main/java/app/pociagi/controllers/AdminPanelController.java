@@ -1,6 +1,8 @@
 package app.pociagi.controllers;
 import app.pociagi.SceneChanger;
 import app.pociagi.db.Finders.All.*;
+import app.pociagi.db.Finders.Single.FindConnection;
+import app.pociagi.db.Finders.Single.FindStation;
 import app.pociagi.db.Objects.Connection;
 import app.pociagi.db.Objects.DBObject;
 import app.pociagi.db.Objects.Connection;
@@ -80,6 +82,10 @@ public class AdminPanelController implements Initializable {
     private void editButtonPushed(ActionEvent e) {
         DBObject selectedObject = objectList.get(actionsListView.getSelectionModel().getSelectedIndex());
         AppData.getInstance().selectedObject = selectedObject;
+        if  (selectedObject instanceof Connection) {
+            AppData.getInstance().connection = FindConnection.findByID(selectedObject.getID());
+            SceneChanger.changeScene(e, "add_new_connection_panel.fxml"); //TODO!!!!!!
+        } else
         SceneChanger.changeScene(e, "dbobject_edit_panel.fxml");
     }
     @FXML
@@ -109,6 +115,11 @@ public class AdminPanelController implements Initializable {
         ArrayList<String> names = new ArrayList<>();
         for (DBObject d : objectList) {
             String a = d.toString();
+            if (d instanceof Connection) {
+                a = a.concat(String.format("%s -> %s",
+                        FindStation.findById(((Connection) d).getDepartureStationId()).getName(),
+                        FindStation.findById(((Connection) d).getArrivalStationId()).getName()));
+            }
             names.add(a);
         }
         actionsListView.getItems().setAll(names);

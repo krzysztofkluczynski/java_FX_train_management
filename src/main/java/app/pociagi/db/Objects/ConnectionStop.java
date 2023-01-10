@@ -75,10 +75,10 @@ public class ConnectionStop extends DBObject{
         HashMap<String, Object> dict = new HashMap<>();
         dict.put("CONNECTION_ID", this.connectionId);
         dict.put("STATION_ID", this.stationId);
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = this.arrivalHour;
         dict.put("ARRIVAL_HOUR", dateFormat.format(date));
-        DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date2 = this.departureHour;
         dict.put("DEPARTURE_HOUR", dateFormat.format(date2));
         super.data = dict;

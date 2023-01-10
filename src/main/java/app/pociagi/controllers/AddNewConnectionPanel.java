@@ -3,6 +3,7 @@ package app.pociagi.controllers;
 import app.pociagi.SceneChanger;
 import app.pociagi.db.Finders.All.AllFindConnection;
 import app.pociagi.db.Finders.All.AllFindStation;
+import app.pociagi.db.Finders.All.AllFindStop;
 import app.pociagi.db.Finders.Single.FindStation;
 import app.pociagi.db.Finders.Single.FindStop;
 import app.pociagi.db.Objects.Connection;
@@ -32,8 +33,9 @@ import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class AddNewConnectionPanel implements Initializable {
+
     @FXML
-    private Button addConectionButton, addStopButton, goBackButton;
+    private Button addConnectionButton, addStopButton, goBackButton;
     @FXML
     private ListView allStationsListView;
 
@@ -53,7 +55,8 @@ public class AddNewConnectionPanel implements Initializable {
             idTextField;
 
     public static ArrayList<Station> stationsList;
-
+    private ArrayList<ConnectionStop> toRemove = new ArrayList<ConnectionStop>();
+    private ArrayList<ConnectionStop> toAdd = new ArrayList<ConnectionStop>();
     private ArrayList<ConnectionStop> stops = new ArrayList<ConnectionStop>();
     private ArrayList<ConnectionStop> reversedStops = new ArrayList<ConnectionStop>();
 
@@ -65,6 +68,10 @@ public class AddNewConnectionPanel implements Initializable {
 
     @FXML
     public void addConnectionButtonPushed(ActionEvent e) {
+        if (AppData.getInstance().connection.getID() != null) {
+            editClicked();
+            return;
+        }
         try {
             AppData.getInstance().connection.setID(Integer.parseInt(idTextField.getText().toString()));
             AppData.getInstance().connection.setArrivalStationId(stops.get(0).getStationId());
@@ -111,20 +118,56 @@ public class AddNewConnectionPanel implements Initializable {
         ConnectionStop stop = new ConnectionStop(AppData.getInstance().connection.getID(), FindStation.findByName(new_station_name.getText().toString()).getID(), tArr, tDep);
         stops.add(stop);    //w tym miejscu stop ma null jako connection_id i metoda to_String jest nadpisana w klasie ConnectionStop
         allStationsListView.getItems().add(stop.toString());
+        toAdd.add(stop);
         new_station_name.setText("");
         timeArrivalTextField.setText("");
         timeDepartureTextField.setText("");
     }
 
+    @FXML
+    public void deleteStopButtonPushed(ActionEvent e) throws ParseException {
+        toRemove.add(stops.get(allStationsListView.getSelectionModel().getSelectedIndex()));
+        stops.remove(allStationsListView.getSelectionModel().getSelectedIndex());
+        allStationsListView.getItems().remove(allStationsListView.getSelectionModel().getSelectedIndex());
+    }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize (URL url, ResourceBundle resourceBundle){
+        if (AppData.getInstance().connection.getID() != null) {
+            stops.addAll(AllFindStop.findByConnectionID(
+                    AppData.getInstance().connection.getID()
+            ));
+            for (ConnectionStop stop : stops) {
+                allStationsListView.getItems().add(stop.toString());
+            }
+            addConnectionButton.setText("Update");
+        }
         succesLabel.setVisible(false);
+        ArrayList<Station> list = AllFindStation.getAll();
+        for (Station s : list) {
+            new_station_name.getEntries().add(s.getName());
+        }
+    }
+
+    public void editClicked() {
         DatabaseHandler handler = DatabaseHandler.getInstance();
-        String sql = "SELECT * FROM STATIONS";
-        ResultSet rs = handler.executeQuery(sql);
-        ArrayList<String> arr = handler.returnDataArray(rs, 2);
-        AutoCompleteTextField field = new AutoCompleteTextField();
-        new_station_name.getEntries().addAll(arr);
+        for (ConnectionStop stop : toRemove) {
+            String sql = String.format("DELETE FROM STOPS WHERE CONNECTION_ID=%s AND STATION_ID=%s",
+                    stop.getConnectionId(),
+                    stop.getStationId());
+            handler.executeQuery(sql);
+        }
+        for (ConnectionStop stop : toAdd) {
+            stop.pushToDB();
+        }
+        String sql = String.format("UPDATE CONNECTIONS SET DEPARTURE_STATION=%s, ARRIVAL_STATION=%s WHERE " +
+                        "CONNECTION_ID=%s",
+                stops.get(0).getStationId(),
+                stops.get(stops.size()-1).getStationId(),
+                AppData.getInstance().connection.getID());
+        handler.executeQuery(sql);
+        toRemove.clear();
+        toAdd.clear();
+        succesLabel.setVisible(true);
     }
 }

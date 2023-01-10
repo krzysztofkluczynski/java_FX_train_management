@@ -88,8 +88,8 @@ public class Connection extends DBObject{
     private void createStringData() {
         HashMap<String, Object> dict = new HashMap<>();
         dict.put("CONNECTION_ID", this.getID());
-        dict.put("DEPARTURE_STATION", FindStation.findById(this.getDepartureStationId()));
-        dict.put("ARRIVAL_STATION", FindStation.findById(this.getArrivalStationId()));
+        dict.put("DEPARTURE_STATION", this.departureStationId);
+        dict.put("ARRIVAL_STATION", this.arrivalStationId);
         super.stringData = dict;
     }
 }
