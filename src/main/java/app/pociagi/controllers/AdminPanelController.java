@@ -5,6 +5,7 @@ import app.pociagi.db.Objects.Connection;
 import app.pociagi.db.Objects.DBObject;
 import app.pociagi.db.Objects.Connection;
 import app.pociagi.db.Objects.Discount;
+import app.pociagi.db.Utils.DatabaseHandler;
 import app.pociagi.utils.AppData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -83,6 +85,11 @@ public class AdminPanelController implements Initializable {
     @FXML
     private void deleteButtonPushed(ActionEvent e) {
         DBObject selectedObject = objectList.get(actionsListView.getSelectionModel().getSelectedIndex());
+        if (selectedObject instanceof Connection) {
+            DatabaseHandler handler = DatabaseHandler.getInstance();
+            String sql = String.format("DELETE FROM STOPS WHERE CONNECTION_ID=%s", selectedObject.getID());
+            handler.executeQuery(sql);
+        }
         selectedObject.deleteObject();
         objectList.remove(actionsListView.getSelectionModel().getSelectedIndex());
         prepareListData();

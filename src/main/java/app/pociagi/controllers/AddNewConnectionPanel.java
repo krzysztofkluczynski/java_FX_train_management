@@ -114,7 +114,6 @@ public class AddNewConnectionPanel implements Initializable {
         new_station_name.setText("");
         timeArrivalTextField.setText("");
         timeDepartureTextField.setText("");
-
     }
 
 
