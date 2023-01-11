@@ -153,10 +153,20 @@ public class AddNewConnectionPanel implements Initializable {
         for (ConnectionStop stop : toAdd) {
             stop.pushToDB();
         }
+        ConnectionStop minStop = stops.get(0);
+        ConnectionStop maxStop = stops.get(stops.size()-1);
+        for (ConnectionStop stop : stops) {
+            if (stop.getDepartureHour().before(minStop.getDepartureHour())) {
+                minStop = stop;
+            }
+            if (stop.getArrivalHour().after(maxStop.getArrivalHour())) {
+                maxStop = stop;
+            }
+        }
         String sql = String.format("UPDATE CONNECTIONS SET DEPARTURE_STATION=%s, ARRIVAL_STATION=%s WHERE " +
                         "CONNECTION_ID=%s",
-                stops.get(0).getStationId(),
-                stops.get(stops.size()-1).getStationId(),
+                minStop.getStationId(),
+                maxStop.getStationId(),
                 AppData.getInstance().connection.getID());
         handler.executeQuery(sql);
         toRemove.clear();

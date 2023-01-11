@@ -58,7 +58,7 @@ public class MenuController implements Initializable {
         if (localDate.compareTo(LocalDate.now()) >= 0) {
             Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
             appdata.pickedDate = Date.from(instant);
-            System.out.println(appdata.pickedDate);
+            //System.out.println(appdata.pickedDate);
             appdata.from = FindStation.findByName(fromWhereTextField.getText());
             appdata.destination = FindStation.findByName(toWhereTextField.getText());
             SceneChanger.changeScene(event,"available_rides.fxml" );

@@ -15,7 +15,7 @@ public class DatabaseHandler {
     private static DatabaseHandler handler = null;
     private static final String dbURL = "jdbc:oracle:thin:@//ora4.ii.pw.edu.pl:1521/pdb1.ii.pw.edu.pl";
     private static final String username = "z13";
-    private static final String password = getPassword();
+    private static final String password = "5ar7y9";
     public static Connection con = null;
     public static Statement stmt = null;
 
@@ -31,7 +31,7 @@ public class DatabaseHandler {
     }
     private static String getPassword() {
                 // pass the path to the file as a parameter
-                File file = new File("src/main/java/app/pociagi/db/Utils/pass.txt");
+                File file = new File("pass.txt");
         Scanner sc = null;
         try {
             sc = new Scanner(file);

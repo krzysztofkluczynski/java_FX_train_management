@@ -70,7 +70,7 @@ public class BuyTicketController implements Initializable {
         date.setText(dateFormat.format(appData.pickedDate));
         Integer index = 1;
         for (Connection conData : AppData.getInstance().pickedConnections) {
-            System.out.println(String.format("%d, %d, %d", conData.getID(), conData.getDepartureStationId(), conData.getArrivalStationId()));
+            //System.out.println(String.format("%d, %d, %d", conData.getID(), conData.getDepartureStationId(), conData.getArrivalStationId()));
             ticketList.getItems().add(String.format("#%d: %s (%s) - %s (%s)",
                     index,
                     FindStation.findById(conData.getDepartureStationId()).getName(),
@@ -133,8 +133,8 @@ public class BuyTicketController implements Initializable {
 
     public void recalculateCost(Time depHour, Time arrHour, Integer discountValue, Integer classCoef) {
         Integer time = (int) (arrHour.getTime() - depHour.getTime()) / 60000;
-        System.out.println(time);
-        System.out.println(discountValue);
+        //System.out.println(time);
+        //System.out.println(discountValue);
         int cost = time * 26 * (100 - discountValue) / 100 * classCoef;
         price.setText(String.format("%d,%02d zł", cost/100, cost%100));
         ticketData.setPrice(cost);
@@ -158,7 +158,7 @@ public class BuyTicketController implements Initializable {
 
     public void checkoutPressed(ActionEvent e) {
         if (!checkoutLocked) {
-            System.out.println("proceeded to checkout");
+            //System.out.println("proceeded to checkout");
             for (Ticket ticket : appData.buyTicketData) {
                 ticket.setUserId(appData.user.getID());
                 ticket.pushToDB();
