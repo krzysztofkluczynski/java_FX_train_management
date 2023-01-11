@@ -1,6 +1,5 @@
 package app.pociagi.db.Utils;
 
-import javax.sql.RowSetMetaData;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;

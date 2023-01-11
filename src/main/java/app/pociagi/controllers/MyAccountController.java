@@ -35,25 +35,25 @@ public class MyAccountController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // to zostanie uzyte po przebudownie,
         nameLabel.setText("Name: " + appdata.user.getName());
         surnameLabel.setText("Surname: " + appdata.user.getSurname());
         loginLabel.setText("Login: " + appdata.user.getLogin());
         emailLabel.setText("Email: " + appdata.user.getEmail());
 
-//
         ArrayList<Ticket> ticket_list = AllFindTicket.findByUserID(appdata.user.getID());
-        for (var s : ticket_list) {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = s.getDate();
-            myRidesListView.getItems().add(String.format("%s %s %s --> %s %s  Car: %d, Seat: %d",
-                            dateFormat.format(date),
-                            FindStation.findById(s.getDepartureStationId()).getName(),
-                            FindStop.findByConIdStationId(s.getConnectionId(), s.getDepartureStationId()).getDepartureHour(),
-                            FindStation.findById(s.getArrivalStationId()).getName(),
-                            FindStop.findByConIdStationId(s.getConnectionId(), s.getArrivalStationId()).getArrivalHour(),
-                            s.getCarId(), s.getSeatId()
-                    ));
+        if (ticket_list != null) {
+            for (var s : ticket_list) {
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = s.getDate();
+                myRidesListView.getItems().add(String.format("%s %s %s --> %s %s  Car: %d, Seat: %d",
+                        dateFormat.format(date),
+                        FindStation.findById(s.getDepartureStationId()).getName(),
+                        FindStop.findByConIdStationId(s.getConnectionId(), s.getDepartureStationId()).getDepartureHour(),
+                        FindStation.findById(s.getArrivalStationId()).getName(),
+                        FindStop.findByConIdStationId(s.getConnectionId(), s.getArrivalStationId()).getArrivalHour(),
+                        s.getCarId(), s.getSeatId()
+                ));
+            }
         }
 
     }

@@ -37,9 +37,7 @@ public class LoginController {
           private PasswordField password;
 
           public void UserLogIn(ActionEvent event) throws IOException, InterruptedException, SQLException {
-              // to lepiej by sie przydalo zrobic
               if(checkLogin()) {
-
                   TimeUnit.SECONDS.sleep(1);
                   appdata.user = FindUser.findByLogin(username.getText());
                   SceneChanger.changeScene(event, "main_menuv2.fxml");
