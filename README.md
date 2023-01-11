@@ -22,5 +22,5 @@ Zespół 13:
 # Instrukcja instalacji
 > - wymagana zainstalowana JAVA 19!
 > - git clone https://gitlab-stud.elka.pw.edu.pl/fbrowarn/pap22z-z13.git
-> - cd PAP22Z-Z13/out/artifacts/pap22z_z13_jar
+> - cd PAP22Z-Z13/out/artifacts/TrainApp_jar
 > - java -jar .\TrainApp.jar
