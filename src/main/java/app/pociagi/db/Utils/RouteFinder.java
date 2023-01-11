@@ -49,6 +49,8 @@ public class RouteFinder {
                 "where stops.connection_id = stop2.connection_id and stop2.station_id = (select station_id from stations where name = '%s') and\n " +
                 "stops.connection_id in (select stops.connection_id from stops join stations st on stops.station_id = st.station_id where st.name = '%s') and \n" +
                 "st.connection_station = 1 and\n " +
+                "extract(hour from stop2.departure_hour)*60 + extract(minute from stop2.departure_hour) - extract(hour from stops.arrival_hour)*60 - extract(minute from stops.arrival_hour) < 0 and " +
+                "extract(hour from stop3.departure_hour)*60 + extract(minute from stop3.departure_hour) - extract(hour from stop4.arrival_hour)*60 - extract(minute from stop4.arrival_hour) < 0 and " +
                 "extract(hour from stops.arrival_hour)*60 + extract(minute from stops.arrival_hour) - extract(hour from stop3.departure_hour)*60 - extract(minute from stop3.departure_hour) < 0 and\n " +
                 "stops.station_id = stop3.station_id and \n" +
                 "stop3.connection_id = stop4.connection_id and \n" +
@@ -58,6 +60,8 @@ public class RouteFinder {
                 "from stops join stations st on stops.station_id = st.station_id cross join stops stop2 cross join stops stop3 cross join stops stop4\n " +
                 "where stops.connection_id = stop2.connection_id and \n " +
                 "stop2.station_id = (select station_id from stations where name = '%s') and\n " +
+                "extract(hour from stop2.departure_hour)*60 + extract(minute from stop2.departure_hour) - extract(hour from stops.arrival_hour)*60 - extract(minute from stops.arrival_hour) < 0 and " +
+                "extract(hour from stop3.departure_hour)*60 + extract(minute from stop3.departure_hour) - extract(hour from stop4.arrival_hour)*60 - extract(minute from stop4.arrival_hour) < 0 and " +
                 "extract(hour from stops.arrival_hour)*60 + extract(minute from stops.arrival_hour) - extract(hour from stop3.departure_hour)*60 - extract(minute from stop3.departure_hour) < 0 and\n " +
                 "stops.connection_id in \n" +
                 "(select stops.connection_id from stops join stations st on stops.station_id = st.station_id where st.name = '%s') \n" +
