@@ -1,17 +1,21 @@
 package app.pociagi.db.Utils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 /**
  * should be rewritten!
  */
 public class DatabaseHandler {
+
     private static DatabaseHandler handler = null;
     private static final String dbURL = "jdbc:oracle:thin:@//ora4.ii.pw.edu.pl:1521/pdb1.ii.pw.edu.pl";
     private static final String username = "z13";
-    private static final String password = "5ar7y9";
+    private static final String password = getPassword();
     public static Connection con = null;
     public static Statement stmt = null;
 
@@ -25,6 +29,17 @@ public class DatabaseHandler {
         }
         return handler;
     }
+    private static String getPassword() {
+                // pass the path to the file as a parameter
+                File file = new File("src/main/java/app/pociagi/db/Utils/pass.txt");
+        Scanner sc = null;
+        try {
+            sc = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return sc.nextLine();
+            }
 
     void createConnection() {
         try {
