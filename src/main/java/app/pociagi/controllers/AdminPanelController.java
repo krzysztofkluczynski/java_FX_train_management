@@ -73,7 +73,7 @@ public class AdminPanelController implements Initializable {
         AppData.getInstance().selectedObject = selectedObject;
         if  (selectedObject instanceof Connection) {
             AppData.getInstance().connection = new Connection(null, null, null);
-            SceneChanger.changeScene(e, "add_new_connection_panel.fxml"); //TODO!!!!!!
+            SceneChanger.changeScene(e, "add_new_connection_panel.fxml");
         } else {
             SceneChanger.changeScene(e, "dbobject_add_panel.fxml");
         }
@@ -84,7 +84,7 @@ public class AdminPanelController implements Initializable {
         AppData.getInstance().selectedObject = selectedObject;
         if  (selectedObject instanceof Connection) {
             AppData.getInstance().connection = FindConnection.findByID(selectedObject.getID());
-            SceneChanger.changeScene(e, "add_new_connection_panel.fxml"); //TODO!!!!!!
+            SceneChanger.changeScene(e, "add_new_connection_panel.fxml");
         } else
         SceneChanger.changeScene(e, "dbobject_edit_panel.fxml");
     }

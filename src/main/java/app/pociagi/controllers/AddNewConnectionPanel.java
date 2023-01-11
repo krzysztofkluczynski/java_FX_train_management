@@ -74,8 +74,8 @@ public class AddNewConnectionPanel implements Initializable {
         }
         try {
             AppData.getInstance().connection.setID(Integer.parseInt(idTextField.getText().toString()));
-            AppData.getInstance().connection.setArrivalStationId(stops.get(0).getStationId());
-            AppData.getInstance().connection.setDepartureStationID(stops.get(stops.size() - 1).getStationId());
+            AppData.getInstance().connection.setDepartureStationID(stops.get(0).getStationId());
+            AppData.getInstance().connection.setArrivalStationId(stops.get(stops.size() - 1).getStationId());
             Connection reversedConnection = new Connection(AppData.getInstance().connection.getID()+1, AppData.getInstance().connection.getArrivalStationId(), AppData.getInstance().connection.getDepartureStationId());
 
             AppData.getInstance().connection.pushToDB();
@@ -95,15 +95,8 @@ public class AddNewConnectionPanel implements Initializable {
                 sReversed.pushToDB();
                 i++;
             }
-            new_station_name.setText("");
-            timeArrivalTextField.setText("");
-            timeDepartureTextField.setText("");
-            idTextField.setText("");
-            succesLabel.setVisible(true);
-            allStationsListView.getItems().clear();
-            stopsIdsReversed.clear();
-            reversedStops.clear();
-            stops.clear();
+            //succesLabel.setVisible(true);
+            SceneChanger.changeScene(e, "admin_panel.fxml");
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
@@ -116,7 +109,7 @@ public class AddNewConnectionPanel implements Initializable {
         Time tArr = Time.valueOf(timeArrival);
         Time tDep = Time.valueOf(timeDeparture);
         ConnectionStop stop = new ConnectionStop(AppData.getInstance().connection.getID(), FindStation.findByName(new_station_name.getText().toString()).getID(), tArr, tDep);
-        stops.add(stop);    //w tym miejscu stop ma null jako connection_id i metoda to_String jest nadpisana w klasie ConnectionStop
+        stops.add(stop);
         allStationsListView.getItems().add(stop.toString());
         toAdd.add(stop);
         new_station_name.setText("");
