@@ -76,23 +76,23 @@ public class AddNewConnectionPanel implements Initializable {
             Connection reversedConnection = new Connection(AppData.getInstance().connection.getID()+1, AppData.getInstance().connection.getArrivalStationId(), AppData.getInstance().connection.getDepartureStationId());
 
             AppData.getInstance().connection.pushToDB();
-            reversedConnection.pushToDB();
+            //reversedConnection.pushToDB();
 
-            ArrayList<Integer> stopsIdsReversed = new ArrayList<>();
+            //ArrayList<Integer> stopsIdsReversed = new ArrayList<>();
 
-            for(ConnectionStop stop : stops) {
-                stopsIdsReversed.add(stop.getStationId());
-            }
-            Collections.reverse(stopsIdsReversed);
+//            for(ConnectionStop stop : stops) {
+//                stopsIdsReversed.add(stop.getStationId());
+//            }
+            //Collections.reverse(stopsIdsReversed);
             int i = 0;
             for (ConnectionStop stop : stops) {
                 stop.setConnectionID(AppData.getInstance().connection.getID());
-                ConnectionStop sReversed = new ConnectionStop(reversedConnection.getID(), stopsIdsReversed.get(i), stop.getArrivalHour(), stop.getDepartureHour());
+                //ConnectionStop sReversed = new ConnectionStop(reversedConnection.getID(), stopsIdsReversed.get(i), stop.getArrivalHour(), stop.getDepartureHour());
                 stop.pushToDB();
-                sReversed.pushToDB();
-                i++;
+//                sReversed.pushToDB();
+//                i++;
             }
-            //succesLabel.setVisible(true);
+            succesLabel.setVisible(true);
             SceneChanger.changeScene(e, "admin_panel.fxml");
         } catch (Exception ex) {
             throw new RuntimeException(ex);
