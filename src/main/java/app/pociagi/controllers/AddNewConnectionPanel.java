@@ -27,10 +27,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class AddNewConnectionPanel implements Initializable {
 
@@ -115,6 +112,11 @@ public class AddNewConnectionPanel implements Initializable {
         new_station_name.setText("");
         timeArrivalTextField.setText("");
         timeDepartureTextField.setText("");
+        sortStops();
+        allStationsListView.getItems().clear();
+        for (ConnectionStop stopa : stops) {
+            allStationsListView.getItems().add(stopa.toString());
+        }
     }
 
     @FXML
@@ -122,6 +124,11 @@ public class AddNewConnectionPanel implements Initializable {
         toRemove.add(stops.get(allStationsListView.getSelectionModel().getSelectedIndex()));
         stops.remove(allStationsListView.getSelectionModel().getSelectedIndex());
         allStationsListView.getItems().remove(allStationsListView.getSelectionModel().getSelectedIndex());
+        sortStops();
+        allStationsListView.getItems().clear();
+        for (ConnectionStop stop : stops) {
+            allStationsListView.getItems().add(stop.toString());
+        }
     }
 
     @Override
@@ -130,6 +137,8 @@ public class AddNewConnectionPanel implements Initializable {
             stops.addAll(AllFindStop.findByConnectionID(
                     AppData.getInstance().connection.getID()
             ));
+            sortStops();
+            allStationsListView.getItems().clear();
             for (ConnectionStop stop : stops) {
                 allStationsListView.getItems().add(stop.toString());
             }
@@ -172,5 +181,23 @@ public class AddNewConnectionPanel implements Initializable {
         toRemove.clear();
         toAdd.clear();
         succesLabel.setVisible(true);
+    }
+
+    public void sortStops() {
+        Collections.sort(stops, new Comparator<ConnectionStop>() {
+            @Override
+            public int compare(ConnectionStop o1, ConnectionStop o2) {
+                if (o1.getDepartureHour().before(o2.getDepartureHour())) {
+                    return -1;
+                }
+                if (o1.getDepartureHour().equals(o2.getDepartureHour())) {
+                    return 0;
+                }
+                if (o1.getDepartureHour().after(o2.getDepartureHour())) {
+                    return 1;
+                }
+                return 0;
+            }
+        });
     }
 }
