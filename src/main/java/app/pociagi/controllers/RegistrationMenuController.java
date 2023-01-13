@@ -2,6 +2,7 @@ package app.pociagi.controllers;
 
 import app.pociagi.SceneChanger;
 import app.pociagi.db.Utils.DatabaseHandler;
+import app.pociagi.db.Utils.Hash;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.TimeUnit;
 
 public class RegistrationMenuController {
@@ -24,11 +26,11 @@ public class RegistrationMenuController {
         @FXML
         private Label errorLoginLabel;
 
-        public void createAccountButtonPushed(ActionEvent e) throws IOException, InterruptedException {
+        public void createAccountButtonPushed(ActionEvent e) throws IOException, InterruptedException, NoSuchAlgorithmException {
             boolean validate = checkData();
             if(validate) {
                 String login = loginField.getText().toString();
-                String password = passwordFirstField.getText().toString();
+                String password = Hash.hashPassword(passwordFirstField.getText().toString());
                 String name = nameField.getText().toString();
                 String surname = surnameField.getText().toString();
                 String email = emailField.getText().toString();
