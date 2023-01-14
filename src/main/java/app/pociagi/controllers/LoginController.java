@@ -37,18 +37,18 @@ public class LoginController {
           private PasswordField password;
 
           public void UserLogIn(ActionEvent event) throws IOException, InterruptedException, SQLException {
-              if(checkLogin()) {
+              try {
                   TimeUnit.SECONDS.sleep(1);
                   appdata.user = FindUser.findByLogin(username.getText());
                   SceneChanger.changeScene(event, "main_menuv2.fxml");
-              } else {
+              } catch(Exception ex){
                     wrongLogin2.setWrapText(true);
                     wrongLogin2.setText("Try again!");
               }
 
           }
 
-          public boolean checkLogin() throws IOException {
+          public boolean checkLogin() throws IOException, Exception {
               mainApp m = new mainApp();
               String typed_login = username.getText().toString();
               String typed_password = password.getText().toString();
@@ -58,13 +58,13 @@ public class LoginController {
               ArrayList<String> arr = handle.returnDataArray(rs, 1);
               if(typed_login.isEmpty() || typed_password.isEmpty()) {
                   wrongLogin.setTextFill(Color.RED);
-                  wrongLogin.setText("You need to enter password and login!, try aga");
+                  wrongLogin.setText("You need to enter password and login!, try again");
                   return false;
               }
               else if(arr.isEmpty()) {
                   wrongLogin.setTextFill(Color.RED);
                   wrongLogin.setText("There is no such user");
-                  return false;
+                  throw new Exception("wrong data!");
               }
               else if(typed_password.equals(arr.get(0))) {
                   wrongLogin.setTextFill(Color.GREEN);
@@ -73,7 +73,7 @@ public class LoginController {
               } else {
                   wrongLogin.setTextFill(Color.RED);
                   wrongLogin.setText("wrong password!");
-                  return false;
+                  throw new Exception("wrong data!");
               }
 
           }
