@@ -53,8 +53,8 @@ public class RegistrationMenuController {
             SceneChanger.changeScene(e, "login_menu.fxml");
         }
 
-        private boolean checkData() throws Exception {       //tutaj mozna tez dostosowac co sie dzieje w okienku
-            if(loginField.getText().toString().isEmpty() || //jakies basic warunki
+        private boolean checkData() throws Exception {
+            if(loginField.getText().toString().isEmpty() ||
                     nameField.getText().toString().isEmpty() ||
                     surnameField.getText().toString().isEmpty() ||
                     emailField.getText().toString().isEmpty() ||
