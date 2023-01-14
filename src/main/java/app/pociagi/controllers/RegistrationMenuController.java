@@ -2,6 +2,7 @@ package app.pociagi.controllers;
 
 import app.pociagi.SceneChanger;
 import app.pociagi.db.Utils.DatabaseHandler;
+import app.pociagi.db.Utils.Hash;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -26,6 +27,7 @@ public class RegistrationMenuController {
 
         public void createAccountButtonPushed(ActionEvent e) throws IOException, InterruptedException {
             try {
+                checkData();
                 String login = loginField.getText().toString();
                 String password = Hash.hashPassword(passwordFirstField.getText().toString());
                 String name = nameField.getText().toString();
@@ -51,7 +53,7 @@ public class RegistrationMenuController {
             SceneChanger.changeScene(e, "login_menu.fxml");
         }
 
-        private boolean checkData() {       //tutaj mozna tez dostosowac co sie dzieje w okienku
+        private boolean checkData() throws Exception {       //tutaj mozna tez dostosowac co sie dzieje w okienku
             if(loginField.getText().toString().isEmpty() || //jakies basic warunki
                     nameField.getText().toString().isEmpty() ||
                     surnameField.getText().toString().isEmpty() ||
@@ -59,17 +61,9 @@ public class RegistrationMenuController {
                     emailField.getText().toString().isEmpty() ||
                     passwordFirstField.getText().toString().isEmpty() ||
                     passwordSecondField.getText().toString().isEmpty()) {
-                return false;
-//            } else if(nameField.getText().toString().matches("[a-zA-Z]+") &&
-//                    surnameField.getText().toString().matches("[a-zA-Z]+")) {
-//                return false;
-//            } else if(loginField.getText().toString().matches(".*\\s.*") && //login i haslo bez bialych znakow, regex to sprawdza
-//                    passwordFirstField.getText().toString().matches(".*\\s.*") &&
-//                    passwordSecondField.getText().toString().matches(".*\\s.*") &&
-//                    emailField.getText().toString().matches(".*\\s.*")) {
-//                return false;
+                throw new Exception("wrong data!");
             } else if(!passwordSecondField.getText().toString().equals(passwordSecondField.getText().toString())) {
-                    return false;
+                throw new Exception("wrong data!");
             } else  {
                 return true;
             }

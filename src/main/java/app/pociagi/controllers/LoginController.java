@@ -40,10 +40,14 @@ public class LoginController {
 
           public void UserLogIn(ActionEvent event) throws IOException, InterruptedException, SQLException {
               try {
+                  checkLogin();
                   TimeUnit.SECONDS.sleep(1);
                   appdata.user = FindUser.findByLogin(username.getText());
                   SceneChanger.changeScene(event, "main_menuv2.fxml");
               } catch(Exception ex){
+                    wrongLogin.setTextFill(Color.RED);
+                    wrongLogin.setText(ex.getMessage());
+                    wrongLogin.setWrapText(true);
                     wrongLogin2.setWrapText(true);
                     wrongLogin2.setText("Try again!");
               }
@@ -64,23 +68,17 @@ public class LoginController {
               ResultSet rs = handle.executeQuery(sql_query);
               ArrayList<String> arr = handle.returnDataArray(rs, 1);
               if(typed_login.isEmpty() || typed_password.isEmpty()) {
-                  wrongLogin.setTextFill(Color.RED);
-                  wrongLogin.setText("You need to enter password and login!, try again");
-                  return false;
+                  throw new Exception("You need to enter password and login!");
               }
               else if(arr.isEmpty()) {
                   wrongLogin.setTextFill(Color.RED);
-                  wrongLogin.setText("There is no such user");
-                  throw new Exception("wrong data!");
+                  throw new Exception("There is no such user!");
               }
               else if(typed_password.equals(arr.get(0))) {
-                  wrongLogin.setTextFill(Color.GREEN);
                   wrongLogin.setText("Sucess!");
                   return true;
               } else {
-                  wrongLogin.setTextFill(Color.RED);
-                  wrongLogin.setText("wrong password!");
-                  throw new Exception("wrong data!");
+                  throw new Exception("Wrong password!");
               }
 
           }
