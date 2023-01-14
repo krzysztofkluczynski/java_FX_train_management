@@ -2,6 +2,7 @@ package app.pociagi.controllers;
 
 import app.pociagi.SceneChanger;
 import app.pociagi.db.Finders.Single.FindUser;
+import app.pociagi.db.Utils.Hash;
 import app.pociagi.mainApp;
 import app.pociagi.utils.AppData;
 import app.pociagi.db.Utils.DatabaseHandler;
@@ -14,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -51,7 +53,12 @@ public class LoginController {
           public boolean checkLogin() throws IOException, Exception {
               mainApp m = new mainApp();
               String typed_login = username.getText().toString();
-              String typed_password = password.getText().toString();
+              String typed_password = null;
+              try {
+                  typed_password = Hash.hashPassword(password.getText().toString());
+              } catch (NoSuchAlgorithmException e) {
+                  throw new RuntimeException(e);
+              }
               DatabaseHandler handle = DatabaseHandler.getInstance();
               String sql_query = String.format("SELECT PASSWORD FROM USERS WHERE LOGIN = '%s'", typed_login);
               ResultSet rs = handle.executeQuery(sql_query);

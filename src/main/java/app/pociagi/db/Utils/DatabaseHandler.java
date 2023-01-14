@@ -13,13 +13,14 @@ import java.util.Scanner;
 public class DatabaseHandler {
 
     private static DatabaseHandler handler = null;
-    private static final String dbURL = "jdbc:oracle:thin:@//ora4.ii.pw.edu.pl:1521/pdb1.ii.pw.edu.pl";
-    private static final String username = "z13";
-    private static final String password = "5ar7y9";
+    private static String dbURL;
+    private static String username;
+    private static String password;
     public static Connection con = null;
     public static Statement stmt = null;
 
     private DatabaseHandler() {
+        getPassword();
         createConnection();
     }
 
@@ -29,17 +30,19 @@ public class DatabaseHandler {
         }
         return handler;
     }
-    private static String getPassword() {
+    private void getPassword() {
                 // pass the path to the file as a parameter
-                File file = new File("pass.txt");
+        File file = new File("pass.txt");
         Scanner sc = null;
         try {
             sc = new Scanner(file);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        return sc.nextLine();
-            }
+        dbURL = sc.nextLine();
+        username = sc.nextLine();
+        password = sc.nextLine();
+    }
 
     void createConnection() {
         try {

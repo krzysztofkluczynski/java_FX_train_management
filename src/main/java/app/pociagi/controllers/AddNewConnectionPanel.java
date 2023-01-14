@@ -92,9 +92,12 @@ public class AddNewConnectionPanel implements Initializable {
 //                sReversed.pushToDB();
 //                i++;
             }
+            succesLabel.setText("SUCCESS");
             succesLabel.setVisible(true);
             SceneChanger.changeScene(e, "admin_panel.fxml");
         } catch (Exception ex) {
+            succesLabel.setText("FAILURE");
+            succesLabel.setVisible(true);
             throw new RuntimeException(ex);
         }
     }
