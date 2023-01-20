@@ -21,7 +21,7 @@ public class mainApp extends Application {
     public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("login_menu.fxml"));
         stage.setTitle("Hello!");
-        stage.setResizable(false); //jesli zaczniemy rozciagac okno to bedzie brzydkie, do poprawy
+        stage.setResizable(false);
         stage.setScene(new Scene(root));
         stage.show();
     }
