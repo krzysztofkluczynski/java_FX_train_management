@@ -30,7 +30,7 @@ public class LoginController {
           private Button logInButton, goBackButton;
 
           @FXML
-          public static Label wrongLogin, wrongLogin2;
+          private Label wrongLogin, wrongLogin2;
 
           @FXML
           private TextField username;

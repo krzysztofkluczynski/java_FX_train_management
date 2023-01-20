@@ -34,7 +34,4 @@ class LoginControllerTest {
         Throwable exception = assertThrows(Exception.class, () -> LoginController.checkLogin("admin1", "ad"));
         assertEquals("There is no such user!", exception.getMessage());
     }
-
-
-
 }
