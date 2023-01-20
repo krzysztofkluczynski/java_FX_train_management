@@ -30,7 +30,7 @@ public class LoginController {
           private Button logInButton, goBackButton;
 
           @FXML
-          private Label wrongLogin, wrongLogin2;
+          public static Label wrongLogin, wrongLogin2;
 
           @FXML
           private TextField username;
@@ -40,9 +40,12 @@ public class LoginController {
 
           public void UserLogIn(ActionEvent event) throws IOException, InterruptedException, SQLException {
               try {
-                  checkLogin();
+                  String usrName = username.getText().toString();
+                  String pass = password.getText().toString();
+                  checkLogin(usrName, pass);
                   TimeUnit.SECONDS.sleep(1);
                   appdata.user = FindUser.findByLogin(username.getText());
+                  wrongLogin.setText("Sucess!");
                   SceneChanger.changeScene(event, "main_menuv2.fxml");
               } catch(Exception ex){
                     wrongLogin.setTextFill(Color.RED);
@@ -53,12 +56,11 @@ public class LoginController {
               }
           }
 
-          public boolean checkLogin() throws IOException, Exception {
+          public static boolean checkLogin(String username, String password) throws IOException, Exception {
               mainApp m = new mainApp();
-              String typed_login = username.getText().toString();
-              String typed_password = null;
+              String typed_login = username;
               try {
-                  typed_password = Hash.hashPassword(password.getText().toString());
+                  password = Hash.hashPassword(password);
               } catch (NoSuchAlgorithmException e) {
                   throw new RuntimeException(e);
               }
@@ -66,15 +68,13 @@ public class LoginController {
               String sql_query = String.format("SELECT PASSWORD FROM USERS WHERE LOGIN = '%s'", typed_login);
               ResultSet rs = handle.executeQuery(sql_query);
               ArrayList<String> arr = handle.returnDataArray(rs, 1);
-              if(typed_login.isEmpty() || typed_password.isEmpty()) {
+              if(typed_login.isEmpty() || password.isEmpty()) {
                   throw new Exception("You need to enter password and login!");
               }
               else if(arr.isEmpty()) {
-                  wrongLogin.setTextFill(Color.RED);
                   throw new Exception("There is no such user!");
               }
-              else if(typed_password.equals(arr.get(0))) {
-                  wrongLogin.setText("Sucess!");
+              else if(password.equals(arr.get(0))) {
                   return true;
               } else {
                   throw new Exception("Wrong password!");
