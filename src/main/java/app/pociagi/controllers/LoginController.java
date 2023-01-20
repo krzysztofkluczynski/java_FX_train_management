@@ -51,7 +51,6 @@ public class LoginController {
                     wrongLogin2.setWrapText(true);
                     wrongLogin2.setText("Try again!");
               }
-
           }
 
           public boolean checkLogin() throws IOException, Exception {
