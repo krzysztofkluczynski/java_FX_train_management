@@ -1,0 +1,8 @@
+-- 120
+SELECT "Z13"."TIMESTAMP_DIFF"('2023-01-30 10:00:00', '2023-01-30 12:00:00') AS diff_in_minutes FROM dual;
+
+-- -120
+SELECT "Z13"."TIMESTAMP_DIFF"('2023-01-30 12:00:00', '2023-01-30 10:00:00') AS diff_in_minutes FROM dual;
+
+-- 3000
+SELECT "Z13"."TIMESTAMP_DIFF"('2023-01-30 10:00:00', '2023-02-01 12:00:00') AS diff_in_minutes FROM dual;
