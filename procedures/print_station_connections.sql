@@ -18,7 +18,8 @@ AS
         FROM stops
         JOIN connections c ON stops.connection_id = c.connection_id
         JOIN stations ON stops.station_id = stations.station_id
-        WHERE stops.station_id = p_station_id;
+        WHERE stops.station_id = p_station_id
+        ORDER BY stops.departure_hour;
 
 BEGIN   
     SELECT COUNT(*) INTO v_station_id_check FROM stations WHERE station_id = p_station_id;

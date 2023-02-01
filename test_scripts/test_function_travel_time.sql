@@ -1,49 +1,76 @@
+-- 16104: Białystok -> Warszawa Centralna (14:10 -> 16:45)
+DECLARE
+travel_time NUMBER;
+time_diff NUMBER;
 BEGIN
-INSERT INTO connections (connection_id, DEPARTURE_STATION, ARRIVAL_STATION)
-VALUES (77463, 328, 327);
-INSERT INTO stops (connection_id, station_id, departure_hour, arrival_hour)
-VALUES (77463, 328, '2023-02-01 10:00:00', '2023-02-01 11:00:00');
-INSERT INTO stops (connection_id, station_id, departure_hour, arrival_hour)
-VALUES (77463, 327, '2023-02-01 11:00:00', '2023-02-01 12:00:00');
+SELECT "Z13"."TRAVEL_TIME"(16104, (SELECT station_id FROM STATIONS WHERE name = 'Białystok'),
+    (SELECT station_id FROM STATIONS WHERE name = 'Warszawa Centralna')
+    ) INTO travel_time FROM dual;
+SELECT TIMESTAMP_DIFF((SELECT DEPARTURE_HOUR FROM CONNECTION_16104 WHERE NAME='Białystok'),
+                      (SELECT ARRIVAL_HOUR FROM CONNECTION_16104 WHERE NAME='Warszawa Centralna'))
+    INTO time_diff FROM dual;
+    IF time_diff = travel_time
+        THEN DBMS_OUTPUT.PUT_LINE('TEST PASSED');
+    ELSE DBMS_OUTPUT.PUT_LINE('TEST FAILED');
+    END IF;
 END;
-/
 
--- case 1: valid data (120)
+-- 16104: Warszawa Centralna -> Wrocław Główny (16:53 -> 21:38)
+DECLARE
+    travel_time NUMBER;
+    time_diff NUMBER;
+BEGIN
+    SELECT "Z13"."TRAVEL_TIME"(16104, (SELECT station_id FROM STATIONS WHERE name = 'Warszawa Centralna'),
+                               (SELECT station_id FROM STATIONS WHERE name = 'Wrocław Główny')
+               ) INTO travel_time FROM dual;
+    SELECT TIMESTAMP_DIFF((SELECT DEPARTURE_HOUR FROM CONNECTION_16104 WHERE NAME='Warszawa Centralna'),
+                          (SELECT ARRIVAL_HOUR FROM CONNECTION_16104 WHERE NAME='Wrocław Główny'))
+    INTO time_diff FROM dual;
+    IF time_diff = travel_time
+    THEN DBMS_OUTPUT.PUT_LINE('TEST PASSED');
+    ELSE DBMS_OUTPUT.PUT_LINE('TEST FAILED');
+    END IF;
+END;
+
+SELECT * FROM CONNECTION_5;
+-- 5: Izbica -> Dęblin (08:32 -> 10:53)
+DECLARE
+    travel_time NUMBER;
+    time_diff NUMBER;
+BEGIN
+    SELECT "Z13"."TRAVEL_TIME"(5, (SELECT station_id FROM STATIONS WHERE name = 'Izbica'),
+                               (SELECT station_id FROM STATIONS WHERE name = 'Dęblin')
+               ) INTO travel_time FROM dual;
+    SELECT TIMESTAMP_DIFF((SELECT DEPARTURE_HOUR FROM CONNECTION_5 WHERE NAME='Izbica'),
+                          (SELECT ARRIVAL_HOUR FROM CONNECTION_5 WHERE NAME='Dęblin'))
+    INTO time_diff FROM dual;
+    IF time_diff = travel_time
+    THEN DBMS_OUTPUT.PUT_LINE('TEST PASSED');
+    ELSE DBMS_OUTPUT.PUT_LINE('TEST FAILED');
+    END IF;
+END;
+
+-- ERROR: Invalid Station Order
 DECLARE
 travel_time NUMBER;
 BEGIN
-SELECT "Z13"."TRAVEL_TIME"(77463, 328, 327) INTO travel_time FROM dual;
-DBMS_OUTPUT.PUT_LINE(travel_time);
-END;
-
--- case 2: no connection found
-DECLARE
-travel_time NUMBER;
-BEGIN
-BEGIN
-SELECT Z13.TRAVEL_TIME(432, 1, 2) INTO travel_time FROM dual;
+SELECT Z13.TRAVEL_TIME(16104,
+    (SELECT station_id FROM STATIONS WHERE name = 'Warszawa Centralna'),
+    (SELECT station_id FROM STATIONS WHERE name = 'Białystok'))
+    INTO travel_time FROM dual;
 EXCEPTION
         WHEN OTHERS THEN
-            DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
-END;
+            DBMS_OUTPUT.PUT_LINE('TEST PASSED');
 END;
 
--- case 3: (Invalid station order)
+-- ERROR: No connection with that ID found
 DECLARE
-travel_time NUMBER;
+    travel_time NUMBER;
 BEGIN
-BEGIN
-SELECT Z13.TRAVEL_TIME(77463, 327, 328) INTO travel_time FROM dual;
-EXCEPTION
+    BEGIN
+        SELECT Z13.TRAVEL_TIME(16105, 1, 2) INTO travel_time FROM dual;
+    EXCEPTION
         WHEN OTHERS THEN
-            DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+            DBMS_OUTPUT.PUT_LINE('TEST PASSED');
+    END;
 END;
-END;
-
--- deletion of test data
-DELETE
-FROM stops
-WHERE connection_id = 77463;
-DELETE
-FROM connections
-WHERE connection_id = 77463;
